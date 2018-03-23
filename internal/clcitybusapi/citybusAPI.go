@@ -20,7 +20,13 @@ type Linea struct {
 	CodigoEmpresa     string `json:"CodigoEmpresa"`
 }
 
-// ParadaService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
+// Client is the interface that the client module should implement.
+type Client interface {
+	ParadaService() ParadaService
+	LineaService() LineaService
+}
+
+// ParadaService represents a service for 'Parada'
 type ParadaService interface {
 	ParadasPorLinea(CodigoLineaParada string) []*Parada
 }
