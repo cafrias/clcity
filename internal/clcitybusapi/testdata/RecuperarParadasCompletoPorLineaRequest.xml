@@ -1,0 +1,12 @@
+<v:Envelope xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:d="http://www.w3.org/2001/XMLSchema" xmlns:c="http://schemas.xmlsoap.org/soap/encoding/" xmlns:v="http://schemas.xmlsoap.org/soap/envelope/">
+	<v:Header />
+		<v:Body>
+			<RecuperarParadasCompletoPorLinea xmlns="http://clsw.smartmovepro.net/" id="o0" c:root="1">
+				<usuario i:type="d:string">WEB.SUR</usuario>
+				<clave i:type="d:string">PAR.SW.SUR</clave>
+				<codigoLineaParada>1529</codigoLineaParada>
+				<isSublinea>false</isSublinea>
+    			        <isInteligente>false</isInteligente>
+			</RecuperarParadasCompletoPorLinea>
+		</v:Body>
+</v:Envelope>
