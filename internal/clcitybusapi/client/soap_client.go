@@ -8,9 +8,14 @@ import (
 
 const paradasURL = "http://clsw.smartmovepro.net/ModuloParadas/SWParadas.asmx"
 
+// HTTPClient represents the underlying client used for HTTP calls.
+type HTTPClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
 // SOAPClient represents the SOAP client used to communicate with `Cuando Llega CityBus API`.
 type SOAPClient struct {
-	cli *http.Client
+	cli HTTPClient
 	req *http.Request
 }
 
@@ -27,8 +32,8 @@ func (c *SOAPClient) Send(body io.Reader) (*http.Response, error) {
 	return c.cli.Do(c.req)
 }
 
-// NewSOAPClient creates a new SOAPClient with default configuration for communicating with `Cuando Llega City Bus API`.
-func NewSOAPClient() (*SOAPClient, error) {
+// NewSOAPClient generates a new SOAPClient with defaults to make requests to `Cuando Llega City Bus` API.
+func NewSOAPClient(cli HTTPClient) (*SOAPClient, error) {
 	req, err := http.NewRequest("POST", paradasURL, nil)
 	if err != nil {
 		return nil, err
@@ -40,7 +45,7 @@ func NewSOAPClient() (*SOAPClient, error) {
 	req.Header.Add("Host", "clswsur.smartmovepro.net")
 
 	return &SOAPClient{
-		cli: &http.Client{},
+		cli: cli,
 		req: req,
 	}, nil
 }
