@@ -1,7 +1,7 @@
 package client
 
 import (
-	"bitbucket.org/pfetcher/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 )
 
 var _ clcitybusapi.ParadaService = &ParadaService{}
@@ -10,6 +10,6 @@ var _ clcitybusapi.ParadaService = &ParadaService{}
 type ParadaService struct{}
 
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
-func (s *ParadaService) ParadasPorLinea(CodigoLineaParada string) []*clcitybusapi.Parada {
-	return nil
+func (s *ParadaService) ParadasPorLinea(CodigoLineaParada string) ([]*clcitybusapi.Parada, error) {
+	return nil, nil
 }

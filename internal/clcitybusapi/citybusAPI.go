@@ -28,10 +28,10 @@ type Client interface {
 
 // ParadaService represents a service for 'Parada'
 type ParadaService interface {
-	ParadasPorLinea(CodigoLineaParada string) []*Parada
+	ParadasPorLinea(CodigoLineaParada string) ([]*Parada, error)
 }
 
 // LineaService has actions to fetch 'Linea' data from Cuando Llega City Bus API.
 type LineaService interface {
-	LineasPorEmpresa(CodigoEmpresa string) []*Linea
+	LineasPorEmpresa(CodigoEmpresa string) ([]*Linea, error)
 }

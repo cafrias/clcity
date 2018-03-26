@@ -8,12 +8,14 @@ import (
 
 const paradasURL = "http://clsw.smartmovepro.net/ModuloParadas/SWParadas.asmx"
 
-type soapClient struct {
+// SOAPClient represents the SOAP client used to communicate with `Cuando Llega CityBus API`.
+type SOAPClient struct {
 	cli *http.Client
 	req *http.Request
 }
 
-func (c *soapClient) Send(body io.Reader) (*http.Response, error) {
+// Send sends the request to the `Cuando Llega City Bus` API.
+func (c *SOAPClient) Send(body io.Reader) (*http.Response, error) {
 	if body == nil {
 		return nil, errors.New("should pass a body to the request")
 	}
@@ -25,7 +27,8 @@ func (c *soapClient) Send(body io.Reader) (*http.Response, error) {
 	return c.cli.Do(c.req)
 }
 
-func newSOAPClient() (*soapClient, error) {
+// NewSOAPClient creates a new SOAPClient with default configuration for communicating with `Cuando Llega City Bus API`.
+func NewSOAPClient() (*SOAPClient, error) {
 	req, err := http.NewRequest("POST", paradasURL, nil)
 	if err != nil {
 		return nil, err
@@ -36,7 +39,7 @@ func newSOAPClient() (*soapClient, error) {
 	req.Header.Add("Connection", "close")
 	req.Header.Add("Host", "clswsur.smartmovepro.net")
 
-	return &soapClient{
+	return &SOAPClient{
 		cli: &http.Client{},
 		req: req,
 	}, nil

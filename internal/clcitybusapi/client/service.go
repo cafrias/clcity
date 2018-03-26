@@ -1,7 +1,7 @@
 package client
 
 import (
-	"bitbucket.org/pfetcher/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 )
 
 var _ clcitybusapi.Client = &Client{}
