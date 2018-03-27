@@ -21,6 +21,8 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Printf("Response: '%+v'", res)
+
 	var result swparadas.RecuperarLineasPorCodigoEmpresaResult
 	json.Unmarshal([]byte(res.RecuperarLineasPorCodigoEmpresaResult), result)
 

@@ -38,21 +38,4 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 	}
 
 	return result.Lineas, nil
-	// sreq := NewSOAPRequest(newRecuperarLineasPorCodigoEmpresaBody("WEB.SUR", "PAR.SW.SUR", CodigoEmpresa, false))
-
-	// xmlReq, err := xml.Marshal(sreq)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// res, err := s.client.Send(xmlReq)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// if res.StatusCode != http.StatusOK {
-	// 	return nil, ErrRequestFailed
-	// }
-
-	return []*clcitybusapi.Linea{}, nil
 }

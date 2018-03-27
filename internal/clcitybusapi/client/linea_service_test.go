@@ -46,7 +46,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	scli, swcli := NewSWParadasSoap("", false, nil)
 
 	cli := client.NewClient(swcli)
-	scli.CallRes = &fixResponse
+	scli.CallRes = fixResponse
 
 	out, err := cli.LineaService().LineasPorEmpresa(355)
 	if err != nil {

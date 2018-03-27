@@ -2,6 +2,7 @@ package client_test
 
 import (
 	"fmt"
+	"reflect"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
@@ -25,8 +26,16 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}) erro
 	s.CallReq = request
 
 	// Mock results
-	fmt.Println("Received: ", s.CallRes)
-	response = &s.CallRes
+	// fmt.Println("Received: ", s.CallRes)
+	fmt.Printf("Original Response: '%+v'\n", response)
+	fmt.Printf("Mocked Response: '%+v'\n", s.CallRes)
+
+	callResVal := reflect.ValueOf(s.CallRes)
+	callResValType := reflect.TypeOf(callResVal)
+	rv := reflect.ValueOf(response).Elem()
+	rv2 := rv.Convert(callResValType)
+	rv2.Set(callResVal)
+
 	return s.CallError
 }
 
