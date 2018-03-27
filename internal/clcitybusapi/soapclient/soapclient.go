@@ -147,12 +147,15 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}) erro
 		req.SetBasicAuth(s.auth.Login, s.auth.Password)
 	}
 
-	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
+	req.Header.Add("Content-Type", "text/xml;charset=utf-8")
 	if soapAction != "" {
 		req.Header.Add("SOAPAction", soapAction)
 	}
 
 	req.Header.Set("User-Agent", "ksoap2-android/2.6.0+")
+	req.Host = "clswsur.smartmovepro.net"
+	req.Header.Set("Connection", "close")
+	req.Header.Set("Cache-Control", "no-cache")
 	req.Close = true
 
 	tr := &http.Transport{
@@ -163,6 +166,7 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}) erro
 	}
 
 	client := &http.Client{Transport: tr}
+
 	res, err := client.Do(req)
 	if err != nil {
 		return err

@@ -33,5 +33,5 @@ type ParadaService interface {
 
 // LineaService has actions to fetch 'Linea' data from Cuando Llega City Bus API.
 type LineaService interface {
-	LineasPorEmpresa(CodigoEmpresa string) ([]*Linea, error)
+	LineasPorEmpresa(CodigoEmpresa int) ([]*Linea, error)
 }

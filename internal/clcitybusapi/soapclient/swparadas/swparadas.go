@@ -1,8 +1,10 @@
-package paradas
+package swparadas
 
 import (
 	"encoding/xml"
 	"time"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient"
 )
 
 // against "unused imports"
@@ -39,21 +41,6 @@ type RecuperarLineaPorEntidadResponse struct {
 	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarLineaPorEntidadResponse"`
 
 	RecuperarLineaPorEntidadResult string `xml:"RecuperarLineaPorEntidadResult,omitempty"`
-}
-
-type RecuperarLineasPorCodigoEmpresa struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarLineasPorCodigoEmpresa"`
-
-	Usuario       string `xml:"usuario,omitempty"`
-	Clave         string `xml:"clave,omitempty"`
-	CodigoEmpresa int32  `xml:"codigoEmpresa,omitempty"`
-	IsSublinea    bool   `xml:"isSublinea,omitempty"`
-}
-
-type RecuperarLineasPorCodigoEmpresaResponse struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarLineasPorCodigoEmpresaResponse"`
-
-	RecuperarLineasPorCodigoEmpresaResult string `xml:"RecuperarLineasPorCodigoEmpresaResult,omitempty"`
 }
 
 type RecuperarLineaPorCuandoLlega struct {
@@ -349,7 +336,7 @@ type RecuperarMensajesResponse struct {
 }
 
 type SWParadasSoap struct {
-	client *soapclient.SOAPClient
+	client SOAPClient
 }
 
 func NewSWParadasSoap(url string, tls bool, auth *soapclient.BasicAuth) *SWParadasSoap {
@@ -358,6 +345,12 @@ func NewSWParadasSoap(url string, tls bool, auth *soapclient.BasicAuth) *SWParad
 	}
 	client := soapclient.NewSOAPClient(url, tls, auth)
 
+	return &SWParadasSoap{
+		client: client,
+	}
+}
+
+func NewSWParadasSoapWithClient(client SOAPClient) *SWParadasSoap {
 	return &SWParadasSoap{
 		client: client,
 	}
@@ -571,4 +564,8 @@ func (service *SWParadasSoap) RecuperarMensajes(request *RecuperarMensajes) (*Re
 	}
 
 	return response, nil
+}
+
+type SOAPClient interface {
+	Call(soapAction string, request, response interface{}) error
 }

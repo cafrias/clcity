@@ -2,13 +2,14 @@ package client
 
 import (
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 )
 
 var _ clcitybusapi.Client = &Client{}
 
 // Client represents a client to the 'Cuando Llega City Bus' API.
 type Client struct {
-	soap          *SOAPClient
+	soap          *swparadas.SWParadasSoap
 	paradaService ParadaService
 	lineaService  LineaService
 }
@@ -20,7 +21,7 @@ func (c *Client) ParadaService() clcitybusapi.ParadaService { return &c.paradaSe
 func (c *Client) LineaService() clcitybusapi.LineaService { return &c.lineaService }
 
 // NewClient creates a new client for communicating with `Cuando Llega City Bus` API.
-func NewClient(scli *SOAPClient) *Client {
+func NewClient(scli *swparadas.SWParadasSoap) *Client {
 	return &Client{
 		soap: scli,
 		paradaService: ParadaService{

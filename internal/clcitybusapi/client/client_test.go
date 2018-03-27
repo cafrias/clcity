@@ -1,41 +1,47 @@
 package client_test
 
 import (
-	"net/http"
+	"fmt"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
 )
 
-// HTTPClient test wrapper over `client.HTTPClient`
-type HTTPClient struct {
-	DoInvoked bool
-	DoErr     error
-	Req       *http.Request
-	Res       *http.Response
+type SOAPClient struct {
+	*soapclient.SOAPClient
+	// Spy on Call
+	CallInvoked    bool
+	CallSoapAction string
+	CallReq        interface{}
+	CallRes        interface{}
+	CallError      error
 }
 
-var ResponseHeaders = http.Header{
-	"Connection":   []string{"close"},
-	"Content-Type": []string{"text/xml; charset=utf-8"},
+func (s *SOAPClient) Call(soapAction string, request, response interface{}) error {
+	s.CallInvoked = true
+	s.CallSoapAction = soapAction
+	s.CallReq = request
+
+	// Mock results
+	fmt.Println("Received: ", s.CallRes)
+	response = &s.CallRes
+	return s.CallError
 }
 
-// Do mocks a call to Do
-func (c *HTTPClient) Do(req *http.Request) (*http.Response, error) {
-	c.DoInvoked = true
-	c.Req = req
-	return c.Res, c.DoErr
+func NewSWParadasSoap(url string, tls bool, auth *soapclient.BasicAuth) (*SOAPClient, *swparadas.SWParadasSoap) {
+	if url == "" {
+		url = "http://clsw.smartmovepro.net/ModuloParadas/SWParadas.asmx"
+	}
+	client := SOAPClient{
+		SOAPClient: soapclient.NewSOAPClient(url, tls, auth),
+	}
+
+	return &client, swparadas.NewSWParadasSoapWithClient(&client)
 }
 
 // Client test wrapper for `client.Client`
 type Client struct {
 	*client.Client
-}
-
-// NewClient returns a new instance of Client with a mocked SOAPClient.
-func NewClient(cli *HTTPClient) *Client {
-	scli := client.NewSOAPClient(cli)
-
-	return &Client{
-		Client: client.NewClient(scli),
-	}
 }
