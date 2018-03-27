@@ -14,10 +14,10 @@ type Parada struct {
 
 // Linea represents a 'Linea' as used by app 'Cuando Llega City Bus'.
 type Linea struct {
-	CodigoLineaParada string `json:"CodigoLineaParada"`
-	Descripcion       string `json:"Descripcion"`
-	CodigoEntidad     string `json:"CodigoEntidad"`
-	CodigoEmpresa     string `json:"CodigoEmpresa"`
+	CodigoLineaParada string
+	Descripcion       string
+	CodigoEntidad     string
+	CodigoEmpresa     int
 }
 
 // Client is the interface that the client module should implement.

@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clsw.smartmovepro.net/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://clsw.smartmovepro.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clsw.smartmovepro.net/">
+      <s:element name="RecuperarLineaPorLocalidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localidad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="provincia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineaPorLocalidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarLineaPorLocalidadResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineaPorEntidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoEntidadSMP" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineaPorEntidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarLineaPorEntidadResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineasPorCodigoEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoEmpresa" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineasPorCodigoEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarLineasPorCodigoEmpresaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineaPorCuandoLlega">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoCuandoLlega" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarLineaPorCuandoLlegaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarLineaPorCuandoLlegaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasCompletoPorLinea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isInteligente" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasCompletoPorLineaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarParadasCompletoPorLineaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasConBanderaYDestinoPorLinea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isInteligente" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasConBanderaYDestinoPorLineaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarParadasConBanderaYDestinoPorLineaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasPorLineaCalleEInterseccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLinea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoCalle" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoInterseccion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isInteligente" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasPorLineaCalleEInterseccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarParadasPorLineaCalleEInterseccionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasConBanderaPorLineaCalleEInterseccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoCalle" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoInterseccion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSubLinea" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isInteligente" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasConBanderaPorLineaCalleEInterseccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarParadasConBanderaPorLineaCalleEInterseccionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasPorLineaParaCuandoLlega">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSubLinea" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isInteligente" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasPorLineaParaCuandoLlegaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarParadasPorLineaParaCuandoLlegaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasMasCercanasPorLocalidadProvinciaPais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="latitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="longitud" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="listaCodigosEmpresa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcionProvincia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcionPais" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isInteligente" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarParadasMasCercanasPorLocalidadProvinciaPaisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarParadasMasCercanasPorLocalidadProvinciaPaisResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarCallesPrincipalPorLinea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSubLinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarCallesPrincipalPorLineaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarCallesPrincipalPorLineaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarInterseccionPorLineaYCalle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoCalle" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSubLinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarInterseccionPorLineaYCalleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarInterseccionPorLineaYCalleResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarProximosArribos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="identificadorParada" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoAplicacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="localidad" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSoloAdaptados" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarProximosArribosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarProximosArribosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarProximosArribosSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gatewayID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroCelular" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroOrigen" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoOperador" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarProximosArribosSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarProximosArribosSMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarTodasEmpresasAMigrar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoEntidad" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLinea" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarTodasEmpresasAMigrarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarTodasEmpresasAMigrarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarRecorridoParaMapaPorEntidadYLinea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoLineaParada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isSublinea" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarRecorridoParaMapaPorEntidadYLineaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarRecorridoParaMapaPorEntidadYLineaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarPuestosRecargasMasCercanosPorLocalidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="latitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="longitud" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="listaCodigoEmpresa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarPuestosRecargasMasCercanosPorLocalidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarPuestosRecargasMasCercanosPorLocalidadResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarPuntosDeRecargaPorLocalidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localidad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="provincia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarPuntosDeRecargaPorLocalidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarPuntosDeRecargaPorLocalidadResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarBanderasAsociadasAParada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="identificadorParada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarBanderasAsociadasAParadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarBanderasAsociadasAParadaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarMensajes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listaCodigosEmpresa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarMensajesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarMensajesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RecuperarLineaPorLocalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarLineaPorLocalidad" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineaPorLocalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarLineaPorLocalidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineaPorEntidadSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarLineaPorEntidad" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineaPorEntidadSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarLineaPorEntidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineasPorCodigoEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarLineasPorCodigoEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineasPorCodigoEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarLineasPorCodigoEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineaPorCuandoLlegaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarLineaPorCuandoLlega" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarLineaPorCuandoLlegaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarLineaPorCuandoLlegaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasCompletoPorLineaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasCompletoPorLinea" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasCompletoPorLineaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasCompletoPorLineaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasConBanderaYDestinoPorLineaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasConBanderaYDestinoPorLinea" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasConBanderaYDestinoPorLineaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasConBanderaYDestinoPorLineaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasPorLineaCalleEInterseccionSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasPorLineaCalleEInterseccion" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasPorLineaCalleEInterseccionSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasPorLineaCalleEInterseccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasConBanderaPorLineaCalleEInterseccionSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasConBanderaPorLineaCalleEInterseccion" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasConBanderaPorLineaCalleEInterseccionSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasConBanderaPorLineaCalleEInterseccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasPorLineaParaCuandoLlegaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasPorLineaParaCuandoLlega" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasPorLineaParaCuandoLlegaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasPorLineaParaCuandoLlegaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasMasCercanasPorLocalidadProvinciaPaisSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasMasCercanasPorLocalidadProvinciaPais" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarParadasMasCercanasPorLocalidadProvinciaPaisSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarParadasMasCercanasPorLocalidadProvinciaPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarCallesPrincipalPorLineaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarCallesPrincipalPorLinea" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarCallesPrincipalPorLineaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarCallesPrincipalPorLineaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarInterseccionPorLineaYCalleSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarInterseccionPorLineaYCalle" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarInterseccionPorLineaYCalleSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarInterseccionPorLineaYCalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarProximosArribosSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarProximosArribos" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarProximosArribosSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarProximosArribosResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarProximosArribosSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarProximosArribosSMS" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarProximosArribosSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarProximosArribosSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarTodasEmpresasAMigrarSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarTodasEmpresasAMigrar" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarTodasEmpresasAMigrarSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarTodasEmpresasAMigrarResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarRecorridoParaMapaPorEntidadYLineaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarRecorridoParaMapaPorEntidadYLinea" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarRecorridoParaMapaPorEntidadYLineaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarRecorridoParaMapaPorEntidadYLineaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarPuestosRecargasMasCercanosPorLocalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarPuestosRecargasMasCercanosPorLocalidad" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarPuestosRecargasMasCercanosPorLocalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarPuestosRecargasMasCercanosPorLocalidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarPuntosDeRecargaPorLocalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarPuntosDeRecargaPorLocalidad" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarPuntosDeRecargaPorLocalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarPuntosDeRecargaPorLocalidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarBanderasAsociadasAParadaSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarBanderasAsociadasAParada" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarBanderasAsociadasAParadaSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarBanderasAsociadasAParadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarMensajesSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarMensajes" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarMensajesSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarMensajesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SWParadasSoap">
+    <wsdl:operation name="RecuperarLineaPorLocalidad">
+      <wsdl:input message="tns:RecuperarLineaPorLocalidadSoapIn" />
+      <wsdl:output message="tns:RecuperarLineaPorLocalidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineaPorEntidad">
+      <wsdl:input message="tns:RecuperarLineaPorEntidadSoapIn" />
+      <wsdl:output message="tns:RecuperarLineaPorEntidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineasPorCodigoEmpresa">
+      <wsdl:input message="tns:RecuperarLineasPorCodigoEmpresaSoapIn" />
+      <wsdl:output message="tns:RecuperarLineasPorCodigoEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineaPorCuandoLlega">
+      <wsdl:input message="tns:RecuperarLineaPorCuandoLlegaSoapIn" />
+      <wsdl:output message="tns:RecuperarLineaPorCuandoLlegaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasCompletoPorLinea">
+      <wsdl:input message="tns:RecuperarParadasCompletoPorLineaSoapIn" />
+      <wsdl:output message="tns:RecuperarParadasCompletoPorLineaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasConBanderaYDestinoPorLinea">
+      <wsdl:input message="tns:RecuperarParadasConBanderaYDestinoPorLineaSoapIn" />
+      <wsdl:output message="tns:RecuperarParadasConBanderaYDestinoPorLineaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasPorLineaCalleEInterseccion">
+      <wsdl:input message="tns:RecuperarParadasPorLineaCalleEInterseccionSoapIn" />
+      <wsdl:output message="tns:RecuperarParadasPorLineaCalleEInterseccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasConBanderaPorLineaCalleEInterseccion">
+      <wsdl:input message="tns:RecuperarParadasConBanderaPorLineaCalleEInterseccionSoapIn" />
+      <wsdl:output message="tns:RecuperarParadasConBanderaPorLineaCalleEInterseccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasPorLineaParaCuandoLlega">
+      <wsdl:input message="tns:RecuperarParadasPorLineaParaCuandoLlegaSoapIn" />
+      <wsdl:output message="tns:RecuperarParadasPorLineaParaCuandoLlegaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasMasCercanasPorLocalidadProvinciaPais">
+      <wsdl:input message="tns:RecuperarParadasMasCercanasPorLocalidadProvinciaPaisSoapIn" />
+      <wsdl:output message="tns:RecuperarParadasMasCercanasPorLocalidadProvinciaPaisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarCallesPrincipalPorLinea">
+      <wsdl:input message="tns:RecuperarCallesPrincipalPorLineaSoapIn" />
+      <wsdl:output message="tns:RecuperarCallesPrincipalPorLineaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarInterseccionPorLineaYCalle">
+      <wsdl:input message="tns:RecuperarInterseccionPorLineaYCalleSoapIn" />
+      <wsdl:output message="tns:RecuperarInterseccionPorLineaYCalleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProximosArribos">
+      <wsdl:input message="tns:RecuperarProximosArribosSoapIn" />
+      <wsdl:output message="tns:RecuperarProximosArribosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProximosArribosSMS">
+      <wsdl:input message="tns:RecuperarProximosArribosSMSSoapIn" />
+      <wsdl:output message="tns:RecuperarProximosArribosSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTodasEmpresasAMigrar">
+      <wsdl:input message="tns:RecuperarTodasEmpresasAMigrarSoapIn" />
+      <wsdl:output message="tns:RecuperarTodasEmpresasAMigrarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea">
+      <wsdl:input message="tns:RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaSoapIn" />
+      <wsdl:output message="tns:RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecorridoParaMapaPorEntidadYLinea">
+      <wsdl:input message="tns:RecuperarRecorridoParaMapaPorEntidadYLineaSoapIn" />
+      <wsdl:output message="tns:RecuperarRecorridoParaMapaPorEntidadYLineaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarPuestosRecargasMasCercanosPorLocalidad">
+      <wsdl:input message="tns:RecuperarPuestosRecargasMasCercanosPorLocalidadSoapIn" />
+      <wsdl:output message="tns:RecuperarPuestosRecargasMasCercanosPorLocalidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarPuntosDeRecargaPorLocalidad">
+      <wsdl:input message="tns:RecuperarPuntosDeRecargaPorLocalidadSoapIn" />
+      <wsdl:output message="tns:RecuperarPuntosDeRecargaPorLocalidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarBanderasAsociadasAParada">
+      <wsdl:input message="tns:RecuperarBanderasAsociadasAParadaSoapIn" />
+      <wsdl:output message="tns:RecuperarBanderasAsociadasAParadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarMensajes">
+      <wsdl:input message="tns:RecuperarMensajesSoapIn" />
+      <wsdl:output message="tns:RecuperarMensajesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SWParadasSoap" type="tns:SWParadasSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RecuperarLineaPorLocalidad">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineaPorLocalidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineaPorEntidad">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineaPorEntidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineasPorCodigoEmpresa">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineasPorCodigoEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineaPorCuandoLlega">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineaPorCuandoLlega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasCompletoPorLinea">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasCompletoPorLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasConBanderaYDestinoPorLinea">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasConBanderaYDestinoPorLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasPorLineaCalleEInterseccion">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasPorLineaCalleEInterseccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasConBanderaPorLineaCalleEInterseccion">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasConBanderaPorLineaCalleEInterseccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasPorLineaParaCuandoLlega">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasPorLineaParaCuandoLlega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasMasCercanasPorLocalidadProvinciaPais">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasMasCercanasPorLocalidadProvinciaPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarCallesPrincipalPorLinea">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarCallesPrincipalPorLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarInterseccionPorLineaYCalle">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarInterseccionPorLineaYCalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProximosArribos">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarProximosArribos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProximosArribosSMS">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarProximosArribosSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTodasEmpresasAMigrar">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarTodasEmpresasAMigrar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecorridoParaMapaPorEntidadYLinea">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarRecorridoParaMapaPorEntidadYLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarPuestosRecargasMasCercanosPorLocalidad">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarPuestosRecargasMasCercanosPorLocalidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarPuntosDeRecargaPorLocalidad">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarPuntosDeRecargaPorLocalidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarBanderasAsociadasAParada">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarBanderasAsociadasAParada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarMensajes">
+      <soap:operation soapAction="http://clsw.smartmovepro.net/RecuperarMensajes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SWParadasSoap12" type="tns:SWParadasSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RecuperarLineaPorLocalidad">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineaPorLocalidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineaPorEntidad">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineaPorEntidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineasPorCodigoEmpresa">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineasPorCodigoEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarLineaPorCuandoLlega">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarLineaPorCuandoLlega" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasCompletoPorLinea">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasCompletoPorLinea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasConBanderaYDestinoPorLinea">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasConBanderaYDestinoPorLinea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasPorLineaCalleEInterseccion">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasPorLineaCalleEInterseccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasConBanderaPorLineaCalleEInterseccion">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasConBanderaPorLineaCalleEInterseccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasPorLineaParaCuandoLlega">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasPorLineaParaCuandoLlega" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarParadasMasCercanasPorLocalidadProvinciaPais">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarParadasMasCercanasPorLocalidadProvinciaPais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarCallesPrincipalPorLinea">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarCallesPrincipalPorLinea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarInterseccionPorLineaYCalle">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarInterseccionPorLineaYCalle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProximosArribos">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarProximosArribos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProximosArribosSMS">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarProximosArribosSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTodasEmpresasAMigrar">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarTodasEmpresasAMigrar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecorridoParaMapaPorEntidadYLinea">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarRecorridoParaMapaPorEntidadYLinea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarPuestosRecargasMasCercanosPorLocalidad">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarPuestosRecargasMasCercanosPorLocalidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarPuntosDeRecargaPorLocalidad">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarPuntosDeRecargaPorLocalidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarBanderasAsociadasAParada">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarBanderasAsociadasAParada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarMensajes">
+      <soap12:operation soapAction="http://clsw.smartmovepro.net/RecuperarMensajes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SWParadas">
+    <wsdl:port name="SWParadasSoap" binding="tns:SWParadasSoap">
+      <soap:address location="http://clsw.smartmovepro.net/ModuloParadas/SWParadas.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SWParadasSoap12" binding="tns:SWParadasSoap12">
+      <soap12:address location="http://clsw.smartmovepro.net/ModuloParadas/SWParadas.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

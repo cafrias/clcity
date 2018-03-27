@@ -22,8 +22,12 @@ func (c *Client) LineaService() clcitybusapi.LineaService { return &c.lineaServi
 // NewClient creates a new client for communicating with `Cuando Llega City Bus` API.
 func NewClient(scli *SOAPClient) *Client {
 	return &Client{
-		soap:          scli,
-		paradaService: ParadaService{},
-		lineaService:  LineaService{},
+		soap: scli,
+		paradaService: ParadaService{
+			client: scli,
+		},
+		lineaService: LineaService{
+			client: scli,
+		},
 	}
 }

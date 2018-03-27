@@ -14,6 +14,11 @@ type HTTPClient struct {
 	Res       *http.Response
 }
 
+var ResponseHeaders = http.Header{
+	"Connection":   []string{"close"},
+	"Content-Type": []string{"text/xml; charset=utf-8"},
+}
+
 // Do mocks a call to Do
 func (c *HTTPClient) Do(req *http.Request) (*http.Response, error) {
 	c.DoInvoked = true
@@ -27,13 +32,10 @@ type Client struct {
 }
 
 // NewClient returns a new instance of Client with a mocked SOAPClient.
-func NewClient(cli *HTTPClient) (*Client, error) {
-	scli, err := client.NewSOAPClient(cli)
-	if err != nil {
-		return nil, err
-	}
+func NewClient(cli *HTTPClient) *Client {
+	scli := client.NewSOAPClient(cli)
 
 	return &Client{
 		Client: client.NewClient(scli),
-	}, nil
+	}
 }

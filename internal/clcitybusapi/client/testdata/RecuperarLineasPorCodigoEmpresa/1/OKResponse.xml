@@ -3,7 +3,7 @@
     <soap:Body>
         <RecuperarLineasPorCodigoEmpresaResponse xmlns="http://clsw.smartmovepro.net/">
             <RecuperarLineasPorCodigoEmpresaResult>
-                {"CodigoEstado":0,"MensajeEstado":"ok","lineas":[{"CodigoLineaParada":"1529","Descripcion":"RAMAL A","CodigoEntidad":"254","CodigoEmpresa":355},{"CodigoLineaParada":"1530","Descripcion":"RAMAL B","CodigoEntidad":"254","CodigoEmpresa":355},{"CodigoLineaParada":"1531","Descripcion":"RAMAL C","CodigoEntidad":"254","CodigoEmpresa":355},{"CodigoLineaParada":"1532","Descripcion":"RAMAL D","CodigoEntidad":"254","CodigoEmpresa":355}]}
+                {"CodigoEstado":0,"MensajeEstado":"ok","lineas":[{"CodigoLineaParada":"1529","Descripcion":"RAMAL A","CodigoEntidad":"256","CodigoEmpresa":355}]}
             </RecuperarLineasPorCodigoEmpresaResult>
         </RecuperarLineasPorCodigoEmpresaResponse>
     </soap:Body>
