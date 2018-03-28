@@ -26,3 +26,13 @@ type RecuperarLineasPorCodigoEmpresaResult struct {
 	MensajeEstado string
 	Lineas        []*clcitybusapi.Linea `json:"lineas"`
 }
+
+func (service *SWParadasSoap) RecuperarLineasPorCodigoEmpresa(request *RecuperarLineasPorCodigoEmpresa) (*RecuperarLineasPorCodigoEmpresaResponse, error) {
+	response := new(RecuperarLineasPorCodigoEmpresaResponse)
+	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarLineasPorCodigoEmpresa", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

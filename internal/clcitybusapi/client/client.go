@@ -9,7 +9,7 @@ var _ clcitybusapi.Client = &Client{}
 
 // Client represents a client to the 'Cuando Llega City Bus' API.
 type Client struct {
-	soap          *swparadas.SWParadasSoap
+	client        SOAPClient
 	paradaService ParadaService
 	lineaService  LineaService
 }
@@ -20,15 +20,25 @@ func (c *Client) ParadaService() clcitybusapi.ParadaService { return &c.paradaSe
 // LineaService returns an initialized instance of LineaService.
 func (c *Client) LineaService() clcitybusapi.LineaService { return &c.lineaService }
 
+// Connect instantiates a default SOAP client.
+func (c *Client) Connect(scli SOAPClient) {
+	if scli == nil {
+		scli = swparadas.NewSWParadasSoap("", false, nil)
+	}
+	c.client = scli
+	c.paradaService.client = scli
+	c.lineaService.client = scli
+}
+
+// SOAPClient represents the `cuando llega City Bus` API endpoint.
+type SOAPClient interface {
+	RecuperarLineasPorCodigoEmpresa(request *swparadas.RecuperarLineasPorCodigoEmpresa) (*swparadas.RecuperarLineasPorCodigoEmpresaResponse, error)
+}
+
 // NewClient creates a new client for communicating with `Cuando Llega City Bus` API.
-func NewClient(scli *swparadas.SWParadasSoap) *Client {
+func NewClient() *Client {
 	return &Client{
-		soap: scli,
-		paradaService: ParadaService{
-			client: scli,
-		},
-		lineaService: LineaService{
-			client: scli,
-		},
+		paradaService: ParadaService{},
+		lineaService:  LineaService{},
 	}
 }

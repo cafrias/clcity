@@ -336,7 +336,7 @@ type RecuperarMensajesResponse struct {
 }
 
 type SWParadasSoap struct {
-	client SOAPClient
+	client *soapclient.SOAPClient
 }
 
 func NewSWParadasSoap(url string, tls bool, auth *soapclient.BasicAuth) *SWParadasSoap {
@@ -345,12 +345,6 @@ func NewSWParadasSoap(url string, tls bool, auth *soapclient.BasicAuth) *SWParad
 	}
 	client := soapclient.NewSOAPClient(url, tls, auth)
 
-	return &SWParadasSoap{
-		client: client,
-	}
-}
-
-func NewSWParadasSoapWithClient(client SOAPClient) *SWParadasSoap {
 	return &SWParadasSoap{
 		client: client,
 	}
@@ -369,16 +363,6 @@ func (service *SWParadasSoap) RecuperarLineaPorLocalidad(request *RecuperarLinea
 func (service *SWParadasSoap) RecuperarLineaPorEntidad(request *RecuperarLineaPorEntidad) (*RecuperarLineaPorEntidadResponse, error) {
 	response := new(RecuperarLineaPorEntidadResponse)
 	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarLineaPorEntidad", request, response)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
-}
-
-func (service *SWParadasSoap) RecuperarLineasPorCodigoEmpresa(request *RecuperarLineasPorCodigoEmpresa) (*RecuperarLineasPorCodigoEmpresaResponse, error) {
-	response := new(RecuperarLineasPorCodigoEmpresaResponse)
-	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarLineasPorCodigoEmpresa", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -564,8 +548,4 @@ func (service *SWParadasSoap) RecuperarMensajes(request *RecuperarMensajes) (*Re
 	}
 
 	return response, nil
-}
-
-type SOAPClient interface {
-	Call(soapAction string, request, response interface{}) error
 }

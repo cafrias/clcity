@@ -1,53 +1,42 @@
 package client_test
 
 import (
-	"fmt"
-	"reflect"
-
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
 )
 
+type Spy struct {
+	Invoked bool
+	Args    []interface{}
+	Ret     []interface{}
+}
+
 type SOAPClient struct {
-	*soapclient.SOAPClient
-	// Spy on Call
-	CallInvoked    bool
-	CallSoapAction string
-	CallReq        interface{}
-	CallRes        interface{}
-	CallError      error
+	*swparadas.SWParadasSoap
+	RecuperarLineasPorCodigoEmpresaSpy *Spy
 }
 
-func (s *SOAPClient) Call(soapAction string, request, response interface{}) error {
-	s.CallInvoked = true
-	s.CallSoapAction = soapAction
-	s.CallReq = request
+func (s *SOAPClient) RecuperarLineasPorCodigoEmpresa(request *swparadas.RecuperarLineasPorCodigoEmpresa) (*swparadas.RecuperarLineasPorCodigoEmpresaResponse, error) {
+	s.RecuperarLineasPorCodigoEmpresaSpy.Invoked = true
+	s.RecuperarLineasPorCodigoEmpresaSpy.Args = append(s.RecuperarLineasPorCodigoEmpresaSpy.Args, request)
 
-	// Mock results
-	// fmt.Println("Received: ", s.CallRes)
-	fmt.Printf("Original Response: '%+v'\n", response)
-	fmt.Printf("Mocked Response: '%+v'\n", s.CallRes)
+	ret1, _ := s.RecuperarLineasPorCodigoEmpresaSpy.Ret[0].(*swparadas.RecuperarLineasPorCodigoEmpresaResponse)
+	ret2, _ := s.RecuperarLineasPorCodigoEmpresaSpy.Ret[1].(error)
 
-	callResVal := reflect.ValueOf(s.CallRes)
-	callResValType := reflect.TypeOf(callResVal)
-	rv := reflect.ValueOf(response).Elem()
-	rv2 := rv.Convert(callResValType)
-	rv2.Set(callResVal)
-
-	return s.CallError
+	return ret1, ret2
 }
 
-func NewSWParadasSoap(url string, tls bool, auth *soapclient.BasicAuth) (*SOAPClient, *swparadas.SWParadasSoap) {
+func NewSOAPClient(url string, tls bool, auth *soapclient.BasicAuth) *SOAPClient {
 	if url == "" {
 		url = "http://clsw.smartmovepro.net/ModuloParadas/SWParadas.asmx"
 	}
-	client := SOAPClient{
-		SOAPClient: soapclient.NewSOAPClient(url, tls, auth),
+	client := &SOAPClient{
+		SWParadasSoap: swparadas.NewSWParadasSoap(url, tls, auth),
 	}
 
-	return &client, swparadas.NewSWParadasSoapWithClient(&client)
+	return client
 }
 
 // Client test wrapper for `client.Client`
