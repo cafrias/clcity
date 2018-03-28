@@ -57,8 +57,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarLineasPorCodigoEmpresaSpy = spy
 
-	cli := client.NewClient()
-	cli.Connect(scli)
+	cli := client.NewClient(scli)
 
 	out, err := cli.LineaService().LineasPorEmpresa(355)
 	if err != nil {
@@ -80,13 +79,5 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	// out valid
 	if ok := reflect.DeepEqual(fixOut, out); ok == false {
 		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
-	}
-}
-
-func TestLineaService_LineasPorEmpresa_ErrNotConnected(t *testing.T) {
-	cli := client.NewClient()
-	_, err := cli.LineaService().LineasPorEmpresa(355)
-	if err != client.ErrNotConnected {
-		t.Fatalf("Received un expected error, '%v'", err)
 	}
 }

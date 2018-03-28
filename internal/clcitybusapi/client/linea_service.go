@@ -17,10 +17,6 @@ type LineaService struct {
 
 // LineasPorEmpresa fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
 func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Linea, error) {
-	if s.client == nil {
-		return nil, ErrNotConnected
-	}
-
 	in := &swparadas.RecuperarLineasPorCodigoEmpresa{
 		Usuario:       "WEB.SUR",
 		Clave:         "PAR.SW.SUR",

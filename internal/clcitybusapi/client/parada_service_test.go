@@ -75,8 +75,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarParadasCompletoPorLineaSpy = spy
 
-	cli := client.NewClient()
-	cli.Connect(scli)
+	cli := client.NewClient(scli)
 
 	out, err := cli.ParadaService().ParadasPorLinea(cod)
 	if err != nil {
@@ -98,14 +97,6 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	// out valid
 	if ok := reflect.DeepEqual(fixOut, out); ok == false {
 		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
-	}
-}
-
-func TestParadaService_ParadasPorLinea_ErrNotConnected(t *testing.T) {
-	cli := client.NewClient()
-	_, err := cli.ParadaService().ParadasPorLinea(1234)
-	if err != client.ErrNotConnected {
-		t.Fatalf("Received un expected error, '%v'", err)
 	}
 }
 
@@ -136,8 +127,7 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 		},
 	}
 
-	cli := client.NewClient()
-	cli.Connect(scli)
+	cli := client.NewClient(scli)
 
 	_, err := cli.ParadaService().ParadasPorEmpresa(355)
 	if err != nil {
@@ -164,12 +154,4 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 	// if ok := reflect.DeepEqual(fixOut, out); ok == false {
 	// 	t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
 	// }
-}
-
-func TestParadaService_ParadasPorEmpresa_ErrNotConnected(t *testing.T) {
-	cli := client.NewClient()
-	_, err := cli.ParadaService().ParadasPorEmpresa(355)
-	if err != client.ErrNotConnected {
-		t.Fatalf("Received un expected error, '%v'", err)
-	}
 }
