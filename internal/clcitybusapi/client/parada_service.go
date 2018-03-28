@@ -12,7 +12,8 @@ var _ clcitybusapi.ParadaService = &ParadaService{}
 
 // ParadaService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
 type ParadaService struct {
-	client SOAPClient
+	client       SOAPClient
+	lineaService LineaService
 }
 
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
@@ -51,6 +52,17 @@ func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Pa
 	if s.client == nil {
 		return nil, ErrNotConnected
 	}
+
+	lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
+	if err != nil {
+		return nil, err
+	}
+
+	// paradas := make(chan []*clcitybusapi.Parada, )
+
+	// for _, linea := range l {
+
+	// }
 
 	// in := &swparadas.RecuperarParadasCompletoPorLinea{
 	// 	Usuario:           "WEB.SUR",

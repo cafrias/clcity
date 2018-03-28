@@ -39,7 +39,9 @@ type SOAPClient interface {
 // NewClient creates a new client for communicating with `Cuando Llega City Bus` API.
 func NewClient() *Client {
 	return &Client{
-		paradaService: ParadaService{},
-		lineaService:  LineaService{},
+		paradaService: ParadaService{
+			lineaService: LineaService{},
+		},
+		lineaService: LineaService{},
 	}
 }
