@@ -46,9 +46,11 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	}
 
 	spy := &mock.Spy{
-		Ret: []interface{}{
-			fixResponse,
-			nil,
+		Ret: [][]interface{}{
+			[]interface{}{
+				fixResponse,
+				nil,
+			},
 		},
 	}
 
@@ -70,7 +72,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	}
 
 	// Called with correct input
-	arg, _ := spy.Args[0].(*swparadas.RecuperarLineasPorCodigoEmpresa)
+	arg, _ := spy.Args[0][0].(*swparadas.RecuperarLineasPorCodigoEmpresa)
 	if ok := reflect.DeepEqual(arg, fixRequest); ok == false {
 		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixRequest, arg)
 	}

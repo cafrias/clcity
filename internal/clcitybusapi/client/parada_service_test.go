@@ -62,9 +62,11 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	}
 
 	spy := &mock.Spy{
-		Ret: []interface{}{
-			fixResponse,
-			nil,
+		Ret: [][]interface{}{
+			[]interface{}{
+				fixResponse,
+				nil,
+			},
 		},
 	}
 
@@ -86,7 +88,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	}
 
 	// Called with correct input
-	arg, _ := spy.Args[0].(*swparadas.RecuperarParadasCompletoPorLinea)
+	arg, _ := spy.Args[0][0].(*swparadas.RecuperarParadasCompletoPorLinea)
 	if ok := reflect.DeepEqual(arg, fixRequest); ok == false {
 		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixRequest, arg)
 	}
@@ -100,6 +102,97 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 func TestParadaService_ParadasPorLinea_ErrNotConnected(t *testing.T) {
 	cli := client.NewClient()
 	_, err := cli.ParadaService().ParadasPorLinea(1234)
+	if err != client.ErrNotConnected {
+		t.Fatalf("Received un expected error, '%v'", err)
+	}
+}
+
+func TestParadaService_ParadasPorEmpresa(t *testing.T) {
+	l1 := "1529"
+	l2 := "1530"
+	fixl := []*clcitybusapi.Linea{
+		&clcitybusapi.Linea{
+			CodigoLineaParada: l1,
+			Descripcion:       "RAMAL A",
+			CodigoEntidad:     "254",
+			CodigoEmpresa:     355,
+		},
+		&clcitybusapi.Linea{
+			CodigoLineaParada: l2,
+			Descripcion:       "RAMAL B",
+			CodigoEntidad:     "254",
+			CodigoEmpresa:     355,
+		},
+	}
+	fixp := map[string][]*clcitybusapi.Parada{
+		l1: []*clcitybusapi.Parada{
+			&clcitybusapi.Parada{
+				Codigo:                     "57720",
+				Identificador:              "RG001",
+				Descripcion:                "HACIA CHACRA 11",
+				AbreviaturaBandera:         "RAMAL A",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA A",
+			},
+			&clcitybusapi.Parada{
+				Codigo:                     "57721",
+				Identificador:              "RG002",
+				Descripcion:                "HACIA CHACRA 11",
+				AbreviaturaBandera:         "RAMAL A",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA A",
+			},
+		},
+		l2: []*clcitybusapi.Parada{
+			&clcitybusapi.Parada{
+				Codigo:                     "57725",
+				Identificador:              "RG001",
+				Descripcion:                "HACIA CHACRA Mi casa",
+				AbreviaturaBandera:         "RAMAL B",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA B",
+			},
+			&clcitybusapi.Parada{
+				Codigo:                     "57731",
+				Identificador:              "RG003",
+				Descripcion:                "HACIA asd 11",
+				AbreviaturaBandera:         "RAMAL B",
+				AbreviaturaAmpliadaBandera: "HACIA CHaaACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA B",
+			},
+		},
+	}
+
+	flinreq := &swparadas.RecuperarLineasPorCodigoEmpresa{
+		Usuario:       "WEB.SUR",
+		Clave:         "PAR.SW.SUR",
+		CodigoEmpresa: 355,
+		IsSublinea:    false,
+	}
+
+	fl
+
+	fOut := append(fixp[l1], fixp[l2]...)
+
+	cli := client.NewClient()
+	scli := NewSOAPClient("", false, nil)
+
+	cli.Connect(scli)
+
+	cli.ParadaService().ParadasPorEmpresa(355)
+}
+
+func TestParadaService_ParadasPorEmpresa_ErrNotConnected(t *testing.T) {
+	cli := client.NewClient()
+	_, err := cli.ParadaService().ParadasPorEmpresa(355)
 	if err != client.ErrNotConnected {
 		t.Fatalf("Received un expected error, '%v'", err)
 	}

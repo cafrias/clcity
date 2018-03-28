@@ -45,3 +45,34 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 
 	return result.Paradas, nil
 }
+
+// ParadasPorEmpresa fetches all 'Parada' entities associated with given 'Empresa' identified by `CodigoEmpresa`.
+func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Parada, error) {
+	if s.client == nil {
+		return nil, ErrNotConnected
+	}
+
+	// in := &swparadas.RecuperarParadasCompletoPorLinea{
+	// 	Usuario:           "WEB.SUR",
+	// 	Clave:             "PAR.SW.SUR",
+	// 	CodigoLineaParada: int32(CodigoLineaParada),
+	// 	IsSublinea:        false,
+	// 	IsInteligente:     false,
+	// }
+	// res, err := s.client.RecuperarParadasCompletoPorLinea(in)
+	// if err != nil {
+	// 	return nil, err
+	// }
+
+	// result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
+	// err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
+	// if err != nil {
+	// 	return nil, err
+	// }
+
+	// if result.CodigoEstado != 0 {
+	// 	return nil, errors.New(result.MensajeEstado)
+	// }
+
+	return nil, nil
+}
