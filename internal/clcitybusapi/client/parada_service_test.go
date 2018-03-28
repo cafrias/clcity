@@ -101,7 +101,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 }
 
 func TestParadaService_ParadasPorEmpresa(t *testing.T) {
-	_, _, _, _, _, _, _, _, flinresp, fparresp, _ := fixtures.TestParadaServiceParadasPorEmpresa(t)
+	_, _, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
 
@@ -129,29 +129,28 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 
 	cli := client.NewClient(scli)
 
-	_, err := cli.ParadaService().ParadasPorEmpresa(355)
+	out, err := cli.ParadaService().ParadasPorEmpresa(355)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'\n", err)
 	}
 
-	// Called call
-	spy := scli.RecuperarLineasPorCodigoEmpresaSpy
-	if spy.Invoked == false {
-		t.Fatal("Didn't call `RecuperarLineasPorCodigoEmpresa`")
-	}
-	spy = scli.RecuperarParadasCompletoPorLineaSpy
-	if spy.Invoked == false {
-		t.Fatal("Didn't call `RecuperarParadasCompletoPorLinea`")
+	// out valid
+	if len(fOut) != len(out) {
+		t.Fatal("Didn't return the expected number of elements")
 	}
 
-	// Called with correct input
-	// arg, _ := spy.Args[0][0].(*swparadas.RecuperarLineasPorCodigoEmpresa)
-	// if ok := reflect.DeepEqual(arg, fixRequest); ok == false {
-	// 	t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixRequest, arg)
-	// }
+	for _, fvalue := range fOut {
+		var found bool
+		for _, value := range out {
+			if value.Identificador == fvalue.Identificador {
+				if ok := reflect.DeepEqual(fvalue, value); ok == true {
+					found = true
+				}
+			}
+		}
 
-	// // out valid
-	// if ok := reflect.DeepEqual(fixOut, out); ok == false {
-	// 	t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
-	// }
+		if found == false {
+			t.Fatalf("Couldn't find '%#v' among the results\n", fvalue)
+		}
+	}
 }
