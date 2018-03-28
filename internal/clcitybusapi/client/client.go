@@ -27,17 +27,22 @@ type SOAPClient interface {
 }
 
 // NewClient creates a new client for communicating with `Cuando Llega City Bus` API.
-func NewClient(scli SOAPClient) *Client {
+func NewClient(scli SOAPClient, dumpPath string) *Client {
 	if scli == nil {
 		scli = swparadas.NewSWParadasSoap("", false, nil)
+	}
+	if dumpPath == "" {
+		dumpPath = "."
 	}
 
 	lService := &LineaService{
 		client: scli,
+		Path:   dumpPath,
 	}
 	pService := &ParadaService{
 		client:       scli,
 		lineaService: lService,
+		Path:         dumpPath,
 	}
 	return &Client{
 		client:        scli,

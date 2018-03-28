@@ -13,6 +13,7 @@ var _ clcitybusapi.LineaService = &LineaService{}
 // LineaService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
 type LineaService struct {
 	client SOAPClient
+	Path   string
 }
 
 // LineasPorEmpresa fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.

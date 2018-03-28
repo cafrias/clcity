@@ -16,6 +16,7 @@ var _ clcitybusapi.ParadaService = &ParadaService{}
 type ParadaService struct {
 	client       SOAPClient
 	lineaService clcitybusapi.LineaService
+	Path         string
 }
 
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.

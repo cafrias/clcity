@@ -16,6 +16,9 @@ import (
 )
 
 func TestParadaService_ParadasPorLinea(t *testing.T) {
+	CreateDump()
+	defer ClearDump()
+
 	cod := 1529
 	fixRequest := &swparadas.RecuperarParadasCompletoPorLinea{
 		Usuario:           "WEB.SUR",
@@ -75,7 +78,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarParadasCompletoPorLineaSpy = spy
 
-	cli := client.NewClient(scli)
+	cli := client.NewClient(scli, "testdata")
 
 	out, err := cli.ParadaService().ParadasPorLinea(cod)
 	if err != nil {
@@ -101,6 +104,9 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 }
 
 func TestParadaService_ParadasPorEmpresa(t *testing.T) {
+	CreateDump()
+	defer ClearDump()
+
 	_, _, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
@@ -127,7 +133,7 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 		},
 	}
 
-	cli := client.NewClient(scli)
+	cli := client.NewClient(scli, "testdata")
 
 	out, err := cli.ParadaService().ParadasPorEmpresa(355)
 	if err != nil {

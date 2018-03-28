@@ -14,6 +14,9 @@ import (
 )
 
 func TestLineaService_LineasPorEmpresa(t *testing.T) {
+	CreateDump()
+	defer ClearDump()
+
 	fixRequest := &swparadas.RecuperarLineasPorCodigoEmpresa{
 		Usuario:       "WEB.SUR",
 		Clave:         "PAR.SW.SUR",
@@ -57,7 +60,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarLineasPorCodigoEmpresaSpy = spy
 
-	cli := client.NewClient(scli)
+	cli := client.NewClient(scli, DumpPath)
 
 	out, err := cli.LineaService().LineasPorEmpresa(355)
 	if err != nil {
