@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 
@@ -44,7 +45,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 		RecuperarLineasPorCodigoEmpresaResult: string(resultJSON),
 	}
 
-	spy := &Spy{
+	spy := &mock.Spy{
 		Ret: []interface{}{
 			fixResponse,
 			nil,
@@ -63,12 +64,13 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	}
 
 	// Called call
-	if scli.RecuperarLineasPorCodigoEmpresaSpy.Invoked == false {
+	spy = scli.RecuperarLineasPorCodigoEmpresaSpy
+	if spy.Invoked == false {
 		t.Fatal("Didn't invoke Call")
 	}
 
 	// Called with correct input
-	arg, _ := scli.RecuperarLineasPorCodigoEmpresaSpy.Args[0].(*swparadas.RecuperarLineasPorCodigoEmpresa)
+	arg, _ := spy.Args[0].(*swparadas.RecuperarLineasPorCodigoEmpresa)
 	if ok := reflect.DeepEqual(arg, fixRequest); ok == false {
 		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixRequest, arg)
 	}
@@ -76,5 +78,13 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	// out valid
 	if ok := reflect.DeepEqual(fixOut, out); ok == false {
 		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+	}
+}
+
+func TestLineaService_LineasPorEmpresa_ErrNotConnected(t *testing.T) {
+	cli := client.NewClient()
+	_, err := cli.LineaService().LineasPorEmpresa(355)
+	if err != client.ErrNotConnected {
+		t.Fatalf("Received un expected error, '%v'", err)
 	}
 }

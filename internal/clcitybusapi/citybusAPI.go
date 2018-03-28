@@ -2,14 +2,14 @@ package clcitybusapi
 
 // Parada represents a 'Parada' as used by app 'Cuando Llega City Bus'.
 type Parada struct {
-	Codigo                     string `json:"Codigo"`
-	Identificador              string `json:"Identificador"`
-	Descripcion                string `json:"Descripcion"`
-	AbreviaturaBandera         string `json:"AbreviaturaBandera"`
-	AbreviaturaAmpliadaBandera string `json:"AbreviaturaAmpliadaBandera"`
-	LatitudParada              string `json:"LatitudParada"`
-	LongitudParada             string `json:"LongitudParada"`
-	LongitudParadaGIT          string `json:"LongitudParadaGIT"`
+	Codigo                     string
+	Identificador              string
+	Descripcion                string
+	AbreviaturaBandera         string
+	AbreviaturaAmpliadaBandera string
+	LatitudParada              string
+	LongitudParada             string
+	AbreviaturaBanderaGIT      string
 }
 
 // Linea represents a 'Linea' as used by app 'Cuando Llega City Bus'.
@@ -28,7 +28,7 @@ type Client interface {
 
 // ParadaService represents a service for 'Parada'
 type ParadaService interface {
-	ParadasPorLinea(CodigoLineaParada string) ([]*Parada, error)
+	ParadasPorLinea(CodigoLineaParada int) ([]*Parada, error)
 }
 
 // LineaService has actions to fetch 'Linea' data from Cuando Llega City Bus API.

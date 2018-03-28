@@ -58,22 +58,6 @@ type RecuperarLineaPorCuandoLlegaResponse struct {
 	RecuperarLineaPorCuandoLlegaResult string `xml:"RecuperarLineaPorCuandoLlegaResult,omitempty"`
 }
 
-type RecuperarParadasCompletoPorLinea struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarParadasCompletoPorLinea"`
-
-	Usuario           string `xml:"usuario,omitempty"`
-	Clave             string `xml:"clave,omitempty"`
-	CodigoLineaParada int32  `xml:"codigoLineaParada,omitempty"`
-	IsSublinea        bool   `xml:"isSublinea,omitempty"`
-	IsInteligente     bool   `xml:"isInteligente,omitempty"`
-}
-
-type RecuperarParadasCompletoPorLineaResponse struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarParadasCompletoPorLineaResponse"`
-
-	RecuperarParadasCompletoPorLineaResult string `xml:"RecuperarParadasCompletoPorLineaResult,omitempty"`
-}
-
 type RecuperarParadasConBanderaYDestinoPorLinea struct {
 	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarParadasConBanderaYDestinoPorLinea"`
 
@@ -373,16 +357,6 @@ func (service *SWParadasSoap) RecuperarLineaPorEntidad(request *RecuperarLineaPo
 func (service *SWParadasSoap) RecuperarLineaPorCuandoLlega(request *RecuperarLineaPorCuandoLlega) (*RecuperarLineaPorCuandoLlegaResponse, error) {
 	response := new(RecuperarLineaPorCuandoLlegaResponse)
 	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarLineaPorCuandoLlega", request, response)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
-}
-
-func (service *SWParadasSoap) RecuperarParadasCompletoPorLinea(request *RecuperarParadasCompletoPorLinea) (*RecuperarParadasCompletoPorLineaResponse, error) {
-	response := new(RecuperarParadasCompletoPorLineaResponse)
-	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarParadasCompletoPorLinea", request, response)
 	if err != nil {
 		return nil, err
 	}

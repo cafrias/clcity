@@ -33,6 +33,7 @@ func (c *Client) Connect(scli SOAPClient) {
 // SOAPClient represents the `cuando llega City Bus` API endpoint.
 type SOAPClient interface {
 	RecuperarLineasPorCodigoEmpresa(request *swparadas.RecuperarLineasPorCodigoEmpresa) (*swparadas.RecuperarLineasPorCodigoEmpresaResponse, error)
+	RecuperarParadasCompletoPorLinea(request *swparadas.RecuperarParadasCompletoPorLinea) (*swparadas.RecuperarParadasCompletoPorLineaResponse, error)
 }
 
 // NewClient creates a new client for communicating with `Cuando Llega City Bus` API.
