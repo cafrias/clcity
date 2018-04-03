@@ -8,8 +8,11 @@ import (
 	"reflect"
 	"testing"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client/fixtures"
+
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 
@@ -20,52 +23,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	fixRequest := &swparadas.RecuperarLineasPorCodigoEmpresa{
-		Usuario:       "WEB.SUR",
-		Clave:         "PAR.SW.SUR",
-		CodigoEmpresa: 355,
-		IsSublinea:    false,
-	}
-
-	fixOut := []*clcitybusapi.Linea{
-		&clcitybusapi.Linea{
-			Codigo:        1529,
-			Descripcion:   "RAMAL A",
-			CodigoEntidad: 254,
-			CodigoEmpresa: 356,
-		},
-	}
-
-	fixResult := swparadas.RecuperarLineasPorCodigoEmpresaResult{
-		CodigoEstado:  0,
-		MensajeEstado: "ok",
-		Lineas: []*swparadas.Linea{
-			&swparadas.Linea{
-				CodigoLineaParada: "1529",
-				Descripcion:       "RAMAL A",
-				CodigoEntidad:     "254",
-				CodigoEmpresa:     356,
-			},
-		},
-	}
-
-	resultJSON, err := json.Marshal(fixResult)
-	if err != nil {
-		t.Fatal("Failed while parsing fixture to JSON.")
-	}
-
-	fixResponse := &swparadas.RecuperarLineasPorCodigoEmpresaResponse{
-		RecuperarLineasPorCodigoEmpresaResult: string(resultJSON),
-	}
-
-	spy := &mock.Spy{
-		Ret: [][]interface{}{
-			[]interface{}{
-				fixResponse,
-				nil,
-			},
-		},
-	}
+	spy, fixReq, fixOut, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarLineasPorCodigoEmpresaSpy = spy
@@ -85,8 +43,8 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 
 	// Called with correct input
 	arg, _ := spy.Args[0][0].(*swparadas.RecuperarLineasPorCodigoEmpresa)
-	if ok := reflect.DeepEqual(arg, fixRequest); ok == false {
-		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixRequest, arg)
+	if ok := reflect.DeepEqual(arg, fixReq); ok == false {
+		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixReq, arg)
 	}
 
 	// out valid
@@ -112,6 +70,39 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	}
 
 	if ok := reflect.DeepEqual(out, fout); ok == false {
+		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+	}
+}
+
+func TestLineaService_LineasPorEmpresa_ReadsFromDump(t *testing.T) {
+	CreateDump()
+	defer ClearDump()
+
+	spy, _, fixOut, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
+
+	err := dump.Write(fixOut, fmt.Sprintf("%s/lineas.json", DumpPath))
+	if err != nil {
+		t.Fatal("Failed to write fixture dump")
+	}
+
+	scli := NewSOAPClient("", false, nil)
+	scli.RecuperarLineasPorCodigoEmpresaSpy = spy
+
+	cli := client.NewClient(scli, DumpPath)
+
+	out, err := cli.LineaService().LineasPorEmpresa(355)
+	if err != nil {
+		t.Fatalf("Unexpected error: '%v'", err)
+	}
+
+	// Called call
+	spy = scli.RecuperarLineasPorCodigoEmpresaSpy
+	if spy.Invoked == true {
+		t.Fatal("Invoked Call")
+	}
+
+	// out valid
+	if ok := reflect.DeepEqual(fixOut, out); ok == false {
 		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
 	}
 }

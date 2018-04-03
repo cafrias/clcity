@@ -8,6 +8,8 @@ import (
 	"os"
 	"strconv"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
+
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 )
@@ -77,11 +79,7 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 		}
 
 		// Write JSON file
-		fcontent, err := json.MarshalIndent(r, "", "    ")
-		if err != nil {
-			return nil, err
-		}
-		err = ioutil.WriteFile(outFile, fcontent, 0644)
+		err = dump.Write(r, outFile)
 		if err != nil {
 			return nil, err
 		}
@@ -89,5 +87,16 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 		return r, nil
 	}
 
-	return nil, nil
+	c, err := ioutil.ReadFile(outFile)
+	if err != nil {
+		return nil, err
+	}
+
+	var r []*clcitybusapi.Linea
+	err = json.Unmarshal(c, &r)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
 }
