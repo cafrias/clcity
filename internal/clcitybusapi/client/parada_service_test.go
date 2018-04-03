@@ -133,7 +133,7 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 		},
 	}
 
-	cli := client.NewClient(scli, "testdata")
+	cli := client.NewClient(scli, DumpPath)
 
 	out, err := cli.ParadaService().ParadasPorEmpresa(355)
 	if err != nil {
