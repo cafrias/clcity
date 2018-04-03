@@ -10,8 +10,9 @@ var _ client.SOAPClient = &SOAPClient{}
 // SOAPClient mock implementation of client.SOAPClient
 type SOAPClient struct {
 	*swparadas.SWParadasSoap
-	RecuperarLineasPorCodigoEmpresaSpy  *Spy
-	RecuperarParadasCompletoPorLineaSpy *Spy
+	RecuperarLineasPorCodigoEmpresaSpy            *Spy
+	RecuperarParadasCompletoPorLineaSpy           *Spy
+	RecuperarRecorridoParaMapaPorEntidadYLineaSpy *Spy
 }
 
 // RecuperarLineasPorCodigoEmpresa mock implementation of RecuperarLineasPorCodigoEmpresa for SOAPClient interface.
@@ -42,5 +43,20 @@ func (s *SOAPClient) RecuperarParadasCompletoPorLinea(request *swparadas.Recuper
 	ret2, _ := s.RecuperarParadasCompletoPorLineaSpy.Ret[call][1].(error)
 
 	s.RecuperarParadasCompletoPorLineaSpy.Calls++
+	return ret1, ret2
+}
+
+// RecuperarRecorridoParaMapaPorEntidadYLinea mock implementation of RecuperarRecorridoParaMapaPorEntidadYLinea for SOAPClient interface.
+func (s *SOAPClient) RecuperarRecorridoParaMapaPorEntidadYLinea(request *swparadas.RecuperarRecorridoParaMapaPorEntidadYLinea) (*swparadas.RecuperarRecorridoParaMapaPorEntidadYLineaResponse, error) {
+	s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Invoked = true
+	call := s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Calls
+	s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Args = append(s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Args, []interface{}{
+		request,
+	})
+
+	ret1, _ := s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Ret[call][0].(*swparadas.RecuperarRecorridoParaMapaPorEntidadYLineaResponse)
+	ret2, _ := s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Ret[call][1].(error)
+
+	s.RecuperarRecorridoParaMapaPorEntidadYLineaSpy.Calls++
 	return ret1, ret2
 }

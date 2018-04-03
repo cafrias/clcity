@@ -244,21 +244,6 @@ type RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResponse struct {
 	RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResult string `xml:"RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResult,omitempty"`
 }
 
-type RecuperarRecorridoParaMapaPorEntidadYLinea struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarRecorridoParaMapaPorEntidadYLinea"`
-
-	Usuario           string `xml:"usuario,omitempty"`
-	Clave             string `xml:"clave,omitempty"`
-	CodigoLineaParada int32  `xml:"codigoLineaParada,omitempty"`
-	IsSublinea        bool   `xml:"isSublinea,omitempty"`
-}
-
-type RecuperarRecorridoParaMapaPorEntidadYLineaResponse struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarRecorridoParaMapaPorEntidadYLineaResponse"`
-
-	RecuperarRecorridoParaMapaPorEntidadYLineaResult string `xml:"RecuperarRecorridoParaMapaPorEntidadYLineaResult,omitempty"`
-}
-
 type RecuperarPuestosRecargasMasCercanosPorLocalidad struct {
 	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarPuestosRecargasMasCercanosPorLocalidad"`
 
@@ -467,16 +452,6 @@ func (service *SWParadasSoap) RecuperarTodasEmpresasAMigrar(request *RecuperarTo
 func (service *SWParadasSoap) RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea(request *RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea) (*RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResponse, error) {
 	response := new(RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLineaResponse)
 	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea", request, response)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
-}
-
-func (service *SWParadasSoap) RecuperarRecorridoParaMapaPorEntidadYLinea(request *RecuperarRecorridoParaMapaPorEntidadYLinea) (*RecuperarRecorridoParaMapaPorEntidadYLineaResponse, error) {
-	response := new(RecuperarRecorridoParaMapaPorEntidadYLineaResponse)
-	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarRecorridoParaMapaPorEntidadYLinea", request, response)
 	if err != nil {
 		return nil, err
 	}
