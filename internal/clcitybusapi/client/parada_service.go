@@ -3,9 +3,14 @@ package client
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
 
@@ -56,36 +61,60 @@ func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Pa
 
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
 func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.Parada, error) {
-	in := &swparadas.RecuperarParadasCompletoPorLinea{
-		Usuario:           Usuario,
-		Clave:             Clave,
-		CodigoLineaParada: int32(CodigoLineaParada),
-		IsSublinea:        false,
-		IsInteligente:     false,
-	}
-	res, err := s.client.RecuperarParadasCompletoPorLinea(in)
-	if err != nil {
-		return nil, err
-	}
+	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, CodigoLineaParada)
 
-	result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
-	err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
-	if err != nil {
-		return nil, err
-	}
-
-	if result.CodigoEstado != 0 {
-		return nil, errors.New(result.MensajeEstado)
-	}
-
-	// Map to local struct
-	var r []*clcitybusapi.Parada
-	for _, parada := range result.Paradas {
-		p, err := s.mapParadaFromSW(parada)
+	// If we can't find a dump file, fetch data from endpoint
+	if _, err := os.Stat(outFile); os.IsNotExist(err) {
+		in := &swparadas.RecuperarParadasCompletoPorLinea{
+			Usuario:           Usuario,
+			Clave:             Clave,
+			CodigoLineaParada: int32(CodigoLineaParada),
+			IsSublinea:        false,
+			IsInteligente:     false,
+		}
+		res, err := s.client.RecuperarParadasCompletoPorLinea(in)
 		if err != nil {
 			return nil, err
 		}
-		r = append(r, p)
+
+		result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
+		err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
+		if err != nil {
+			return nil, err
+		}
+
+		if result.CodigoEstado != 0 {
+			return nil, errors.New(result.MensajeEstado)
+		}
+
+		// Map to local struct
+		var r []*clcitybusapi.Parada
+		for _, parada := range result.Paradas {
+			p, err := s.mapParadaFromSW(parada)
+			if err != nil {
+				return nil, err
+			}
+			r = append(r, p)
+		}
+
+		// Write dump file
+		err = dump.Write(r, outFile)
+		if err != nil {
+			return nil, err
+		}
+
+		return r, nil
+	}
+
+	c, err := ioutil.ReadFile(outFile)
+	if err != nil {
+		return nil, err
+	}
+
+	var r []*clcitybusapi.Parada
+	err = json.Unmarshal(c, &r)
+	if err != nil {
+		return nil, err
 	}
 
 	return r, nil
@@ -93,6 +122,8 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 
 // ParadasPorEmpresa fetches all 'Parada' entities associated with given 'Empresa' identified by `CodigoEmpresa`.
 func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Parada, error) {
+	outFile := fmt.Sprintf("%s/paradas_empresa.json", s.Path)
+
 	lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
 	if err != nil {
 		return nil, err
@@ -134,6 +165,12 @@ func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Pa
 			return nil, result.Error
 		}
 		paradas = append(paradas, result.Value...)
+	}
+
+	// Write dump file
+	err = dump.Write(paradas, outFile)
+	if err != nil {
+		return nil, err
 	}
 
 	return paradas, nil

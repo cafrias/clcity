@@ -2,110 +2,33 @@ package client_test
 
 import (
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client/fixtures"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
-
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 )
 
 func TestParadaService_ParadasPorLinea(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	cod := 1529
-	fixRequest := &swparadas.RecuperarParadasCompletoPorLinea{
-		Usuario:           "WEB.SUR",
-		Clave:             "PAR.SW.SUR",
-		CodigoLineaParada: int32(cod),
-		IsSublinea:        false,
-		IsInteligente:     false,
-	}
-
-	fixOut := []*clcitybusapi.Parada{
-		&clcitybusapi.Parada{
-			Codigo:                     57720,
-			Identificador:              "RG001",
-			Descripcion:                "HACIA CHACRA 11",
-			AbreviaturaBandera:         "RAMAL A",
-			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-			Punto: geo.Point{
-				Lat:  -53.803239,
-				Long: -67.661785,
-			},
-			AbreviaturaBanderaGIT: "IDA A",
-		},
-		&clcitybusapi.Parada{
-			Codigo:                     57721,
-			Identificador:              "RG002",
-			Descripcion:                "HACIA CHACRA 11",
-			AbreviaturaBandera:         "RAMAL A",
-			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-			Punto: geo.Point{
-				Lat:  -53.803109,
-				Long: -67.662526,
-			},
-			AbreviaturaBanderaGIT: "IDA A",
-		},
-	}
-
-	fixResult := swparadas.RecuperarParadasCompletoPorLineaResult{
-		CodigoEstado:  0,
-		MensajeEstado: "ok",
-		Paradas: []*swparadas.Parada{
-			&swparadas.Parada{
-				Codigo:                     "57720",
-				Identificador:              "RG001",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA A",
-			},
-			&swparadas.Parada{
-				Codigo:                     "57721",
-				Identificador:              "RG002",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803109",
-				LongitudParada:             "-67,662526",
-				AbreviaturaBanderaGIT:      "IDA A",
-			},
-		},
-	}
-
-	resultJSON, err := json.Marshal(fixResult)
-	if err != nil {
-		t.Fatal("Failed while parsing fixture to JSON.")
-	}
-
-	fixResponse := &swparadas.RecuperarParadasCompletoPorLineaResponse{
-		RecuperarParadasCompletoPorLineaResult: string(resultJSON),
-	}
-
-	spy := &mock.Spy{
-		Ret: [][]interface{}{
-			[]interface{}{
-				fixResponse,
-				nil,
-			},
-		},
-	}
+	cod, fixReq, fixOut, _, spy := fixtures.TestParadaServiceParadasPorLinea(t)
 
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarParadasCompletoPorLineaSpy = spy
 
-	cli := client.NewClient(scli, "testdata")
+	cli := client.NewClient(scli, DumpPath)
 
 	out, err := cli.ParadaService().ParadasPorLinea(cod)
 	if err != nil {
@@ -120,8 +43,63 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 
 	// Called with correct input
 	arg, _ := spy.Args[0][0].(*swparadas.RecuperarParadasCompletoPorLinea)
-	if ok := reflect.DeepEqual(arg, fixRequest); ok == false {
-		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixRequest, arg)
+	if ok := reflect.DeepEqual(arg, fixReq); ok == false {
+		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixReq, arg)
+	}
+
+	// out valid
+	if ok := reflect.DeepEqual(fixOut, out); ok == false {
+		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+	}
+
+	// Check dump file
+	dumpFile := fmt.Sprintf("%s/%s", DumpPath, "paradas_linea.json")
+	if _, err := os.Stat(dumpFile); os.IsNotExist(err) {
+		t.Fatal("Didn't create a dump file")
+	}
+
+	var fout []*clcitybusapi.Parada
+	fcon, err := ioutil.ReadFile(dumpFile)
+	if err != nil {
+		t.Fatalf("Unexpected error, %v", err)
+	}
+
+	err = json.Unmarshal(fcon, &fout)
+	if err != nil {
+		t.Fatalf("Unexpected error, %v", err)
+	}
+
+	if ok := reflect.DeepEqual(out, fout); ok == false {
+		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+	}
+}
+
+func TestParadaService_ParadasPorLinea_ReadsFromDump(t *testing.T) {
+	CreateDump()
+	defer ClearDump()
+
+	cod, _, fixOut, _, spy := fixtures.TestParadaServiceParadasPorLinea(t)
+
+	// Write dump file
+	err := dump.Write(fixOut, fmt.Sprintf("%s/paradas_linea_%v.json", DumpPath, cod))
+	if err != nil {
+		t.Fatal("Error while writing dump file", err)
+	}
+
+	scli := NewSOAPClient("", false, nil)
+	scli.RecuperarParadasCompletoPorLineaSpy = spy
+
+	cli := client.NewClient(scli, DumpPath)
+
+	out, err := cli.ParadaService().ParadasPorLinea(cod)
+	if err != nil {
+		t.Fatalf("Unexpected error: '%v'", err)
+	}
+
+	// Called call
+	spy = scli.RecuperarParadasCompletoPorLineaSpy
+	if spy.Invoked == true {
+		t.Fatal("Invoked Call")
 	}
 
 	// out valid
@@ -185,5 +163,89 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 		if found == false {
 			t.Fatalf("Couldn't find '%#v' among the results\n", fvalue)
 		}
+	}
+
+	// Check dump file
+	dumpFile := fmt.Sprintf("%s/%s", DumpPath, "paradas_empresa.json")
+	if _, err := os.Stat(dumpFile); os.IsNotExist(err) {
+		t.Fatal("Didn't create a dump file")
+	}
+
+	var fout []*clcitybusapi.Parada
+	fcon, err := ioutil.ReadFile(dumpFile)
+	if err != nil {
+		t.Fatalf("Unexpected error, %v", err)
+	}
+
+	err = json.Unmarshal(fcon, &fout)
+	if err != nil {
+		t.Fatalf("Unexpected error, %v", err)
+	}
+
+	if ok := reflect.DeepEqual(out, fout); ok == false {
+		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fOut, out)
+	}
+}
+
+func TestParadaService_ParadasPorEmpresa_ReadFromDump(t *testing.T) {
+	CreateDump()
+	defer ClearDump()
+
+	_, _, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
+
+	err := dump.Write(fOut, fmt.Sprintf("%s/lineas.json", DumpPath))
+	if err != nil {
+		t.Fatal("Failed to write fixture dump")
+	}
+
+	scli := NewSOAPClient("", false, nil)
+
+	// Setup spies
+	scli.RecuperarLineasPorCodigoEmpresaSpy = &mock.Spy{
+		Ret: [][]interface{}{
+			[]interface{}{
+				flinresp,
+				nil,
+			},
+		},
+	}
+	scli.RecuperarParadasCompletoPorLineaSpy = &mock.Spy{
+		Ret: [][]interface{}{
+			[]interface{}{
+				fparresp[0],
+				nil,
+			},
+			[]interface{}{
+				fparresp[1],
+				nil,
+			},
+		},
+	}
+
+	cli := client.NewClient(scli, DumpPath)
+
+	out, err := cli.ParadaService().ParadasPorEmpresa(355)
+	if err != nil {
+		t.Fatalf("Unexpected error: '%v'\n", err)
+	}
+
+	// out valid
+	if len(fOut) != len(out) {
+		t.Fatal("Didn't return the expected number of elements")
+	}
+
+	// Called call
+	spy := scli.RecuperarLineasPorCodigoEmpresaSpy
+	if spy.Invoked == true {
+		t.Fatal("Invoked Call")
+	}
+	spy = scli.RecuperarParadasCompletoPorLineaSpy
+	if spy.Invoked == true {
+		t.Fatal("Invoked Call")
+	}
+
+	// out valid
+	if ok := reflect.DeepEqual(fOut, out); ok == false {
+		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fOut, out)
 	}
 }
