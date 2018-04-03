@@ -2,7 +2,6 @@ package client
 
 import (
 	"encoding/json"
-	"strconv"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
 
@@ -19,13 +18,12 @@ type RecorridoService struct {
 	Path         string
 }
 
-// RecorridoDeLinea fetches a 'Recorrido' entity associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
+// RecorridoDeLinea fetches a 'Recorrido' entity associated with a given 'Linea'.
 func (s *RecorridoService) RecorridoDeLinea(l *clcitybusapi.Linea) (*clcitybusapi.Recorrido, error) {
-	cod, _ := strconv.Atoi(l.CodigoLineaParada)
 	in := &swparadas.RecuperarRecorridoParaMapaPorEntidadYLinea{
-		Usuario:           "WEB.SUR",
-		Clave:             "PAR.SW.SUR",
-		CodigoLineaParada: int32(cod),
+		Usuario:           Usuario,
+		Clave:             Clave,
+		CodigoLineaParada: int32(l.Codigo),
 		IsSublinea:        false,
 	}
 	res, err := s.client.RecuperarRecorridoParaMapaPorEntidadYLinea(in)

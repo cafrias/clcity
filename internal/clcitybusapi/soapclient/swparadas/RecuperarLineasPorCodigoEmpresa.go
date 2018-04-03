@@ -2,8 +2,6 @@ package swparadas
 
 import (
 	"encoding/xml"
-
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 )
 
 type RecuperarLineasPorCodigoEmpresa struct {
@@ -24,7 +22,7 @@ type RecuperarLineasPorCodigoEmpresaResponse struct {
 type RecuperarLineasPorCodigoEmpresaResult struct {
 	CodigoEstado  int
 	MensajeEstado string
-	Lineas        []*clcitybusapi.Linea `json:"lineas"`
+	Lineas        []*Linea `json:"lineas"`
 }
 
 func (service *SWParadasSoap) RecuperarLineasPorCodigoEmpresa(request *RecuperarLineasPorCodigoEmpresa) (*RecuperarLineasPorCodigoEmpresaResponse, error) {
@@ -35,4 +33,12 @@ func (service *SWParadasSoap) RecuperarLineasPorCodigoEmpresa(request *Recuperar
 	}
 
 	return response, nil
+}
+
+// Linea represents a 'Linea' as returned from 'Cuando Llega City Bus' API.
+type Linea struct {
+	CodigoLineaParada string
+	Descripcion       string
+	CodigoEntidad     string
+	CodigoEmpresa     int
 }

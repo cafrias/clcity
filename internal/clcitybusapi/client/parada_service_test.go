@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"testing"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client/fixtures"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
@@ -30,24 +32,28 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 
 	fixOut := []*clcitybusapi.Parada{
 		&clcitybusapi.Parada{
-			Codigo:                     "57720",
+			Codigo:                     57720,
 			Identificador:              "RG001",
 			Descripcion:                "HACIA CHACRA 11",
 			AbreviaturaBandera:         "RAMAL A",
 			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-			LatitudParada:              "-53,803239",
-			LongitudParada:             "-67,661785",
-			AbreviaturaBanderaGIT:      "IDA A",
+			Punto: geo.Point{
+				Lat:  -53.803239,
+				Long: -67.661785,
+			},
+			AbreviaturaBanderaGIT: "IDA A",
 		},
 		&clcitybusapi.Parada{
-			Codigo:                     "57721",
+			Codigo:                     57721,
 			Identificador:              "RG002",
 			Descripcion:                "HACIA CHACRA 11",
 			AbreviaturaBandera:         "RAMAL A",
 			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-			LatitudParada:              "-53,803109",
-			LongitudParada:             "-67,662526",
-			AbreviaturaBanderaGIT:      "IDA A",
+			Punto: geo.Point{
+				Lat:  -53.803109,
+				Long: -67.662526,
+			},
+			AbreviaturaBanderaGIT: "IDA A",
 		},
 	}
 

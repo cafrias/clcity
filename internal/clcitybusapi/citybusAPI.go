@@ -36,12 +36,12 @@ type Parada struct {
 
 // Linea represents a route for a given 'Empresa'.
 type Linea struct {
-	CodigoLineaParada int
-	Descripcion       string
-	CodigoEntidad     int
-	CodigoEmpresa     int
-	Paradas           []*Parada
-	Recorrido         []*Recorrido
+	Codigo        int
+	Descripcion   string
+	CodigoEntidad int
+	CodigoEmpresa int
+	Paradas       []*Parada
+	Recorrido     []*Recorrido
 }
 
 // Recorrido represents the shape for 'Linea' to be draw on a plane.

@@ -5,16 +5,18 @@ import (
 	"strconv"
 	"testing"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 )
 
 // TestParadaServiceParadasPorEmpresa fixture for test `TestParadaService_ParadasPorEmpresa`.
 // Returns:
-// 1- First `CodigoLineaParada` as int
-// 2- First `CodigoLineaParada` as string
-// 3- Second `CodigoLineaParada` as int
-// 4- Second `CodigoLineaParada` as string
+// 1- First `Codigo` as int
+// 2- First `Codigo` as string
+// 3- Second `Codigo` as int
+// 4- Second `Codigo` as string
 // 5- Lineas
 // 6- Paradas by Linea
 // 7- RecuperarLineasPorCodigoEmpresa request
@@ -42,61 +44,69 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 
 	fixl = []*clcitybusapi.Linea{
 		&clcitybusapi.Linea{
-			CodigoLineaParada: l1str,
-			Descripcion:       "RAMAL A",
-			CodigoEntidad:     "254",
-			CodigoEmpresa:     355,
+			Codigo:        l1,
+			Descripcion:   "RAMAL A",
+			CodigoEntidad: 254,
+			CodigoEmpresa: 355,
 		},
 		&clcitybusapi.Linea{
-			CodigoLineaParada: l2str,
-			Descripcion:       "RAMAL B",
-			CodigoEntidad:     "254",
-			CodigoEmpresa:     355,
+			Codigo:        l2,
+			Descripcion:   "RAMAL B",
+			CodigoEntidad: 254,
+			CodigoEmpresa: 355,
 		},
 	}
 	fixp = map[string][]*clcitybusapi.Parada{
 		l1str: []*clcitybusapi.Parada{
 			&clcitybusapi.Parada{
-				Codigo:                     "57720",
+				Codigo:                     57720,
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA 11",
 				AbreviaturaBandera:         "RAMAL A",
 				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA A",
+				Punto: geo.Point{
+					Lat:  -53.803239,
+					Long: -67.661785,
+				},
+				AbreviaturaBanderaGIT: "IDA A",
 			},
 			&clcitybusapi.Parada{
-				Codigo:                     "57721",
+				Codigo:                     57721,
 				Identificador:              "RG002",
 				Descripcion:                "HACIA CHACRA 11",
 				AbreviaturaBandera:         "RAMAL A",
 				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA A",
+				Punto: geo.Point{
+					Lat:  -53.803239,
+					Long: -67.661785,
+				},
+				AbreviaturaBanderaGIT: "IDA A",
 			},
 		},
 		l2str: []*clcitybusapi.Parada{
 			&clcitybusapi.Parada{
-				Codigo:                     "57725",
+				Codigo:                     57725,
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA Mi casa",
 				AbreviaturaBandera:         "RAMAL B",
 				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA B",
+				Punto: geo.Point{
+					Lat:  -53.803239,
+					Long: -67.661785,
+				},
+				AbreviaturaBanderaGIT: "IDA B",
 			},
 			&clcitybusapi.Parada{
-				Codigo:                     "57731",
+				Codigo:                     57731,
 				Identificador:              "RG003",
 				Descripcion:                "HACIA asd 11",
 				AbreviaturaBandera:         "RAMAL B",
 				AbreviaturaAmpliadaBandera: "HACIA CHaaACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA B",
+				Punto: geo.Point{
+					Lat:  -53.803239,
+					Long: -67.661785,
+				},
+				AbreviaturaBanderaGIT: "IDA B",
 			},
 		},
 	}
@@ -129,7 +139,20 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	flinresu := &swparadas.RecuperarLineasPorCodigoEmpresaResult{
 		CodigoEstado:  0,
 		MensajeEstado: "ok",
-		Lineas:        fixl,
+		Lineas: []*swparadas.Linea{
+			&swparadas.Linea{
+				CodigoLineaParada: l1str,
+				Descripcion:       "RAMAL A",
+				CodigoEntidad:     "254",
+				CodigoEmpresa:     355,
+			},
+			&swparadas.Linea{
+				CodigoLineaParada: l2str,
+				Descripcion:       "RAMAL B",
+				CodigoEntidad:     "254",
+				CodigoEmpresa:     355,
+			},
+		},
 	}
 	flinresuJSON, err := json.Marshal(flinresu)
 	if err != nil {

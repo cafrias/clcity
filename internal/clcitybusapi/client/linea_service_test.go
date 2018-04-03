@@ -29,17 +29,24 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 
 	fixOut := []*clcitybusapi.Linea{
 		&clcitybusapi.Linea{
-			CodigoLineaParada: "1529",
-			Descripcion:       "RAMAL A",
-			CodigoEntidad:     "254",
-			CodigoEmpresa:     356,
+			Codigo:        1529,
+			Descripcion:   "RAMAL A",
+			CodigoEntidad: 254,
+			CodigoEmpresa: 356,
 		},
 	}
 
 	fixResult := swparadas.RecuperarLineasPorCodigoEmpresaResult{
 		CodigoEstado:  0,
 		MensajeEstado: "ok",
-		Lineas:        fixOut,
+		Lineas: []*swparadas.Linea{
+			&swparadas.Linea{
+				CodigoLineaParada: "1529",
+				Descripcion:       "RAMAL A",
+				CodigoEntidad:     "254",
+				CodigoEmpresa:     356,
+			},
+		},
 	}
 
 	resultJSON, err := json.Marshal(fixResult)

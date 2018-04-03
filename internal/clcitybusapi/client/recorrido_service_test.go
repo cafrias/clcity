@@ -3,7 +3,6 @@ package client_test
 import (
 	"encoding/json"
 	"reflect"
-	"strconv"
 	"testing"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
@@ -21,16 +20,15 @@ func TestRecorridoService_Recorrido(t *testing.T) {
 	defer ClearDump()
 
 	fixLinea := &clcitybusapi.Linea{
-		CodigoLineaParada: "1529",
-		CodigoEntidad:     "355",
-		CodigoEmpresa:     355,
-		Descripcion:       "RAMAL A",
+		Codigo:        1529,
+		CodigoEntidad: 355,
+		CodigoEmpresa: 355,
+		Descripcion:   "RAMAL A",
 	}
-	cod, _ := strconv.Atoi(fixLinea.CodigoLineaParada)
 	fixRequest := &swparadas.RecuperarRecorridoParaMapaPorEntidadYLinea{
 		Usuario:           "WEB.SUR",
 		Clave:             "PAR.SW.SUR",
-		CodigoLineaParada: int32(cod),
+		CodigoLineaParada: int32(fixLinea.Codigo),
 		IsSublinea:        false,
 	}
 

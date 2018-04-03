@@ -7,6 +7,12 @@ import (
 
 var _ clcitybusapi.Client = &Client{}
 
+// Credentials to access Cuando Llega City Bus API.
+const (
+	Usuario = "WEB.SUR"
+	Clave   = "PAR.SW.SUR"
+)
+
 // Client represents a client to the 'Cuando Llega City Bus' API.
 type Client struct {
 	client           SOAPClient

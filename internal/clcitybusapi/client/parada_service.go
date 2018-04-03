@@ -3,7 +3,6 @@ package client
 import (
 	"encoding/json"
 	"errors"
-	"strconv"
 	"sync"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
@@ -22,8 +21,8 @@ type ParadaService struct {
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
 func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.Parada, error) {
 	in := &swparadas.RecuperarParadasCompletoPorLinea{
-		Usuario:           "WEB.SUR",
-		Clave:             "PAR.SW.SUR",
+		Usuario:           Usuario,
+		Clave:             Clave,
 		CodigoLineaParada: int32(CodigoLineaParada),
 		IsSublinea:        false,
 		IsInteligente:     false,
@@ -68,13 +67,7 @@ func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Pa
 		go func(linea *clcitybusapi.Linea) {
 			defer wg.Done()
 			result := new(RequestResult)
-			cod, err := strconv.Atoi(linea.CodigoLineaParada)
-			if err != nil {
-				result.Error = err
-				pStream <- result
-				return
-			}
-			res, err := s.ParadasPorLinea(cod)
+			res, err := s.ParadasPorLinea(linea.Codigo)
 			if err != nil {
 				result.Error = err
 				pStream <- result

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
@@ -19,6 +20,25 @@ type LineaService struct {
 	Path   string
 }
 
+func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea, error) {
+	codEnt, err := strconv.Atoi(swl.CodigoEntidad)
+	if err != nil {
+		return nil, err
+	}
+
+	codPar, err := strconv.Atoi(swl.CodigoLineaParada)
+	if err != nil {
+		return nil, err
+	}
+
+	return &clcitybusapi.Linea{
+		Codigo:        codPar,
+		CodigoEmpresa: swl.CodigoEmpresa,
+		CodigoEntidad: codEnt,
+		Descripcion:   swl.Descripcion,
+	}, nil
+}
+
 // LineasPorEmpresa fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
 func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Linea, error) {
 	outFile := fmt.Sprintf("%s/%s", s.Path, "lineas.json")
@@ -26,9 +46,9 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 	// If we can't find a dump file, fetch data from endpoint
 	if _, err := os.Stat(outFile); os.IsNotExist(err) {
 		in := &swparadas.RecuperarLineasPorCodigoEmpresa{
-			Usuario:       "WEB.SUR",
-			Clave:         "PAR.SW.SUR",
-			CodigoEmpresa: 355,
+			Usuario:       Usuario,
+			Clave:         Clave,
+			CodigoEmpresa: int32(CodigoEmpresa),
 			IsSublinea:    false,
 		}
 		res, err := s.client.RecuperarLineasPorCodigoEmpresa(in)
@@ -46,8 +66,18 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 			return nil, errors.New(result.MensajeEstado)
 		}
 
+		// Map result to local struct
+		var r []*clcitybusapi.Linea
+		for _, linea := range result.Lineas {
+			l, err := s.mapLineaFromSW(linea)
+			if err != nil {
+				return nil, err
+			}
+			r = append(r, l)
+		}
+
 		// Write JSON file
-		fcontent, err := json.MarshalIndent(result.Lineas, "", "    ")
+		fcontent, err := json.MarshalIndent(r, "", "    ")
 		if err != nil {
 			return nil, err
 		}
@@ -56,7 +86,7 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 			return nil, err
 		}
 
-		return result.Lineas, nil
+		return r, nil
 	}
 
 	return nil, nil
