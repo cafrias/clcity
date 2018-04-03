@@ -2,27 +2,49 @@ package clcitybusapi
 
 import "bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
 
-// Parada represents a 'Parada' as used by app 'Cuando Llega City Bus'.
+// Empresa represents a transport agency.
+type Empresa struct {
+	Codigo int
+	Nombre string
+	URL    string
+	Lang   string
+	TZ     string
+	Lineas []*Linea
+}
+
+// NewEmpresa creates a new 'Empresa' with defaults.
+func NewEmpresa(cod int) *Empresa {
+	return &Empresa{
+		Codigo: cod,
+		Nombre: "City Bus",
+		URL:    "https://riogrande.gob.ar/",
+		Lang:   "SPA",
+		TZ:     "America/Argentina/Ushuaia",
+	}
+}
+
+// Parada represents a stop for a 'Linea'.
 type Parada struct {
-	Codigo                     string
+	Codigo                     int
 	Identificador              string
 	Descripcion                string
 	AbreviaturaBandera         string
 	AbreviaturaAmpliadaBandera string
-	LatitudParada              string
-	LongitudParada             string
 	AbreviaturaBanderaGIT      string
+	Punto                      geo.Point
 }
 
-// Linea represents a 'Linea' as used by app 'Cuando Llega City Bus'.
+// Linea represents a route for a given 'Empresa'.
 type Linea struct {
-	CodigoLineaParada string
+	CodigoLineaParada int
 	Descripcion       string
-	CodigoEntidad     string
+	CodigoEntidad     int
 	CodigoEmpresa     int
+	Paradas           []*Parada
+	Recorrido         []*Recorrido
 }
 
-// Recorrido represents the 'Recorrido' for a 'Linea' as of 'Cuando Llega City Bus' API.
+// Recorrido represents the shape for 'Linea' to be draw on a plane.
 type Recorrido struct {
 	linea  *Linea
 	puntos []*geo.Point
@@ -47,6 +69,7 @@ type Client interface {
 	ParadaService() ParadaService
 	LineaService() LineaService
 	RecorridoService() RecorridoService
+	EmpresaService() EmpresaService
 }
 
 // ParadaService represents a service for 'Parada'
@@ -64,4 +87,9 @@ type LineaService interface {
 type RecorridoService interface {
 	RecorridoDeLinea(l *Linea) (*Recorrido, error)
 	RecorridosPorEmpresa(CodigoEmpresa int) ([]*Recorrido, error)
+}
+
+// EmpresaService has actions to fetch 'Recorrido' data from Cuando Llega City Bus API.
+type EmpresaService interface {
+	ObtenerLineas(e *Empresa) error
 }
