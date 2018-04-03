@@ -30,7 +30,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	l2 int,
 	l2str string,
 	fixl []*clcitybusapi.Linea,
-	fixp map[string][]*clcitybusapi.Parada,
+	fixpl map[string][]*clcitybusapi.Parada,
 	flinreq *swparadas.RecuperarLineasPorCodigoEmpresa,
 	fparreq [2]*swparadas.RecuperarParadasCompletoPorLinea,
 	flinresp *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
@@ -56,7 +56,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 			CodigoEmpresa: 355,
 		},
 	}
-	fixp = map[string][]*clcitybusapi.Parada{
+	fixpl = map[string][]*clcitybusapi.Parada{
 		l1str: []*clcitybusapi.Parada{
 			&clcitybusapi.Parada{
 				Codigo:                     57720,
@@ -107,6 +107,53 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 					Long: -67.661785,
 				},
 				AbreviaturaBanderaGIT: "IDA B",
+			},
+		},
+	}
+
+	fixpSW := map[string][]*swparadas.Parada{
+		l1str: []*swparadas.Parada{
+			&swparadas.Parada{
+				Codigo:                     "57720",
+				Identificador:              "RG001",
+				Descripcion:                "HACIA CHACRA 11",
+				AbreviaturaBandera:         "RAMAL A",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA A",
+			},
+			&swparadas.Parada{
+				Codigo:                     "57721",
+				Identificador:              "RG002",
+				Descripcion:                "HACIA CHACRA 11",
+				AbreviaturaBandera:         "RAMAL A",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67.661785",
+				AbreviaturaBanderaGIT:      "IDA A",
+			},
+		},
+		l2str: []*swparadas.Parada{
+			&swparadas.Parada{
+				Codigo:                     "57725",
+				Identificador:              "RG001",
+				Descripcion:                "HACIA CHACRA Mi casa",
+				AbreviaturaBandera:         "RAMAL B",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA B",
+			},
+			&swparadas.Parada{
+				Codigo:                     "57731",
+				Identificador:              "RG003",
+				Descripcion:                "HACIA asd 11",
+				AbreviaturaBandera:         "RAMAL B",
+				AbreviaturaAmpliadaBandera: "HACIA CHaaACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA B",
 			},
 		},
 	}
@@ -163,12 +210,12 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		&swparadas.RecuperarParadasCompletoPorLineaResult{
 			CodigoEstado:  0,
 			MensajeEstado: "ok",
-			Paradas:       fixp[l1str],
+			Paradas:       fixpSW[l1str],
 		},
 		&swparadas.RecuperarParadasCompletoPorLineaResult{
 			CodigoEstado:  0,
 			MensajeEstado: "ok",
-			Paradas:       fixp[l2str],
+			Paradas:       fixpSW[l2str],
 		},
 	}
 
@@ -196,7 +243,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	}
 
 	// Fixture output
-	fOut = append(fixp[l1str], fixp[l2str]...)
+	fOut = append(fixpl[l1str], fixpl[l2str]...)
 
 	return
 }

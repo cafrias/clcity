@@ -60,7 +60,28 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	fixResult := swparadas.RecuperarParadasCompletoPorLineaResult{
 		CodigoEstado:  0,
 		MensajeEstado: "ok",
-		Paradas:       fixOut,
+		Paradas: []*swparadas.Parada{
+			&swparadas.Parada{
+				Codigo:                     "57720",
+				Identificador:              "RG001",
+				Descripcion:                "HACIA CHACRA 11",
+				AbreviaturaBandera:         "RAMAL A",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803239",
+				LongitudParada:             "-67,661785",
+				AbreviaturaBanderaGIT:      "IDA A",
+			},
+			&swparadas.Parada{
+				Codigo:                     "57721",
+				Identificador:              "RG002",
+				Descripcion:                "HACIA CHACRA 11",
+				AbreviaturaBandera:         "RAMAL A",
+				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+				LatitudParada:              "-53,803109",
+				LongitudParada:             "-67,662526",
+				AbreviaturaBanderaGIT:      "IDA A",
+			},
+		},
 	}
 
 	resultJSON, err := json.Marshal(fixResult)

@@ -2,8 +2,6 @@ package swparadas
 
 import (
 	"encoding/xml"
-
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 )
 
 type RecuperarParadasCompletoPorLinea struct {
@@ -25,7 +23,7 @@ type RecuperarParadasCompletoPorLineaResponse struct {
 type RecuperarParadasCompletoPorLineaResult struct {
 	CodigoEstado  int
 	MensajeEstado string
-	Paradas       []*clcitybusapi.Parada `json:"paradas"`
+	Paradas       []*Parada `json:"paradas"`
 }
 
 func (service *SWParadasSoap) RecuperarParadasCompletoPorLinea(request *RecuperarParadasCompletoPorLinea) (*RecuperarParadasCompletoPorLineaResponse, error) {
@@ -36,4 +34,16 @@ func (service *SWParadasSoap) RecuperarParadasCompletoPorLinea(request *Recupera
 	}
 
 	return response, nil
+}
+
+// Parada represents a stop as fetched from 'Cuando Llega City Bus' API.
+type Parada struct {
+	Codigo                     string
+	Identificador              string
+	Descripcion                string
+	AbreviaturaBandera         string
+	AbreviaturaAmpliadaBandera string
+	LatitudParada              string
+	LongitudParada             string
+	AbreviaturaBanderaGIT      string
 }

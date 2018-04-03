@@ -3,7 +3,11 @@ package client
 import (
 	"encoding/json"
 	"errors"
+	"strconv"
+	"strings"
 	"sync"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
@@ -16,6 +20,38 @@ type ParadaService struct {
 	client       SOAPClient
 	lineaService clcitybusapi.LineaService
 	Path         string
+}
+
+func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Parada, error) {
+	cod, err := strconv.Atoi(swp.Codigo)
+	if err != nil {
+		return nil, err
+	}
+
+	latStr := strings.Replace(swp.LatitudParada, ",", ".", -1)
+	lat, err := strconv.ParseFloat(latStr, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	longStr := strings.Replace(swp.LongitudParada, ",", ".", -1)
+	long, err := strconv.ParseFloat(longStr, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	return &clcitybusapi.Parada{
+		Codigo:                     cod,
+		Identificador:              swp.Identificador,
+		Descripcion:                swp.Descripcion,
+		AbreviaturaBanderaGIT:      swp.AbreviaturaBanderaGIT,
+		AbreviaturaBandera:         swp.AbreviaturaBandera,
+		AbreviaturaAmpliadaBandera: swp.AbreviaturaAmpliadaBandera,
+		Punto: geo.Point{
+			Lat:  lat,
+			Long: long,
+		},
+	}, nil
 }
 
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
@@ -42,7 +78,17 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 		return nil, errors.New(result.MensajeEstado)
 	}
 
-	return result.Paradas, nil
+	// Map to local struct
+	var r []*clcitybusapi.Parada
+	for _, parada := range result.Paradas {
+		p, err := s.mapParadaFromSW(parada)
+		if err != nil {
+			return nil, err
+		}
+		r = append(r, p)
+	}
+
+	return r, nil
 }
 
 // ParadasPorEmpresa fetches all 'Parada' entities associated with given 'Empresa' identified by `CodigoEmpresa`.
