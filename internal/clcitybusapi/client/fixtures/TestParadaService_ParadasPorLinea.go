@@ -15,13 +15,13 @@ import (
 func TestParadaServiceParadasPorLinea(t *testing.T) (
 	linea *clcitybusapi.Linea,
 	fixReq *swparadas.RecuperarParadasCompletoPorLinea,
-	fixOut []*clcitybusapi.Parada,
+	fixOut []*clcitybusapi.ParadaLinea,
 	fixRes *swparadas.RecuperarParadasCompletoPorLineaResponse,
 	spy *mock.Spy,
 ) {
 	linea = &clcitybusapi.Linea{
 		Codigo:        1529,
-		CodigoEmpresa: 255,
+		Empresa:       &clcitybusapi.Empresa{Codigo: 355},
 		CodigoEntidad: 1234,
 	}
 	fixReq = &swparadas.RecuperarParadasCompletoPorLinea{
@@ -32,8 +32,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 		IsInteligente:     false,
 	}
 
-	fixOut = []*clcitybusapi.Parada{
-		&clcitybusapi.Parada{
+	fixOut = []*clcitybusapi.ParadaLinea{
+		&clcitybusapi.ParadaLinea{
 			Codigo:                     57720,
 			Identificador:              "RG001",
 			Descripcion:                "HACIA CHACRA 11",
@@ -46,7 +46,7 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 			AbreviaturaBanderaGIT: "IDA A",
 			Linea: linea,
 		},
-		&clcitybusapi.Parada{
+		&clcitybusapi.ParadaLinea{
 			Codigo:                     57721,
 			Identificador:              "RG002",
 			Descripcion:                "HACIA CHACRA 11",
@@ -64,8 +64,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 	fixResult := swparadas.RecuperarParadasCompletoPorLineaResult{
 		CodigoEstado:  0,
 		MensajeEstado: "ok",
-		Paradas: []*swparadas.Parada{
-			&swparadas.Parada{
+		Paradas: []*swparadas.ParadaLinea{
+			&swparadas.ParadaLinea{
 				Codigo:                     "57720",
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA 11",
@@ -75,7 +75,7 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 				LongitudParada:             "-67,661785",
 				AbreviaturaBanderaGIT:      "IDA A",
 			},
-			&swparadas.Parada{
+			&swparadas.ParadaLinea{
 				Codigo:                     "57721",
 				Identificador:              "RG002",
 				Descripcion:                "HACIA CHACRA 11",

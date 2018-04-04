@@ -23,14 +23,14 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	spy, fixReq, fixOut, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
+	emp, spy, fixReq, fixOut, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarLineasPorCodigoEmpresaSpy = spy
 
 	cli := client.NewClient(scli, DumpPath)
 
-	out, err := cli.LineaService().LineasPorEmpresa(355)
+	out, err := cli.LineaService().LineasPorEmpresa(emp)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'", err)
 	}
@@ -78,7 +78,7 @@ func TestLineaService_LineasPorEmpresa_ReadsFromDump(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	spy, _, fixOut, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
+	emp, spy, _, fixOut, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
 
 	err := dump.Write(fixOut, fmt.Sprintf("%s/lineas.json", DumpPath))
 	if err != nil {
@@ -90,7 +90,7 @@ func TestLineaService_LineasPorEmpresa_ReadsFromDump(t *testing.T) {
 
 	cli := client.NewClient(scli, DumpPath)
 
-	out, err := cli.LineaService().LineasPorEmpresa(355)
+	out, err := cli.LineaService().LineasPorEmpresa(emp)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'", err)
 	}

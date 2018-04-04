@@ -12,48 +12,40 @@ import (
 )
 
 // TestParadaServiceParadasPorEmpresa fixture for test `TestParadaService_ParadasPorEmpresa`.
-// Returns:
-// 1- First `Codigo` as int
-// 2- First `Codigo` as string
-// 3- Second `Codigo` as int
-// 4- Second `Codigo` as string
-// 5- Lineas
-// 6- Paradas by Linea
-// 7- RecuperarLineasPorCodigoEmpresa request
-// 8- RecuperarParadasCompletoPorLinea requests
-// 9- RecuperarLineasPorCodigoEmpresa response
-// 10- RecuperarParadasCompletoPorLinea responses
-// 11- Expected output
 func TestParadaServiceParadasPorEmpresa(t *testing.T) (
+	emp *clcitybusapi.Empresa,
 	l1str string,
 	l2str string,
 	fixl []*clcitybusapi.Linea,
-	fixpl map[string][]*clcitybusapi.Parada,
+	fixpl map[string][]*clcitybusapi.ParadaLinea,
 	flinreq *swparadas.RecuperarLineasPorCodigoEmpresa,
 	fparreq [2]*swparadas.RecuperarParadasCompletoPorLinea,
 	flinresp *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
 	fparresp [2]*swparadas.RecuperarParadasCompletoPorLineaResponse,
 	fOut []*clcitybusapi.Parada,
 ) {
+	emp = &clcitybusapi.Empresa{
+		Codigo: 355,
+	}
 	fixl = []*clcitybusapi.Linea{
 		&clcitybusapi.Linea{
 			Codigo:        1529,
 			Descripcion:   "RAMAL A",
 			CodigoEntidad: 254,
-			CodigoEmpresa: 355,
+			Empresa:       emp,
 		},
 		&clcitybusapi.Linea{
 			Codigo:        1530,
 			Descripcion:   "RAMAL B",
 			CodigoEntidad: 254,
-			CodigoEmpresa: 355,
+			Empresa:       emp,
 		},
 	}
 	l1str = strconv.Itoa(fixl[0].Codigo)
 	l2str = strconv.Itoa(fixl[1].Codigo)
-	fixpl = map[string][]*clcitybusapi.Parada{
-		l1str: []*clcitybusapi.Parada{
-			&clcitybusapi.Parada{
+	fixpl = map[string][]*clcitybusapi.ParadaLinea{
+		l1str: []*clcitybusapi.ParadaLinea{
+			&clcitybusapi.ParadaLinea{
 				Codigo:                     57720,
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA 11",
@@ -66,7 +58,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 				AbreviaturaBanderaGIT: "IDA A",
 				Linea: fixl[0],
 			},
-			&clcitybusapi.Parada{
+			&clcitybusapi.ParadaLinea{
 				Codigo:                     57721,
 				Identificador:              "RG002",
 				Descripcion:                "HACIA CHACRA 11",
@@ -80,8 +72,8 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 				Linea: fixl[0],
 			},
 		},
-		l2str: []*clcitybusapi.Parada{
-			&clcitybusapi.Parada{
+		l2str: []*clcitybusapi.ParadaLinea{
+			&clcitybusapi.ParadaLinea{
 				Codigo:                     57725,
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA Mi casa",
@@ -94,7 +86,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 				AbreviaturaBanderaGIT: "IDA B",
 				Linea: fixl[1],
 			},
-			&clcitybusapi.Parada{
+			&clcitybusapi.ParadaLinea{
 				Codigo:                     57731,
 				Identificador:              "RG003",
 				Descripcion:                "HACIA asd 11",
@@ -110,9 +102,9 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		},
 	}
 
-	fixpSW := map[string][]*swparadas.Parada{
-		l1str: []*swparadas.Parada{
-			&swparadas.Parada{
+	fixpSW := map[string][]*swparadas.ParadaLinea{
+		l1str: []*swparadas.ParadaLinea{
+			&swparadas.ParadaLinea{
 				Codigo:                     "57720",
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA 11",
@@ -122,7 +114,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 				LongitudParada:             "-67,661785",
 				AbreviaturaBanderaGIT:      "IDA A",
 			},
-			&swparadas.Parada{
+			&swparadas.ParadaLinea{
 				Codigo:                     "57721",
 				Identificador:              "RG002",
 				Descripcion:                "HACIA CHACRA 11",
@@ -133,8 +125,8 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 				AbreviaturaBanderaGIT:      "IDA A",
 			},
 		},
-		l2str: []*swparadas.Parada{
-			&swparadas.Parada{
+		l2str: []*swparadas.ParadaLinea{
+			&swparadas.ParadaLinea{
 				Codigo:                     "57725",
 				Identificador:              "RG001",
 				Descripcion:                "HACIA CHACRA Mi casa",
@@ -144,7 +136,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 				LongitudParada:             "-67,661785",
 				AbreviaturaBanderaGIT:      "IDA B",
 			},
-			&swparadas.Parada{
+			&swparadas.ParadaLinea{
 				Codigo:                     "57731",
 				Identificador:              "RG003",
 				Descripcion:                "HACIA asd 11",
@@ -242,7 +234,29 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	}
 
 	// Fixture output
-	fOut = append(fixpl[l1str], fixpl[l2str]...)
+	fOut = []*clcitybusapi.Parada{
+		&clcitybusapi.Parada{
+			Codigo: "RG001",
+			Punto: geo.Point{
+				Lat:  -53.803239,
+				Long: -67.661785,
+			},
+		},
+		&clcitybusapi.Parada{
+			Codigo: "RG002",
+			Punto: geo.Point{
+				Lat:  -53.803239,
+				Long: -67.661785,
+			},
+		},
+		&clcitybusapi.Parada{
+			Codigo: "RG003",
+			Punto: geo.Point{
+				Lat:  -53.803239,
+				Long: -67.661785,
+			},
+		},
+	}
 
 	return
 }

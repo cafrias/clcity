@@ -59,7 +59,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 		t.Fatal("Didn't create a dump file")
 	}
 
-	var fout []*clcitybusapi.Parada
+	var fout []*clcitybusapi.ParadaLinea
 	fcon, err := ioutil.ReadFile(dumpFile)
 	if err != nil {
 		t.Fatalf("Unexpected error, %v", err)
@@ -113,7 +113,7 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	_, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
+	emp, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
 
@@ -141,7 +141,7 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 
 	cli := client.NewClient(scli, DumpPath)
 
-	out, err := cli.ParadaService().ParadasPorEmpresa(355)
+	out, err := cli.ParadaService().ParadasPorEmpresa(emp)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'\n", err)
 	}
@@ -197,7 +197,7 @@ func TestParadaService_ParadasPorEmpresa_ReadFromDump(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	_, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
+	emp, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
 	err := dump.Write(fOut, fmt.Sprintf("%s/paradas_empresa.json", DumpPath))
 	if err != nil {
@@ -230,7 +230,7 @@ func TestParadaService_ParadasPorEmpresa_ReadFromDump(t *testing.T) {
 
 	cli := client.NewClient(scli, DumpPath)
 
-	out, err := cli.ParadaService().ParadasPorEmpresa(355)
+	out, err := cli.ParadaService().ParadasPorEmpresa(emp)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'\n", err)
 	}

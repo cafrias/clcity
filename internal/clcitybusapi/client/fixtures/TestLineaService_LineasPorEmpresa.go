@@ -11,11 +11,15 @@ import (
 
 // TestLineaServiceLineasPorEmpresa fixture for test `TestLineaService_LineasPorEmpresa`.
 func TestLineaServiceLineasPorEmpresa(t *testing.T) (
+	emp *clcitybusapi.Empresa,
 	spy *mock.Spy,
 	fixReq *swparadas.RecuperarLineasPorCodigoEmpresa,
 	fixOut []*clcitybusapi.Linea,
 	fixRes *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
 ) {
+	emp = &clcitybusapi.Empresa{
+		Codigo: 355,
+	}
 	fixReq = &swparadas.RecuperarLineasPorCodigoEmpresa{
 		Usuario:       "WEB.SUR",
 		Clave:         "PAR.SW.SUR",
@@ -28,7 +32,7 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 			Codigo:        1529,
 			Descripcion:   "RAMAL A",
 			CodigoEntidad: 254,
-			CodigoEmpresa: 356,
+			Empresa:       emp,
 		},
 	}
 

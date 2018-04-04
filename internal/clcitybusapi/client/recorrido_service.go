@@ -11,7 +11,7 @@ import (
 
 var _ clcitybusapi.RecorridoService = &RecorridoService{}
 
-// RecorridoService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
+// RecorridoService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type RecorridoService struct {
 	client       SOAPClient
 	lineaService clcitybusapi.LineaService
@@ -54,6 +54,6 @@ func (s *RecorridoService) RecorridoDeLinea(l *clcitybusapi.Linea) (*clcitybusap
 }
 
 // RecorridosPorEmpresa fetches all 'Recorrido' entities associated with given 'Empresa' identified by `CodigoEmpresa`.
-func (s *RecorridoService) RecorridosPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Recorrido, error) {
+func (s *RecorridoService) RecorridosPorEmpresa(e *clcitybusapi.Empresa) ([]*clcitybusapi.Recorrido, error) {
 	return nil, nil
 }

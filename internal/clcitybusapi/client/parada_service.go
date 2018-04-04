@@ -18,14 +18,14 @@ import (
 
 var _ clcitybusapi.ParadaService = &ParadaService{}
 
-// ParadaService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
+// ParadaService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type ParadaService struct {
 	client       SOAPClient
 	lineaService clcitybusapi.LineaService
 	Path         string
 }
 
-func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Parada, error) {
+func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcitybusapi.ParadaLinea, error) {
 	cod, err := strconv.Atoi(swp.Codigo)
 	if err != nil {
 		return nil, err
@@ -43,7 +43,7 @@ func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Pa
 		return nil, err
 	}
 
-	return &clcitybusapi.Parada{
+	return &clcitybusapi.ParadaLinea{
 		Codigo:                     cod,
 		Identificador:              swp.Identificador,
 		Descripcion:                swp.Descripcion,
@@ -57,11 +57,11 @@ func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Pa
 	}, nil
 }
 
-// ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
-func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybusapi.Parada, error) {
+// ParadasPorLinea fetches all 'ParadaLinea' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
+func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybusapi.ParadaLinea, error) {
 	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, linea.Codigo)
 
-	var ret []*clcitybusapi.Parada
+	var ret []*clcitybusapi.ParadaLinea
 	if ok := dump.Read(&ret, outFile); ok == true {
 		return ret, nil
 	}
@@ -89,9 +89,9 @@ func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybus
 	}
 
 	// Map to local struct
-	var r []*clcitybusapi.Parada
+	var r []*clcitybusapi.ParadaLinea
 	for _, parada := range result.Paradas {
-		p, err := s.mapParadaFromSW(parada)
+		p, err := s.mapParadaLineaFromSW(parada)
 		p.Linea = linea
 		if err != nil {
 			return nil, err
@@ -108,8 +108,8 @@ func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybus
 	return r, nil
 }
 
-// ParadasPorEmpresa fetches all 'Parada' entities associated with given 'Empresa' identified by `CodigoEmpresa`.
-func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Parada, error) {
+// ParadasPorEmpresa fetches all 'ParadaLinea' entities associated with given 'Empresa' identified by `CodigoEmpresa`.
+func (s *ParadaService) ParadasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcitybusapi.Parada, error) {
 	outFile := fmt.Sprintf("%s/paradas_empresa.json", s.Path)
 
 	var ret []*clcitybusapi.Parada
@@ -117,13 +117,13 @@ func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Pa
 		return ret, nil
 	}
 
-	lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
+	lineas, err := s.lineaService.LineasPorEmpresa(empresa)
 	if err != nil {
 		return nil, err
 	}
 
 	type RequestResult struct {
-		Value []*clcitybusapi.Parada
+		Value []*clcitybusapi.ParadaLinea
 		Error error
 	}
 
@@ -152,12 +152,25 @@ func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Pa
 
 	wg.Wait()
 
+	// Dedupe
+	deduped := make(map[string]*clcitybusapi.ParadaLinea)
 	for i := 0; i < lineasQty; i++ {
 		result := <-pStream
 		if result.Error != nil {
 			return nil, result.Error
 		}
-		ret = append(ret, result.Value...)
+		for _, linea := range result.Value {
+			deduped[linea.Identificador] = linea
+		}
+	}
+
+	// Map to correct type
+	for _, linea := range deduped {
+		retLin := &clcitybusapi.Parada{
+			Codigo: linea.Identificador,
+			Punto:  linea.Punto,
+		}
+		ret = append(ret, retLin)
 	}
 
 	// Write dump file

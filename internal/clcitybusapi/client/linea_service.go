@@ -14,7 +14,7 @@ import (
 
 var _ clcitybusapi.LineaService = &LineaService{}
 
-// LineaService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
+// LineaService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type LineaService struct {
 	client SOAPClient
 	Path   string
@@ -33,14 +33,13 @@ func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea
 
 	return &clcitybusapi.Linea{
 		Codigo:        codPar,
-		CodigoEmpresa: swl.CodigoEmpresa,
 		CodigoEntidad: codEnt,
 		Descripcion:   swl.Descripcion,
 	}, nil
 }
 
-// LineasPorEmpresa fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
-func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Linea, error) {
+// LineasPorEmpresa fetches all 'ParadaLinea' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
+func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcitybusapi.Linea, error) {
 	outFile := fmt.Sprintf("%s/%s", s.Path, "lineas.json")
 
 	var ret []*clcitybusapi.Linea
@@ -51,7 +50,7 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 	in := &swparadas.RecuperarLineasPorCodigoEmpresa{
 		Usuario:       Usuario,
 		Clave:         Clave,
-		CodigoEmpresa: int32(CodigoEmpresa),
+		CodigoEmpresa: int32(empresa.Codigo),
 		IsSublinea:    false,
 	}
 	res, err := s.client.RecuperarLineasPorCodigoEmpresa(in)
@@ -72,6 +71,7 @@ func (s *LineaService) LineasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Line
 	// Map result to local struct
 	for _, linea := range result.Lineas {
 		l, err := s.mapLineaFromSW(linea)
+		l.Empresa = empresa
 		if err != nil {
 			return nil, err
 		}

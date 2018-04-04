@@ -6,7 +6,7 @@ import (
 
 var _ clcitybusapi.EmpresaService = &EmpresaService{}
 
-// EmpresaService has actions to fetch 'Parada' data from Cuando Llega City Bus API.
+// EmpresaService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type EmpresaService struct {
 	client        SOAPClient
 	lineaService  clcitybusapi.LineaService

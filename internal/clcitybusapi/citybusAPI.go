@@ -23,8 +23,14 @@ func NewEmpresa(cod int) *Empresa {
 	}
 }
 
-// Parada represents a stop for a 'Linea'.
+// Parada represents a stop related with a 'Empresa'.
 type Parada struct {
+	Codigo string
+	Punto  geo.Point
+}
+
+// ParadaLinea represents a stop for a 'Linea'.
+type ParadaLinea struct {
 	Codigo                     int
 	Identificador              string
 	Descripcion                string
@@ -40,19 +46,15 @@ type Linea struct {
 	Codigo        int
 	Descripcion   string
 	CodigoEntidad int
-	CodigoEmpresa int
-	Paradas       []*Parada
-	Recorrido     []*Recorrido
+	Empresa       *Empresa
+	Paradas       []*ParadaLinea
+	Recorrido     *Recorrido
 }
 
 // Recorrido represents the shape for 'Linea' to be draw on a plane.
 type Recorrido struct {
-	linea  *Linea
 	puntos []geo.Point
 }
-
-// Linea returns 'Linea' associated with this 'Recorrido'.
-func (r *Recorrido) Linea() *Linea { return r.linea }
 
 // Puntos returns all geo points of given 'Recorrido'.
 func (r *Recorrido) Puntos() []geo.Point { return r.puntos }
@@ -60,7 +62,6 @@ func (r *Recorrido) Puntos() []geo.Point { return r.puntos }
 // NewRecorrido creates a new recorrido based on data passed.
 func NewRecorrido(l *Linea, p []geo.Point) *Recorrido {
 	return &Recorrido{
-		linea:  l,
 		puntos: p,
 	}
 }
@@ -73,21 +74,21 @@ type Client interface {
 	EmpresaService() EmpresaService
 }
 
-// ParadaService represents a service for 'Parada'
+// ParadaService represents a service for 'ParadaLinea'
 type ParadaService interface {
-	ParadasPorLinea(linea *Linea) ([]*Parada, error)
-	ParadasPorEmpresa(CodigoEmpresa int) ([]*Parada, error)
+	ParadasPorLinea(l *Linea) ([]*ParadaLinea, error)
+	ParadasPorEmpresa(e *Empresa) ([]*Parada, error)
 }
 
 // LineaService has actions to fetch 'Linea' data from Cuando Llega City Bus API.
 type LineaService interface {
-	LineasPorEmpresa(CodigoEmpresa int) ([]*Linea, error)
+	LineasPorEmpresa(e *Empresa) ([]*Linea, error)
 }
 
 // RecorridoService has actions to fetch 'Recorrido' data from Cuando Llega City Bus API.
 type RecorridoService interface {
 	RecorridoDeLinea(l *Linea) (*Recorrido, error)
-	RecorridosPorEmpresa(CodigoEmpresa int) ([]*Recorrido, error)
+	RecorridosPorEmpresa(e *Empresa) ([]*Recorrido, error)
 }
 
 // EmpresaService has actions to fetch 'Recorrido' data from Cuando Llega City Bus API.

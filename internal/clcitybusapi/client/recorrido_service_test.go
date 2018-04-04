@@ -22,8 +22,10 @@ func TestRecorridoService_Recorrido(t *testing.T) {
 	fixLinea := &clcitybusapi.Linea{
 		Codigo:        1529,
 		CodigoEntidad: 355,
-		CodigoEmpresa: 355,
-		Descripcion:   "RAMAL A",
+		Empresa: &clcitybusapi.Empresa{
+			Codigo: 355,
+		},
+		Descripcion: "RAMAL A",
 	}
 	fixRequest := &swparadas.RecuperarRecorridoParaMapaPorEntidadYLinea{
 		Usuario:           "WEB.SUR",
