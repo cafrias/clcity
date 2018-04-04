@@ -54,7 +54,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	}
 
 	// Check dump file
-	dumpFile := fmt.Sprintf("%s/%s", DumpPath, "paradas_linea.json")
+	dumpFile := fmt.Sprintf("%s/paradas_linea_%v.json", DumpPath, cod)
 	if _, err := os.Stat(dumpFile); os.IsNotExist(err) {
 		t.Fatal("Didn't create a dump file")
 	}
