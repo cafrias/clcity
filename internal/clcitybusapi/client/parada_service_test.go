@@ -1,6 +1,7 @@
 package client_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -153,7 +154,8 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 	for _, fvalue := range fOut {
 		var found bool
 		for _, value := range out {
-			if value.Identificador == fvalue.Identificador {
+			if value.Codigo == fvalue.Codigo {
+				// found = true
 				if ok := reflect.DeepEqual(fvalue, value); ok == true {
 					found = true
 				}
@@ -161,7 +163,11 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 		}
 
 		if found == false {
-			t.Fatalf("Couldn't find '%#v' among the results\n", fvalue)
+			buff := bytes.NewBufferString(fmt.Sprintf("Couldn't find\n'%#v'\namong the results:\n", fvalue))
+			for _, v := range out {
+				buff.WriteString(fmt.Sprintf("'%#v'\n", v))
+			}
+			t.Fatalf(buff.String())
 		}
 	}
 
@@ -193,7 +199,7 @@ func TestParadaService_ParadasPorEmpresa_ReadFromDump(t *testing.T) {
 
 	_, _, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
-	err := dump.Write(fOut, fmt.Sprintf("%s/lineas.json", DumpPath))
+	err := dump.Write(fOut, fmt.Sprintf("%s/paradas_empresa.json", DumpPath))
 	if err != nil {
 		t.Fatal("Failed to write fixture dump")
 	}

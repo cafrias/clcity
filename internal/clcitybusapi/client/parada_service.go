@@ -124,54 +124,70 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Parada, error) {
 	outFile := fmt.Sprintf("%s/paradas_empresa.json", s.Path)
 
-	lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
-	if err != nil {
-		return nil, err
-	}
+	if _, err := os.Stat(outFile); os.IsNotExist(err) {
+		lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
+		if err != nil {
+			return nil, err
+		}
 
-	type RequestResult struct {
-		Value []*clcitybusapi.Parada
-		Error error
-	}
+		type RequestResult struct {
+			Value []*clcitybusapi.Parada
+			Error error
+		}
 
-	var wg sync.WaitGroup
+		var wg sync.WaitGroup
 
-	lineasQty := len(lineas)
-	wg.Add(lineasQty)
+		lineasQty := len(lineas)
+		fmt.Println("Number of lineas: ", lineasQty)
+		wg.Add(lineasQty)
 
-	pStream := make(chan *RequestResult, lineasQty)
-	for _, linea := range lineas {
-		go func(linea *clcitybusapi.Linea) {
-			defer wg.Done()
-			result := new(RequestResult)
-			res, err := s.ParadasPorLinea(linea.Codigo)
-			if err != nil {
-				result.Error = err
+		pStream := make(chan *RequestResult, lineasQty)
+		for _, linea := range lineas {
+			go func(linea *clcitybusapi.Linea) {
+				defer wg.Done()
+				result := new(RequestResult)
+				res, err := s.ParadasPorLinea(linea.Codigo)
+				if err != nil {
+					result.Error = err
+					pStream <- result
+					return
+				}
+				result.Value = res
 				pStream <- result
 				return
-			}
-			result.Value = res
-			pStream <- result
-			return
-		}(linea)
-	}
-
-	wg.Wait()
-
-	var paradas []*clcitybusapi.Parada
-	for i := 0; i < lineasQty; i++ {
-		result := <-pStream
-		if result.Error != nil {
-			return nil, result.Error
+			}(linea)
 		}
-		paradas = append(paradas, result.Value...)
+
+		wg.Wait()
+
+		var paradas []*clcitybusapi.Parada
+		for i := 0; i < lineasQty; i++ {
+			result := <-pStream
+			if result.Error != nil {
+				return nil, result.Error
+			}
+			paradas = append(paradas, result.Value...)
+		}
+
+		// Write dump file
+		err = dump.Write(paradas, outFile)
+		if err != nil {
+			return nil, err
+		}
+
+		return paradas, nil
 	}
 
-	// Write dump file
-	err = dump.Write(paradas, outFile)
+	c, err := ioutil.ReadFile(outFile)
 	if err != nil {
 		return nil, err
 	}
 
-	return paradas, nil
+	var r []*clcitybusapi.Parada
+	err = json.Unmarshal(c, &r)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
 }
