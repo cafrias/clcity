@@ -25,9 +25,7 @@ import (
 // 10- RecuperarParadasCompletoPorLinea responses
 // 11- Expected output
 func TestParadaServiceParadasPorEmpresa(t *testing.T) (
-	l1 int,
 	l1str string,
-	l2 int,
 	l2str string,
 	fixl []*clcitybusapi.Linea,
 	fixpl map[string][]*clcitybusapi.Parada,
@@ -37,25 +35,22 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	fparresp [2]*swparadas.RecuperarParadasCompletoPorLineaResponse,
 	fOut []*clcitybusapi.Parada,
 ) {
-	l1 = 1529
-	l1str = strconv.Itoa(l1)
-	l2 = 1530
-	l2str = strconv.Itoa(l2)
-
 	fixl = []*clcitybusapi.Linea{
 		&clcitybusapi.Linea{
-			Codigo:        l1,
+			Codigo:        1529,
 			Descripcion:   "RAMAL A",
 			CodigoEntidad: 254,
 			CodigoEmpresa: 355,
 		},
 		&clcitybusapi.Linea{
-			Codigo:        l2,
+			Codigo:        1530,
 			Descripcion:   "RAMAL B",
 			CodigoEntidad: 254,
 			CodigoEmpresa: 355,
 		},
 	}
+	l1str = strconv.Itoa(fixl[0].Codigo)
+	l2str = strconv.Itoa(fixl[1].Codigo)
 	fixpl = map[string][]*clcitybusapi.Parada{
 		l1str: []*clcitybusapi.Parada{
 			&clcitybusapi.Parada{
@@ -69,6 +64,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 					Long: -67.661785,
 				},
 				AbreviaturaBanderaGIT: "IDA A",
+				Linea: fixl[0],
 			},
 			&clcitybusapi.Parada{
 				Codigo:                     57721,
@@ -81,6 +77,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 					Long: -67.661785,
 				},
 				AbreviaturaBanderaGIT: "IDA A",
+				Linea: fixl[0],
 			},
 		},
 		l2str: []*clcitybusapi.Parada{
@@ -95,6 +92,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 					Long: -67.661785,
 				},
 				AbreviaturaBanderaGIT: "IDA B",
+				Linea: fixl[1],
 			},
 			&clcitybusapi.Parada{
 				Codigo:                     57731,
@@ -107,6 +105,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 					Long: -67.661785,
 				},
 				AbreviaturaBanderaGIT: "IDA B",
+				Linea: fixl[1],
 			},
 		},
 	}
@@ -169,14 +168,14 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		&swparadas.RecuperarParadasCompletoPorLinea{
 			Usuario:           "WEB.SUR",
 			Clave:             "PAR.SW.SUR",
-			CodigoLineaParada: int32(l1),
+			CodigoLineaParada: int32(fixl[0].Codigo),
 			IsSublinea:        false,
 			IsInteligente:     false,
 		},
 		&swparadas.RecuperarParadasCompletoPorLinea{
 			Usuario:           "WEB.SUR",
 			Clave:             "PAR.SW.SUR",
-			CodigoLineaParada: int32(l2),
+			CodigoLineaParada: int32(fixl[1].Codigo),
 			IsSublinea:        false,
 			IsInteligente:     false,
 		},

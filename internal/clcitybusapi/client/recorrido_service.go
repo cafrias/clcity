@@ -38,9 +38,9 @@ func (s *RecorridoService) RecorridoDeLinea(l *clcitybusapi.Linea) (*clcitybusap
 	}
 
 	// Map result to usable local struct.
-	var points []*geo.Point
+	var points []geo.Point
 	for _, punto := range result.Puntos {
-		point := &geo.Point{
+		point := geo.Point{
 			Lat:  punto.Latitud,
 			Long: punto.Longitud,
 		}

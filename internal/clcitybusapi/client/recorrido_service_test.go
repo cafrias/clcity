@@ -32,12 +32,12 @@ func TestRecorridoService_Recorrido(t *testing.T) {
 		IsSublinea:        false,
 	}
 
-	fixOut := clcitybusapi.NewRecorrido(fixLinea, []*geo.Point{
-		&geo.Point{
+	fixOut := clcitybusapi.NewRecorrido(fixLinea, []geo.Point{
+		geo.Point{
 			Lat:  -53,
 			Long: -67,
 		},
-		&geo.Point{
+		geo.Point{
 			Lat:  -54,
 			Long: -68,
 		},

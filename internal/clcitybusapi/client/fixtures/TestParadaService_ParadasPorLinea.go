@@ -13,17 +13,21 @@ import (
 
 // TestParadaServiceParadasPorLinea fixture for test `TestParadaService_ParadasPorLinea`.
 func TestParadaServiceParadasPorLinea(t *testing.T) (
-	cod int,
+	linea *clcitybusapi.Linea,
 	fixReq *swparadas.RecuperarParadasCompletoPorLinea,
 	fixOut []*clcitybusapi.Parada,
 	fixRes *swparadas.RecuperarParadasCompletoPorLineaResponse,
 	spy *mock.Spy,
 ) {
-	cod = 1529
+	linea = &clcitybusapi.Linea{
+		Codigo:        1529,
+		CodigoEmpresa: 255,
+		CodigoEntidad: 1234,
+	}
 	fixReq = &swparadas.RecuperarParadasCompletoPorLinea{
 		Usuario:           "WEB.SUR",
 		Clave:             "PAR.SW.SUR",
-		CodigoLineaParada: int32(cod),
+		CodigoLineaParada: int32(linea.Codigo),
 		IsSublinea:        false,
 		IsInteligente:     false,
 	}
@@ -40,6 +44,7 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 				Long: -67.661785,
 			},
 			AbreviaturaBanderaGIT: "IDA A",
+			Linea: linea,
 		},
 		&clcitybusapi.Parada{
 			Codigo:                     57721,
@@ -52,6 +57,7 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 				Long: -67.662526,
 			},
 			AbreviaturaBanderaGIT: "IDA A",
+			Linea: linea,
 		},
 	}
 

@@ -32,6 +32,7 @@ type Parada struct {
 	AbreviaturaAmpliadaBandera string
 	AbreviaturaBanderaGIT      string
 	Punto                      geo.Point
+	Linea                      *Linea
 }
 
 // Linea represents a route for a given 'Empresa'.
@@ -47,17 +48,17 @@ type Linea struct {
 // Recorrido represents the shape for 'Linea' to be draw on a plane.
 type Recorrido struct {
 	linea  *Linea
-	puntos []*geo.Point
+	puntos []geo.Point
 }
 
 // Linea returns 'Linea' associated with this 'Recorrido'.
 func (r *Recorrido) Linea() *Linea { return r.linea }
 
 // Puntos returns all geo points of given 'Recorrido'.
-func (r *Recorrido) Puntos() []*geo.Point { return r.puntos }
+func (r *Recorrido) Puntos() []geo.Point { return r.puntos }
 
 // NewRecorrido creates a new recorrido based on data passed.
-func NewRecorrido(l *Linea, p []*geo.Point) *Recorrido {
+func NewRecorrido(l *Linea, p []geo.Point) *Recorrido {
 	return &Recorrido{
 		linea:  l,
 		puntos: p,
@@ -74,7 +75,7 @@ type Client interface {
 
 // ParadaService represents a service for 'Parada'
 type ParadaService interface {
-	ParadasPorLinea(CodigoLineaParada int) ([]*Parada, error)
+	ParadasPorLinea(linea *Linea) ([]*Parada, error)
 	ParadasPorEmpresa(CodigoEmpresa int) ([]*Parada, error)
 }
 

@@ -58,8 +58,8 @@ func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Pa
 }
 
 // ParadasPorLinea fetches all 'Parada' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
-func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.Parada, error) {
-	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, CodigoLineaParada)
+func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybusapi.Parada, error) {
+	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, linea.Codigo)
 
 	var ret []*clcitybusapi.Parada
 	if ok := dump.Read(&ret, outFile); ok == true {
@@ -69,7 +69,7 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 	in := &swparadas.RecuperarParadasCompletoPorLinea{
 		Usuario:           Usuario,
 		Clave:             Clave,
-		CodigoLineaParada: int32(CodigoLineaParada),
+		CodigoLineaParada: int32(linea.Codigo),
 		IsSublinea:        false,
 		IsInteligente:     false,
 	}
@@ -92,6 +92,7 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 	var r []*clcitybusapi.Parada
 	for _, parada := range result.Paradas {
 		p, err := s.mapParadaFromSW(parada)
+		p.Linea = linea
 		if err != nil {
 			return nil, err
 		}
@@ -137,7 +138,7 @@ func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Pa
 		go func(linea *clcitybusapi.Linea) {
 			defer wg.Done()
 			result := new(RequestResult)
-			res, err := s.ParadasPorLinea(linea.Codigo)
+			res, err := s.ParadasPorLinea(linea)
 			if err != nil {
 				result.Error = err
 				pStream <- result
