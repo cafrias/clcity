@@ -4,12 +4,13 @@ import "bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
 
 // Empresa represents a transport agency.
 type Empresa struct {
-	Codigo int
-	Nombre string
-	URL    string
-	Lang   string
-	TZ     string
-	Lineas []*Linea
+	Codigo  int
+	Nombre  string
+	URL     string
+	Lang    string
+	TZ      string
+	Lineas  []*Linea
+	Paradas []*Parada
 }
 
 // NewEmpresa creates a new 'Empresa' with defaults.
