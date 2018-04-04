@@ -1,3 +1,20 @@
 {
-    "editor.tabSize": 8
+    "editor.tabSize": 8,
+    "cSpell.enabledLanguageIds": [
+        "c",
+        "cpp",
+        "csharp",
+        "handlebars",
+        "html",
+        "javascriptreact",
+        "json",
+        "latex",
+        "markdown",
+        "plaintext",
+        "python",
+        "restructuredtext",
+        "text",
+        "typescriptreact",
+        "yml"
+    ]
 }

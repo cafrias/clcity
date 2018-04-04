@@ -19,7 +19,6 @@ type Client struct {
 	paradaService    clcitybusapi.ParadaService
 	lineaService     clcitybusapi.LineaService
 	recorridoService clcitybusapi.RecorridoService
-	empresaService   clcitybusapi.EmpresaService
 }
 
 // ParadaService returns an initialized instance of ParadaService.
@@ -30,9 +29,6 @@ func (c *Client) LineaService() clcitybusapi.LineaService { return c.lineaServic
 
 // RecorridoService returns an initialized instance of RecorridoService.
 func (c *Client) RecorridoService() clcitybusapi.RecorridoService { return c.recorridoService }
-
-// EmpresaService returns an initialized instance of EmpresaService.
-func (c *Client) EmpresaService() clcitybusapi.EmpresaService { return c.empresaService }
 
 // SOAPClient represents the `cuando llega City Bus` API endpoint.
 type SOAPClient interface {

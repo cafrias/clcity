@@ -72,7 +72,6 @@ type Client interface {
 	ParadaService() ParadaService
 	LineaService() LineaService
 	RecorridoService() RecorridoService
-	EmpresaService() EmpresaService
 }
 
 // ParadaService represents a service for 'ParadaLinea'
@@ -90,9 +89,4 @@ type LineaService interface {
 type RecorridoService interface {
 	RecorridoDeLinea(l *Linea) (*Recorrido, error)
 	RecorridosPorEmpresa(e *Empresa) ([]*Recorrido, error)
-}
-
-// EmpresaService has actions to fetch 'Recorrido' data from Cuando Llega City Bus API.
-type EmpresaService interface {
-	ObtenerLineas(e *Empresa) error
 }
