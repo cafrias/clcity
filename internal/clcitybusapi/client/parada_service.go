@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
-	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -63,56 +61,45 @@ func (s *ParadaService) mapParadaFromSW(swp *swparadas.Parada) (*clcitybusapi.Pa
 func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.Parada, error) {
 	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, CodigoLineaParada)
 
-	// If we can't find a dump file, fetch data from endpoint
-	if _, err := os.Stat(outFile); os.IsNotExist(err) {
-		in := &swparadas.RecuperarParadasCompletoPorLinea{
-			Usuario:           Usuario,
-			Clave:             Clave,
-			CodigoLineaParada: int32(CodigoLineaParada),
-			IsSublinea:        false,
-			IsInteligente:     false,
-		}
-		res, err := s.client.RecuperarParadasCompletoPorLinea(in)
-		if err != nil {
-			return nil, err
-		}
-
-		result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
-		err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
-		if err != nil {
-			return nil, err
-		}
-
-		if result.CodigoEstado != 0 {
-			return nil, errors.New(result.MensajeEstado)
-		}
-
-		// Map to local struct
-		var r []*clcitybusapi.Parada
-		for _, parada := range result.Paradas {
-			p, err := s.mapParadaFromSW(parada)
-			if err != nil {
-				return nil, err
-			}
-			r = append(r, p)
-		}
-
-		// Write dump file
-		err = dump.Write(r, outFile)
-		if err != nil {
-			return nil, err
-		}
-
-		return r, nil
+	var ret []*clcitybusapi.Parada
+	if ok := dump.Read(&ret, outFile); ok == true {
+		return ret, nil
 	}
 
-	c, err := ioutil.ReadFile(outFile)
+	in := &swparadas.RecuperarParadasCompletoPorLinea{
+		Usuario:           Usuario,
+		Clave:             Clave,
+		CodigoLineaParada: int32(CodigoLineaParada),
+		IsSublinea:        false,
+		IsInteligente:     false,
+	}
+	res, err := s.client.RecuperarParadasCompletoPorLinea(in)
 	if err != nil {
 		return nil, err
 	}
 
+	result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
+	err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
+	if err != nil {
+		return nil, err
+	}
+
+	if result.CodigoEstado != 0 {
+		return nil, errors.New(result.MensajeEstado)
+	}
+
+	// Map to local struct
 	var r []*clcitybusapi.Parada
-	err = json.Unmarshal(c, &r)
+	for _, parada := range result.Paradas {
+		p, err := s.mapParadaFromSW(parada)
+		if err != nil {
+			return nil, err
+		}
+		r = append(r, p)
+	}
+
+	// Write dump file
+	err = dump.Write(r, outFile)
 	if err != nil {
 		return nil, err
 	}
@@ -124,70 +111,59 @@ func (s *ParadaService) ParadasPorLinea(CodigoLineaParada int) ([]*clcitybusapi.
 func (s *ParadaService) ParadasPorEmpresa(CodigoEmpresa int) ([]*clcitybusapi.Parada, error) {
 	outFile := fmt.Sprintf("%s/paradas_empresa.json", s.Path)
 
-	if _, err := os.Stat(outFile); os.IsNotExist(err) {
-		lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
-		if err != nil {
-			return nil, err
-		}
+	var ret []*clcitybusapi.Parada
+	if ok := dump.Read(&ret, outFile); ok == true {
+		return ret, nil
+	}
 
-		type RequestResult struct {
-			Value []*clcitybusapi.Parada
-			Error error
-		}
+	lineas, err := s.lineaService.LineasPorEmpresa(CodigoEmpresa)
+	if err != nil {
+		return nil, err
+	}
 
-		var wg sync.WaitGroup
+	type RequestResult struct {
+		Value []*clcitybusapi.Parada
+		Error error
+	}
 
-		lineasQty := len(lineas)
-		fmt.Println("Number of lineas: ", lineasQty)
-		wg.Add(lineasQty)
+	var wg sync.WaitGroup
 
-		pStream := make(chan *RequestResult, lineasQty)
-		for _, linea := range lineas {
-			go func(linea *clcitybusapi.Linea) {
-				defer wg.Done()
-				result := new(RequestResult)
-				res, err := s.ParadasPorLinea(linea.Codigo)
-				if err != nil {
-					result.Error = err
-					pStream <- result
-					return
-				}
-				result.Value = res
+	lineasQty := len(lineas)
+	fmt.Println("Number of lineas: ", lineasQty)
+	wg.Add(lineasQty)
+
+	pStream := make(chan *RequestResult, lineasQty)
+	for _, linea := range lineas {
+		go func(linea *clcitybusapi.Linea) {
+			defer wg.Done()
+			result := new(RequestResult)
+			res, err := s.ParadasPorLinea(linea.Codigo)
+			if err != nil {
+				result.Error = err
 				pStream <- result
 				return
-			}(linea)
-		}
-
-		wg.Wait()
-
-		var paradas []*clcitybusapi.Parada
-		for i := 0; i < lineasQty; i++ {
-			result := <-pStream
-			if result.Error != nil {
-				return nil, result.Error
 			}
-			paradas = append(paradas, result.Value...)
-		}
-
-		// Write dump file
-		err = dump.Write(paradas, outFile)
-		if err != nil {
-			return nil, err
-		}
-
-		return paradas, nil
+			result.Value = res
+			pStream <- result
+			return
+		}(linea)
 	}
 
-	c, err := ioutil.ReadFile(outFile)
+	wg.Wait()
+
+	for i := 0; i < lineasQty; i++ {
+		result := <-pStream
+		if result.Error != nil {
+			return nil, result.Error
+		}
+		ret = append(ret, result.Value...)
+	}
+
+	// Write dump file
+	err = dump.Write(ret, outFile)
 	if err != nil {
 		return nil, err
 	}
 
-	var r []*clcitybusapi.Parada
-	err = json.Unmarshal(c, &r)
-	if err != nil {
-		return nil, err
-	}
-
-	return r, nil
+	return ret, nil
 }
