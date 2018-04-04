@@ -20,9 +20,9 @@ var _ clcitybusapi.ParadaService = &ParadaService{}
 
 // ParadaService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type ParadaService struct {
-	client       SOAPClient
-	lineaService clcitybusapi.LineaService
-	Path         string
+	scli SOAPClient
+	cli  clcitybusapi.Client
+	Path string
 }
 
 func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcitybusapi.ParadaLinea, error) {
@@ -73,7 +73,7 @@ func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybus
 		IsSublinea:        false,
 		IsInteligente:     false,
 	}
-	res, err := s.client.RecuperarParadasCompletoPorLinea(in)
+	res, err := s.scli.RecuperarParadasCompletoPorLinea(in)
 	if err != nil {
 		return nil, err
 	}
@@ -92,10 +92,10 @@ func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybus
 	var r []*clcitybusapi.ParadaLinea
 	for _, parada := range result.Paradas {
 		p, err := s.mapParadaLineaFromSW(parada)
-		p.Linea = linea
 		if err != nil {
 			return nil, err
 		}
+		p.Linea = linea
 		r = append(r, p)
 	}
 
@@ -117,7 +117,7 @@ func (s *ParadaService) ParadasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clc
 		return ret, nil
 	}
 
-	lineas, err := s.lineaService.LineasPorEmpresa(empresa)
+	lineas, err := s.cli.LineaService().LineasPorEmpresa(empresa)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,6 @@ func (s *ParadaService) ParadasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clc
 	var wg sync.WaitGroup
 
 	lineasQty := len(lineas)
-	fmt.Println("Number of lineas: ", lineasQty)
 	wg.Add(lineasQty)
 
 	pStream := make(chan *RequestResult, lineasQty)

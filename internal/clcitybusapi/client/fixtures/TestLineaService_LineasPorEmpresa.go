@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
@@ -11,57 +13,120 @@ import (
 
 // TestLineaServiceLineasPorEmpresa fixture for test `TestLineaService_LineasPorEmpresa`.
 func TestLineaServiceLineasPorEmpresa(t *testing.T) (
-	emp *clcitybusapi.Empresa,
-	spy *mock.Spy,
-	fixReq *swparadas.RecuperarLineasPorCodigoEmpresa,
-	fixOut []*clcitybusapi.Linea,
-	fixRes *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
+	fEmp *clcitybusapi.Empresa,
+	// Recorrido
+	fRec *clcitybusapi.Recorrido,
+	sRec *mock.Spy,
+	// Paradas
+	fPar []*clcitybusapi.ParadaLinea,
+	sPar *mock.Spy,
+	// Lineas
+	fLin []*clcitybusapi.Linea,
+	fLinSW []*swparadas.Linea,
+	fLinReq *swparadas.RecuperarLineasPorCodigoEmpresa,
+	fLinResp *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
+	sLin *mock.Spy,
 ) {
-	emp = &clcitybusapi.Empresa{
+	fEmp = &clcitybusapi.Empresa{
 		Codigo: 355,
 	}
-	fixReq = &swparadas.RecuperarLineasPorCodigoEmpresa{
-		Usuario:       "WEB.SUR",
-		Clave:         "PAR.SW.SUR",
-		CodigoEmpresa: 355,
-		IsSublinea:    false,
-	}
 
-	fixOut = []*clcitybusapi.Linea{
-		&clcitybusapi.Linea{
-			Codigo:        1529,
-			Descripcion:   "RAMAL A",
-			CodigoEntidad: 254,
-			Empresa:       emp,
+	user := "WEB.SUR"
+	pass := "PAR.SW.SUR"
+
+	// Recorrido
+	fRec = &clcitybusapi.Recorrido{
+		Puntos: []geo.Point{
+			geo.Point{
+				Lat:  -20,
+				Long: 20,
+			},
+			geo.Point{
+				Lat:  -21,
+				Long: 21,
+			},
 		},
 	}
-
-	fixResult := swparadas.RecuperarLineasPorCodigoEmpresaResult{
-		CodigoEstado:  0,
-		MensajeEstado: "ok",
-		Lineas: []*swparadas.Linea{
-			&swparadas.Linea{
-				CodigoLineaParada: "1529",
-				Descripcion:       "RAMAL A",
-				CodigoEntidad:     "254",
-				CodigoEmpresa:     356,
+	sRec = &mock.Spy{
+		Ret: [][]interface{}{
+			[]interface{}{
+				fRec,
+				nil,
 			},
 		},
 	}
 
-	resultJSON, err := json.Marshal(fixResult)
-	if err != nil {
-		t.Fatal("Failed while parsing fixture to JSON.")
+	// Paradas
+	fPar = []*clcitybusapi.ParadaLinea{
+		&clcitybusapi.ParadaLinea{
+			Codigo:        123456,
+			Descripcion:   "Alguna",
+			Identificador: "RG001",
+			Punto: geo.Point{
+				Lat:  20,
+				Long: 20,
+			},
+		},
+		&clcitybusapi.ParadaLinea{
+			Codigo:        123458,
+			Descripcion:   "Alguna",
+			Identificador: "RG002",
+			Punto: geo.Point{
+				Lat:  21,
+				Long: 21,
+			},
+		},
+	}
+	sPar = &mock.Spy{
+		Ret: [][]interface{}{
+			[]interface{}{
+				fPar,
+				nil,
+			},
+		},
 	}
 
-	fixRes = &swparadas.RecuperarLineasPorCodigoEmpresaResponse{
+	// Lineas
+	fLin = []*clcitybusapi.Linea{
+		&clcitybusapi.Linea{
+			Codigo:        1529,
+			Descripcion:   "RAMAL A",
+			CodigoEntidad: 254,
+			Empresa:       fEmp,
+			Paradas:       fPar,
+			Recorrido:     fRec,
+		},
+	}
+	fLinSW = []*swparadas.Linea{
+		&swparadas.Linea{
+			CodigoLineaParada: "1529",
+			Descripcion:       "RAMAL A",
+			CodigoEntidad:     "254",
+			CodigoEmpresa:     356,
+		},
+	}
+
+	fLinReq = &swparadas.RecuperarLineasPorCodigoEmpresa{
+		Usuario:       user,
+		Clave:         pass,
+		CodigoEmpresa: 355,
+		IsSublinea:    false,
+	}
+
+	fLinRes := swparadas.RecuperarLineasPorCodigoEmpresaResult{
+		CodigoEstado:  0,
+		MensajeEstado: "ok",
+		Lineas:        fLinSW,
+	}
+	resultJSON, _ := json.Marshal(fLinRes)
+	fLinResp = &swparadas.RecuperarLineasPorCodigoEmpresaResponse{
 		RecuperarLineasPorCodigoEmpresaResult: string(resultJSON),
 	}
 
-	spy = &mock.Spy{
+	sLin = &mock.Spy{
 		Ret: [][]interface{}{
 			[]interface{}{
-				fixRes,
+				fLinResp,
 				nil,
 			},
 		},

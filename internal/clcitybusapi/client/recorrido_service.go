@@ -13,9 +13,8 @@ var _ clcitybusapi.RecorridoService = &RecorridoService{}
 
 // RecorridoService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type RecorridoService struct {
-	client       SOAPClient
-	lineaService clcitybusapi.LineaService
-	Path         string
+	scli SOAPClient
+	Path string
 }
 
 // RecorridoDeLinea fetches a 'Recorrido' entity associated with a given 'Linea'.
@@ -26,7 +25,7 @@ func (s *RecorridoService) RecorridoDeLinea(l *clcitybusapi.Linea) (*clcitybusap
 		CodigoLineaParada: int32(l.Codigo),
 		IsSublinea:        false,
 	}
-	res, err := s.client.RecuperarRecorridoParaMapaPorEntidadYLinea(in)
+	res, err := s.scli.RecuperarRecorridoParaMapaPorEntidadYLinea(in)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +47,9 @@ func (s *RecorridoService) RecorridoDeLinea(l *clcitybusapi.Linea) (*clcitybusap
 	}
 
 	// Create result 'Recorrido' object.
-	r := clcitybusapi.NewRecorrido(l, points)
+	r := &clcitybusapi.Recorrido{
+		Puntos: points,
+	}
 
 	return r, nil
 }

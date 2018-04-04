@@ -5,14 +5,11 @@ import (
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
-
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
-
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
-
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 )
 
 func TestRecorridoService_Recorrido(t *testing.T) {
@@ -34,16 +31,18 @@ func TestRecorridoService_Recorrido(t *testing.T) {
 		IsSublinea:        false,
 	}
 
-	fixOut := clcitybusapi.NewRecorrido(fixLinea, []geo.Point{
-		geo.Point{
-			Lat:  -53,
-			Long: -67,
+	fixOut := &clcitybusapi.Recorrido{
+		Puntos: []geo.Point{
+			geo.Point{
+				Lat:  -53,
+				Long: -67,
+			},
+			geo.Point{
+				Lat:  -54,
+				Long: -68,
+			},
 		},
-		geo.Point{
-			Lat:  -54,
-			Long: -68,
-		},
-	})
+	}
 
 	fixResult := swparadas.RecuperarRecorridoParaMapaPorEntidadYLineaResult{
 		CodigoEstado:  0,
@@ -107,61 +106,3 @@ func TestRecorridoService_Recorrido(t *testing.T) {
 		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
 	}
 }
-
-// func TestRecorridoService_ParadasPorEmpresa(t *testing.T) {
-// 	CreateDump()
-// 	defer ClearDump()
-
-// 	_, _, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestRecorridoServiceParadasPorEmpresa(t)
-
-// 	scli := NewSOAPClient("", false, nil)
-
-// 	// Setup spies
-// 	scli.RecuperarLineasPorCodigoEmpresaSpy = &mock.Spy{
-// 		Ret: [][]interface{}{
-// 			[]interface{}{
-// 				flinresp,
-// 				nil,
-// 			},
-// 		},
-// 	}
-// 	scli.RecuperarParadasCompletoPorLineaSpy = &mock.Spy{
-// 		Ret: [][]interface{}{
-// 			[]interface{}{
-// 				fparresp[0],
-// 				nil,
-// 			},
-// 			[]interface{}{
-// 				fparresp[1],
-// 				nil,
-// 			},
-// 		},
-// 	}
-
-// 	cli := client.NewClient(scli, DumpPath)
-
-// 	out, err := cli.ParadaService().ParadasPorEmpresa(355)
-// 	if err != nil {
-// 		t.Fatalf("Unexpected error: '%v'\n", err)
-// 	}
-
-// 	// out valid
-// 	if len(fOut) != len(out) {
-// 		t.Fatal("Didn't return the expected number of elements")
-// 	}
-
-// 	for _, fvalue := range fOut {
-// 		var found bool
-// 		for _, value := range out {
-// 			if value.Identificador == fvalue.Identificador {
-// 				if ok := reflect.DeepEqual(fvalue, value); ok == true {
-// 					found = true
-// 				}
-// 			}
-// 		}
-
-// 		if found == false {
-// 			t.Fatalf("Couldn't find '%#v' among the results\n", fvalue)
-// 		}
-// 	}
-// }

@@ -46,24 +46,47 @@ func NewClient(scli SOAPClient, dumpPath string) *Client {
 		dumpPath = "."
 	}
 
+	cli := new(Client)
+
+	rService := &RecorridoService{
+		scli: scli,
+		Path: dumpPath,
+	}
 	lService := &LineaService{
-		client: scli,
-		Path:   dumpPath,
+		scli: scli,
+		cli:  cli,
+		Path: dumpPath,
 	}
 	pService := &ParadaService{
-		client:       scli,
-		lineaService: lService,
-		Path:         dumpPath,
+		scli: scli,
+		cli:  cli,
+		Path: dumpPath,
 	}
-	rService := &RecorridoService{
-		client:       scli,
-		lineaService: lService,
-		Path:         dumpPath,
-	}
-	return &Client{
-		client:           scli,
-		lineaService:     lService,
-		paradaService:    pService,
-		recorridoService: rService,
-	}
+
+	cli.client = scli
+	cli.lineaService = lService
+	cli.paradaService = pService
+	cli.recorridoService = rService
+
+	return cli
+}
+
+// SetSOAPClient sets the SOAP client
+func (c *Client) SetSOAPClient(scli SOAPClient) {
+	c.client = scli
+}
+
+// SetRecorridoService sets RecorridoService.
+func (c *Client) SetRecorridoService(s clcitybusapi.RecorridoService) {
+	c.recorridoService = s
+}
+
+// SetParadaService sets ParadaService.
+func (c *Client) SetParadaService(s clcitybusapi.ParadaService) {
+	c.paradaService = s
+}
+
+// SetLineaService sets LineaService.
+func (c *Client) SetLineaService(s clcitybusapi.LineaService) {
+	c.lineaService = s
 }

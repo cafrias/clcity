@@ -1,7 +1,6 @@
 package client_test
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,15 +8,13 @@ import (
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
-
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client/fixtures"
-
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client/fixtures"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
-
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+	"github.com/davecgh/go-spew/spew"
 )
 
 func TestParadaService_ParadasPorLinea(t *testing.T) {
@@ -113,61 +110,30 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	emp, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
+	fEmp, _, _, _, sLin, _, _, _, sParLin, fPar := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
-
-	// Setup spies
-	scli.RecuperarLineasPorCodigoEmpresaSpy = &mock.Spy{
-		Ret: [][]interface{}{
-			[]interface{}{
-				flinresp,
-				nil,
-			},
-		},
-	}
-	scli.RecuperarParadasCompletoPorLineaSpy = &mock.Spy{
-		Ret: [][]interface{}{
-			[]interface{}{
-				fparresp[0],
-				nil,
-			},
-			[]interface{}{
-				fparresp[1],
-				nil,
-			},
-		},
-	}
+	scli.RecuperarParadasCompletoPorLineaSpy = sParLin
 
 	cli := client.NewClient(scli, DumpPath)
 
-	out, err := cli.ParadaService().ParadasPorEmpresa(emp)
+	cli.SetLineaService(&mock.LineaService{
+		LineasPorEmpresaSpy: sLin,
+	})
+
+	out, err := cli.ParadaService().ParadasPorEmpresa(fEmp)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'\n", err)
 	}
 
 	// out valid
-	if len(fOut) != len(out) {
-		t.Fatal("Didn't return the expected number of elements")
-	}
-
-	for _, fvalue := range fOut {
-		var found bool
-		for _, value := range out {
-			if value.Codigo == fvalue.Codigo {
-				found = true
-				// if ok := reflect.DeepEqual(fvalue, value); ok == true {
-				// 	found = true
-				// }
+	for _, exp := range fPar {
+		for _, rec := range out {
+			if exp.Codigo == rec.Codigo {
+				if ok := reflect.DeepEqual(*exp, *rec); ok == false {
+					t.Fatalf("Outputs are different. EXPECTED '%s' RECEIVED '%s'", spew.Sdump(exp), spew.Sdump(rec))
+				}
 			}
-		}
-
-		if found == false {
-			buff := bytes.NewBufferString(fmt.Sprintf("Couldn't find\n'%#v'\namong the results:\n", fvalue))
-			for _, v := range out {
-				buff.WriteString(fmt.Sprintf("'%#v'\n", v))
-			}
-			t.Fatalf(buff.String())
 		}
 	}
 
@@ -188,8 +154,14 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 		t.Fatalf("Unexpected error, %v", err)
 	}
 
-	if ok := reflect.DeepEqual(out, fout); ok == false {
-		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fOut, out)
+	for _, exp := range fPar {
+		for _, rec := range fout {
+			if exp.Codigo == rec.Codigo {
+				if ok := reflect.DeepEqual(*exp, *rec); ok == false {
+					t.Fatalf("Outputs are different. EXPECTED '%s' RECEIVED '%s'", spew.Sdump(exp), spew.Sdump(rec))
+				}
+			}
+		}
 	}
 }
 
@@ -197,61 +169,35 @@ func TestParadaService_ParadasPorEmpresa_ReadFromDump(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	emp, _, _, _, _, _, _, flinresp, fparresp, fOut := fixtures.TestParadaServiceParadasPorEmpresa(t)
+	fEmp, _, _, _, sLin, _, _, _, sParLin, fPar := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
-	err := dump.Write(fOut, fmt.Sprintf("%s/paradas_empresa.json", DumpPath))
+	err := dump.Write(fPar, fmt.Sprintf("%s/paradas_empresa.json", DumpPath))
 	if err != nil {
 		t.Fatal("Failed to write fixture dump")
 	}
 
 	scli := NewSOAPClient("", false, nil)
-
-	// Setup spies
-	scli.RecuperarLineasPorCodigoEmpresaSpy = &mock.Spy{
-		Ret: [][]interface{}{
-			[]interface{}{
-				flinresp,
-				nil,
-			},
-		},
-	}
-	scli.RecuperarParadasCompletoPorLineaSpy = &mock.Spy{
-		Ret: [][]interface{}{
-			[]interface{}{
-				fparresp[0],
-				nil,
-			},
-			[]interface{}{
-				fparresp[1],
-				nil,
-			},
-		},
-	}
+	scli.RecuperarParadasCompletoPorLineaSpy = sParLin
 
 	cli := client.NewClient(scli, DumpPath)
 
-	out, err := cli.ParadaService().ParadasPorEmpresa(emp)
+	cli.SetLineaService(&mock.LineaService{
+		LineasPorEmpresaSpy: sLin,
+	})
+
+	out, err := cli.ParadaService().ParadasPorEmpresa(fEmp)
 	if err != nil {
 		t.Fatalf("Unexpected error: '%v'\n", err)
 	}
 
 	// out valid
-	if len(fOut) != len(out) {
-		t.Fatal("Didn't return the expected number of elements")
-	}
-
-	// Called call
-	spy := scli.RecuperarLineasPorCodigoEmpresaSpy
-	if spy.Invoked == true {
-		t.Fatal("Invoked Call")
-	}
-	spy = scli.RecuperarParadasCompletoPorLineaSpy
-	if spy.Invoked == true {
-		t.Fatal("Invoked Call")
-	}
-
-	// out valid
-	if ok := reflect.DeepEqual(fOut, out); ok == false {
-		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fOut, out)
+	for _, exp := range fPar {
+		for _, rec := range out {
+			if exp.Codigo == rec.Codigo {
+				if ok := reflect.DeepEqual(*exp, *rec); ok == false {
+					t.Fatalf("Outputs are different. EXPECTED '%s' RECEIVED '%s'", spew.Sdump(exp), spew.Sdump(rec))
+				}
+			}
+		}
 	}
 }

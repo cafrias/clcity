@@ -16,8 +16,9 @@ var _ clcitybusapi.LineaService = &LineaService{}
 
 // LineaService has actions to fetch 'ParadaLinea' data from Cuando Llega City Bus API.
 type LineaService struct {
-	client SOAPClient
-	Path   string
+	scli SOAPClient
+	cli  clcitybusapi.Client
+	Path string
 }
 
 func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea, error) {
@@ -53,7 +54,7 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 		CodigoEmpresa: int32(empresa.Codigo),
 		IsSublinea:    false,
 	}
-	res, err := s.client.RecuperarLineasPorCodigoEmpresa(in)
+	res, err := s.scli.RecuperarLineasPorCodigoEmpresa(in)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +73,21 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 	for _, linea := range result.Lineas {
 		l, err := s.mapLineaFromSW(linea)
 		l.Empresa = empresa
+
+		// Fetch Recorrido
+		rec, err := s.cli.RecorridoService().RecorridoDeLinea(l)
+		if err != nil {
+			return nil, err
+		}
+		l.Recorrido = rec
+
+		// Fetch Paradas
+		par, err := s.cli.ParadaService().ParadasPorLinea(l)
+		if err != nil {
+			return nil, err
+		}
+		l.Paradas = par
+
 		if err != nil {
 			return nil, err
 		}

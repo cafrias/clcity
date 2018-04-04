@@ -54,17 +54,7 @@ type Linea struct {
 
 // Recorrido represents the shape for 'Linea' to be draw on a plane.
 type Recorrido struct {
-	puntos []geo.Point
-}
-
-// Puntos returns all geo points of given 'Recorrido'.
-func (r *Recorrido) Puntos() []geo.Point { return r.puntos }
-
-// NewRecorrido creates a new recorrido based on data passed.
-func NewRecorrido(l *Linea, p []geo.Point) *Recorrido {
-	return &Recorrido{
-		puntos: p,
-	}
+	Puntos []geo.Point
 }
 
 // Client is the interface that the client module should implement.
@@ -88,5 +78,4 @@ type LineaService interface {
 // RecorridoService has actions to fetch 'Recorrido' data from Cuando Llega City Bus API.
 type RecorridoService interface {
 	RecorridoDeLinea(l *Linea) (*Recorrido, error)
-	RecorridosPorEmpresa(e *Empresa) ([]*Recorrido, error)
 }

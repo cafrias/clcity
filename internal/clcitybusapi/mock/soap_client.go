@@ -7,7 +7,7 @@ import (
 
 var _ client.SOAPClient = &SOAPClient{}
 
-// SOAPClient mock implementation of client.SOAPClient
+// SOAPClient mock implementation of swparadas.SOAPClient
 type SOAPClient struct {
 	*swparadas.SWParadasSoap
 	RecuperarLineasPorCodigoEmpresaSpy            *Spy

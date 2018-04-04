@@ -2,258 +2,175 @@ package fixtures
 
 import (
 	"encoding/json"
-	"strconv"
 	"testing"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
 )
 
 // TestParadaServiceParadasPorEmpresa fixture for test `TestParadaService_ParadasPorEmpresa`.
 func TestParadaServiceParadasPorEmpresa(t *testing.T) (
-	emp *clcitybusapi.Empresa,
+	fEmp *clcitybusapi.Empresa,
 	l1str string,
 	l2str string,
-	fixl []*clcitybusapi.Linea,
-	fixpl map[string][]*clcitybusapi.ParadaLinea,
-	flinreq *swparadas.RecuperarLineasPorCodigoEmpresa,
-	fparreq [2]*swparadas.RecuperarParadasCompletoPorLinea,
-	flinresp *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
-	fparresp [2]*swparadas.RecuperarParadasCompletoPorLineaResponse,
-	fOut []*clcitybusapi.Parada,
+	// Lineas
+	fLin map[string]*clcitybusapi.Linea,
+	sLin *mock.Spy,
+	// ParadaLineas
+	// fParLin map[string][]*clcitybusapi.ParadaLinea,
+	fParLinSW map[string][]*swparadas.ParadaLinea,
+	fParLinReq map[string]*swparadas.RecuperarParadasCompletoPorLinea,
+	fParLinResp map[string]*swparadas.RecuperarParadasCompletoPorLineaResponse,
+	sParLin *mock.Spy,
+	// Paradas
+	fPar []*clcitybusapi.Parada,
 ) {
-	emp = &clcitybusapi.Empresa{
+	fEmp = &clcitybusapi.Empresa{
 		Codigo: 355,
 	}
-	fixl = []*clcitybusapi.Linea{
-		&clcitybusapi.Linea{
+	l1str = "1529"
+	l2str = "1530"
+
+	// Lineas
+	fLin = map[string]*clcitybusapi.Linea{
+		l1str: &clcitybusapi.Linea{
 			Codigo:        1529,
 			Descripcion:   "RAMAL A",
 			CodigoEntidad: 254,
-			Empresa:       emp,
+			Empresa:       fEmp,
 		},
-		&clcitybusapi.Linea{
+		l2str: &clcitybusapi.Linea{
 			Codigo:        1530,
 			Descripcion:   "RAMAL B",
 			CodigoEntidad: 254,
-			Empresa:       emp,
+			Empresa:       fEmp,
 		},
 	}
-	l1str = strconv.Itoa(fixl[0].Codigo)
-	l2str = strconv.Itoa(fixl[1].Codigo)
-	fixpl = map[string][]*clcitybusapi.ParadaLinea{
-		l1str: []*clcitybusapi.ParadaLinea{
-			&clcitybusapi.ParadaLinea{
-				Codigo:                     57720,
-				Identificador:              "RG001",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				Punto: geo.Point{
-					Lat:  -53.803239,
-					Long: -67.661785,
-				},
-				AbreviaturaBanderaGIT: "IDA A",
-				Linea: fixl[0],
-			},
-			&clcitybusapi.ParadaLinea{
-				Codigo:                     57721,
-				Identificador:              "RG002",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				Punto: geo.Point{
-					Lat:  -53.803239,
-					Long: -67.661785,
-				},
-				AbreviaturaBanderaGIT: "IDA A",
-				Linea: fixl[0],
-			},
-		},
-		l2str: []*clcitybusapi.ParadaLinea{
-			&clcitybusapi.ParadaLinea{
-				Codigo:                     57725,
-				Identificador:              "RG001",
-				Descripcion:                "HACIA CHACRA Mi casa",
-				AbreviaturaBandera:         "RAMAL B",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				Punto: geo.Point{
-					Lat:  -53.803239,
-					Long: -67.661785,
-				},
-				AbreviaturaBanderaGIT: "IDA B",
-				Linea: fixl[1],
-			},
-			&clcitybusapi.ParadaLinea{
-				Codigo:                     57731,
-				Identificador:              "RG003",
-				Descripcion:                "HACIA asd 11",
-				AbreviaturaBandera:         "RAMAL B",
-				AbreviaturaAmpliadaBandera: "HACIA CHaaACRA 11",
-				Punto: geo.Point{
-					Lat:  -53.803239,
-					Long: -67.661785,
-				},
-				AbreviaturaBanderaGIT: "IDA B",
-				Linea: fixl[1],
+	var LineasPorEmpresaRet []*clcitybusapi.Linea
+	for _, lin := range fLin {
+		LineasPorEmpresaRet = append(LineasPorEmpresaRet, lin)
+	}
+	sLin = &mock.Spy{
+		Ret: [][]interface{}{
+			[]interface{}{
+				LineasPorEmpresaRet,
+				nil,
 			},
 		},
 	}
 
-	fixpSW := map[string][]*swparadas.ParadaLinea{
+	// ParadaLineas
+	fParLinSW = map[string][]*swparadas.ParadaLinea{
 		l1str: []*swparadas.ParadaLinea{
 			&swparadas.ParadaLinea{
-				Codigo:                     "57720",
-				Identificador:              "RG001",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA A",
+				Codigo:         "123456",
+				Identificador:  "RG001",
+				LatitudParada:  "20,1",
+				LongitudParada: "20,1",
 			},
 			&swparadas.ParadaLinea{
-				Codigo:                     "57721",
-				Identificador:              "RG002",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67.661785",
-				AbreviaturaBanderaGIT:      "IDA A",
+				Codigo:         "123457",
+				Identificador:  "RG002",
+				LatitudParada:  "21,1",
+				LongitudParada: "21,1",
 			},
 		},
 		l2str: []*swparadas.ParadaLinea{
 			&swparadas.ParadaLinea{
-				Codigo:                     "57725",
-				Identificador:              "RG001",
-				Descripcion:                "HACIA CHACRA Mi casa",
-				AbreviaturaBandera:         "RAMAL B",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA B",
+				Codigo:         "123458",
+				Identificador:  "RG001",
+				LatitudParada:  "20,1",
+				LongitudParada: "20,1",
 			},
 			&swparadas.ParadaLinea{
-				Codigo:                     "57731",
-				Identificador:              "RG003",
-				Descripcion:                "HACIA asd 11",
-				AbreviaturaBandera:         "RAMAL B",
-				AbreviaturaAmpliadaBandera: "HACIA CHaaACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA B",
+				Codigo:         "123412",
+				Identificador:  "RG003",
+				LatitudParada:  "22,1",
+				LongitudParada: "22,1",
 			},
 		},
 	}
-
-	// Fixture requests
-	flinreq = &swparadas.RecuperarLineasPorCodigoEmpresa{
-		Usuario:       "WEB.SUR",
-		Clave:         "PAR.SW.SUR",
-		CodigoEmpresa: 355,
-		IsSublinea:    false,
-	}
-	fparreq = [2]*swparadas.RecuperarParadasCompletoPorLinea{
-		&swparadas.RecuperarParadasCompletoPorLinea{
-			Usuario:           "WEB.SUR",
-			Clave:             "PAR.SW.SUR",
-			CodigoLineaParada: int32(fixl[0].Codigo),
+	user := "WEB.SUR"
+	pass := "PAR.SW.SUR"
+	fParLinReq = map[string]*swparadas.RecuperarParadasCompletoPorLinea{
+		l1str: &swparadas.RecuperarParadasCompletoPorLinea{
+			Usuario:           user,
+			Clave:             pass,
+			CodigoLineaParada: int32(fLin[l1str].Codigo),
 			IsSublinea:        false,
 			IsInteligente:     false,
 		},
-		&swparadas.RecuperarParadasCompletoPorLinea{
-			Usuario:           "WEB.SUR",
-			Clave:             "PAR.SW.SUR",
-			CodigoLineaParada: int32(fixl[1].Codigo),
+		l2str: &swparadas.RecuperarParadasCompletoPorLinea{
+			Usuario:           user,
+			Clave:             pass,
+			CodigoLineaParada: int32(fLin[l2str].Codigo),
 			IsSublinea:        false,
 			IsInteligente:     false,
 		},
 	}
-
-	// Fixture results
-	flinresu := &swparadas.RecuperarLineasPorCodigoEmpresaResult{
-		CodigoEstado:  0,
-		MensajeEstado: "ok",
-		Lineas: []*swparadas.Linea{
-			&swparadas.Linea{
-				CodigoLineaParada: l1str,
-				Descripcion:       "RAMAL A",
-				CodigoEntidad:     "254",
-				CodigoEmpresa:     355,
-			},
-			&swparadas.Linea{
-				CodigoLineaParada: l2str,
-				Descripcion:       "RAMAL B",
-				CodigoEntidad:     "254",
-				CodigoEmpresa:     355,
-			},
-		},
-	}
-	flinresuJSON, err := json.Marshal(flinresu)
-	if err != nil {
-		t.Fatal("Error parsing JSON", err)
-	}
-
-	fparresu := [2]*swparadas.RecuperarParadasCompletoPorLineaResult{
-		&swparadas.RecuperarParadasCompletoPorLineaResult{
+	fParLinRes := map[string]*swparadas.RecuperarParadasCompletoPorLineaResult{
+		l1str: &swparadas.RecuperarParadasCompletoPorLineaResult{
 			CodigoEstado:  0,
 			MensajeEstado: "ok",
-			Paradas:       fixpSW[l1str],
+			Paradas:       fParLinSW[l1str],
 		},
-		&swparadas.RecuperarParadasCompletoPorLineaResult{
+		l2str: &swparadas.RecuperarParadasCompletoPorLineaResult{
 			CodigoEstado:  0,
 			MensajeEstado: "ok",
-			Paradas:       fixpSW[l2str],
+			Paradas:       fParLinSW[l2str],
+		},
+	}
+	fParLinResStr := make(map[string]string)
+	for lin, res := range fParLinRes {
+		by, _ := json.Marshal(res)
+		fParLinResStr[lin] = string(by)
+	}
+	fParLinResp = map[string]*swparadas.RecuperarParadasCompletoPorLineaResponse{
+		l1str: &swparadas.RecuperarParadasCompletoPorLineaResponse{
+			RecuperarParadasCompletoPorLineaResult: fParLinResStr[l1str],
+		},
+		l2str: &swparadas.RecuperarParadasCompletoPorLineaResponse{
+			RecuperarParadasCompletoPorLineaResult: fParLinResStr[l2str],
+		},
+	}
+	sParLin = &mock.Spy{
+		Ret: [][]interface{}{
+			[]interface{}{
+				fParLinResp[l1str],
+				nil,
+			},
+			[]interface{}{
+				fParLinResp[l2str],
+				nil,
+			},
 		},
 	}
 
-	var fparresuJSON [2][]byte
-	for idx, result := range fparresu {
-		resultJSON, err := json.Marshal(result)
-		if err != nil {
-			t.Fatal("Error parsing JSON", err)
-		}
-		fparresuJSON[idx] = resultJSON
-	}
-
-	// Fixture responses
-	flinresp = &swparadas.RecuperarLineasPorCodigoEmpresaResponse{
-		RecuperarLineasPorCodigoEmpresaResult: string(flinresuJSON),
-	}
-
-	fparresp = [2]*swparadas.RecuperarParadasCompletoPorLineaResponse{
-		&swparadas.RecuperarParadasCompletoPorLineaResponse{
-			RecuperarParadasCompletoPorLineaResult: string(fparresuJSON[0]),
-		},
-		&swparadas.RecuperarParadasCompletoPorLineaResponse{
-			RecuperarParadasCompletoPorLineaResult: string(fparresuJSON[1]),
-		},
-	}
-
-	// Fixture output
-	fOut = []*clcitybusapi.Parada{
+	// Parada
+	fPar = []*clcitybusapi.Parada{
 		&clcitybusapi.Parada{
 			Codigo: "RG001",
 			Punto: geo.Point{
-				Lat:  -53.803239,
-				Long: -67.661785,
+				Lat:  20.1,
+				Long: 20.1,
 			},
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG002",
 			Punto: geo.Point{
-				Lat:  -53.803239,
-				Long: -67.661785,
+				Lat:  21.1,
+				Long: 21.1,
 			},
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG003",
 			Punto: geo.Point{
-				Lat:  -53.803239,
-				Long: -67.661785,
+				Lat:  22.1,
+				Long: 22.1,
 			},
 		},
 	}
