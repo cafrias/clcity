@@ -3,12 +3,11 @@
         "Codigo": 1529,
         "Descripcion": "RAMAL A",
         "CodigoEntidad": 254,
-        "Empresa": {
-            "Codigo": 355,
-            "Nombre": "City Bus",
-            "URL": "https://riogrande.gob.ar/",
-            "Lang": "SPA",
-            "TZ": "America/Argentina/Ushuaia"
+        "Color": {
+            "R": 66,
+            "G": 134,
+            "B": 244,
+            "A": 1
         },
         "Recorrido": {
             "Puntos": [
@@ -1154,12 +1153,11 @@
         "Codigo": 1530,
         "Descripcion": "RAMAL B",
         "CodigoEntidad": 254,
-        "Empresa": {
-            "Codigo": 355,
-            "Nombre": "City Bus",
-            "URL": "https://riogrande.gob.ar/",
-            "Lang": "SPA",
-            "TZ": "America/Argentina/Ushuaia"
+        "Color": {
+            "R": 104,
+            "G": 244,
+            "B": 66,
+            "A": 1
         },
         "Recorrido": {
             "Puntos": [
@@ -1640,12 +1638,11 @@
         "Codigo": 1531,
         "Descripcion": "RAMAL C",
         "CodigoEntidad": 254,
-        "Empresa": {
-            "Codigo": 355,
-            "Nombre": "City Bus",
-            "URL": "https://riogrande.gob.ar/",
-            "Lang": "SPA",
-            "TZ": "America/Argentina/Ushuaia"
+        "Color": {
+            "R": 244,
+            "G": 66,
+            "B": 66,
+            "A": 1
         },
         "Recorrido": {
             "Puntos": [
@@ -2511,12 +2508,11 @@
         "Codigo": 1532,
         "Descripcion": "RAMAL D",
         "CodigoEntidad": 254,
-        "Empresa": {
-            "Codigo": 355,
-            "Nombre": "City Bus",
-            "URL": "https://riogrande.gob.ar/",
-            "Lang": "SPA",
-            "TZ": "America/Argentina/Ushuaia"
+        "Color": {
+            "R": 244,
+            "G": 244,
+            "B": 66,
+            "A": 1
         },
         "Recorrido": {
             "Puntos": [

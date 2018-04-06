@@ -1,6 +1,10 @@
 package clcitybusapi
 
-import "bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+import (
+	"image/color"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+)
 
 // Empresa represents a transport agency.
 type Empresa struct {
@@ -47,7 +51,8 @@ type Linea struct {
 	Codigo        int
 	Descripcion   string
 	CodigoEntidad int
-	Empresa       *Empresa
+	Color         color.RGBA
+	Empresa       *Empresa       `json:"-"`
 	Paradas       []*ParadaLinea `json:"-"`
 	Recorrido     *Recorrido
 }

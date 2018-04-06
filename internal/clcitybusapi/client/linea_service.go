@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"image/color"
+	"log"
 	"strconv"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
@@ -21,6 +23,13 @@ type LineaService struct {
 	Path string
 }
 
+var colorMap = map[int]color.RGBA{
+	1529: color.RGBA{R: 66, G: 134, B: 244, A: 1},
+	1530: color.RGBA{R: 104, G: 244, B: 66, A: 1},
+	1531: color.RGBA{R: 244, G: 66, B: 66, A: 1},
+	1532: color.RGBA{R: 244, G: 244, B: 66, A: 1},
+}
+
 func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea, error) {
 	codEnt, err := strconv.Atoi(swl.CodigoEntidad)
 	if err != nil {
@@ -35,6 +44,7 @@ func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea
 	return &clcitybusapi.Linea{
 		Codigo:        codPar,
 		CodigoEntidad: codEnt,
+		Color:         colorMap[codPar],
 		Descripcion:   swl.Descripcion,
 	}, nil
 }
@@ -45,6 +55,7 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 
 	var ret []*clcitybusapi.Linea
 	if ok := dump.Read(&ret, outFile); ok == true {
+		log.Printf("Reading lineas from dump file: `%s`\n", outFile)
 		return ret, nil
 	}
 
@@ -99,6 +110,8 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 	if err != nil {
 		return nil, err
 	}
+
+	log.Printf("Wrote lineas to dump file: `%s`\n", outFile)
 
 	return ret, nil
 }

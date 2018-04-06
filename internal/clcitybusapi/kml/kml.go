@@ -31,6 +31,12 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 			kml.Name(lin.Descripcion),
 			kml.Placemark(
 				kml.Name(lin.Descripcion),
+				kml.Style(
+					kml.LineStyle(
+						kml.Color(lin.Color),
+						kml.Width(2.5),
+					),
+				),
 				kml.LineString(
 					kml.Tessellate(true),
 					kml.Coordinates(coord...),
