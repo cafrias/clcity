@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"time"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml"
@@ -9,7 +11,20 @@ import (
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
 )
 
+func elapsed(what string) func() {
+	start := time.Now()
+	return func() {
+		fmt.Printf("%s in %v\n", what, time.Since(start))
+	}
+}
+
 func main() {
+	defer elapsed("Finished")()
+	dumpPath := "testdata"
+
+	if _, err := os.Stat(dumpPath); os.IsNotExist(err) {
+		panic("testdata/ folder doesn't exist")
+	}
 	cli := client.NewClient(nil, "testdata")
 
 	// Create empresa
