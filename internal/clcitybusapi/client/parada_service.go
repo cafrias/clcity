@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -173,6 +174,9 @@ func (s *ParadaService) ParadasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clc
 		}
 		ret = append(ret, retLin)
 	}
+
+	// Sort
+	sort.Slice(ret, func(i, j int) bool { return ret[i].Codigo < ret[j].Codigo })
 
 	// Write dump file
 	err = dump.Write(ret, outFile)
