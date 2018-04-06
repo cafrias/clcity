@@ -18,6 +18,7 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 	fixOut []*clcitybusapi.ParadaLinea,
 	fixRes *swparadas.RecuperarParadasCompletoPorLineaResponse,
 	spy *mock.Spy,
+	fixDump []*clcitybusapi.ParadaLinea,
 ) {
 	linea = &clcitybusapi.Linea{
 		Codigo:        1529,
@@ -107,6 +108,33 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 				fixRes,
 				nil,
 			},
+		},
+	}
+
+	fixDump = []*clcitybusapi.ParadaLinea{
+		&clcitybusapi.ParadaLinea{
+			Codigo:                     57720,
+			Identificador:              "RG001",
+			Descripcion:                "HACIA CHACRA 11",
+			AbreviaturaBandera:         "RAMAL A",
+			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+			Punto: geo.Point{
+				Lat:  -53.803239,
+				Long: -67.661785,
+			},
+			AbreviaturaBanderaGIT: "IDA A",
+		},
+		&clcitybusapi.ParadaLinea{
+			Codigo:                     57721,
+			Identificador:              "RG002",
+			Descripcion:                "HACIA CHACRA 11",
+			AbreviaturaBandera:         "RAMAL A",
+			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+			Punto: geo.Point{
+				Lat:  -53.803109,
+				Long: -67.662526,
+			},
+			AbreviaturaBanderaGIT: "IDA A",
 		},
 	}
 

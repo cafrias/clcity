@@ -58,15 +58,7 @@ func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcit
 	}, nil
 }
 
-// ParadasPorLinea fetches all 'ParadaLinea' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
-func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybusapi.ParadaLinea, error) {
-	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, linea.Codigo)
-
-	var ret []*clcitybusapi.ParadaLinea
-	if ok := dump.Read(&ret, outFile); ok == true {
-		return ret, nil
-	}
-
+func (s *ParadaService) fetchParadasPorLinea(linea *clcitybusapi.Linea, ret *[]*clcitybusapi.ParadaLinea) error {
 	in := &swparadas.RecuperarParadasCompletoPorLinea{
 		Usuario:           Usuario,
 		Clave:             Clave,
@@ -76,39 +68,60 @@ func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybus
 	}
 	res, err := s.scli.RecuperarParadasCompletoPorLinea(in)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
 	err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	if result.CodigoEstado != 0 {
-		return nil, errors.New(result.MensajeEstado)
+		return errors.New(result.MensajeEstado)
 	}
 
-	// Map to local struct
-	var r []*clcitybusapi.ParadaLinea
 	for _, paradas := range result.Paradas {
 		for _, parada := range paradas {
 			p, err := s.mapParadaLineaFromSW(parada)
 			if err != nil {
-				return nil, err
+				return err
 			}
 			p.Linea = linea
-			r = append(r, p)
+			*ret = append(*ret, p)
 		}
 	}
 
-	// Write dump file
-	err = dump.Write(r, outFile)
-	if err != nil {
-		return nil, err
+	return nil
+}
+
+// ParadasPorLinea fetches all 'ParadaLinea' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
+func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybusapi.ParadaLinea, error) {
+	outFile := fmt.Sprintf("%s/paradas_linea_%v.json", s.Path, linea.Codigo)
+
+	var ret []*clcitybusapi.ParadaLinea
+
+	// If dump
+	if ok := dump.Read(&ret, outFile); ok == true {
+		// Map linea
+		for _, lp := range ret {
+			lp.Linea = linea
+		}
+	} else {
+		// If no dump
+		err := s.fetchParadasPorLinea(linea, &ret)
+		if err != nil {
+			return nil, err
+		}
+
+		// Write dump file
+		err = dump.Write(ret, outFile)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return r, nil
+	return ret, nil
 }
 
 // ParadasPorEmpresa fetches all 'ParadaLinea' entities associated with given 'Empresa' identified by `CodigoEmpresa`.

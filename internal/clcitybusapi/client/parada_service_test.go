@@ -21,7 +21,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	linea, fixReq, fixOut, _, spy := fixtures.TestParadaServiceParadasPorLinea(t)
+	linea, fixReq, fixOut, _, spy, fixDump := fixtures.TestParadaServiceParadasPorLinea(t)
 
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarParadasCompletoPorLineaSpy = spy
@@ -67,8 +67,8 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 		t.Fatalf("Unexpected error, %v", err)
 	}
 
-	if ok := reflect.DeepEqual(out, fout); ok == false {
-		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+	if ok := reflect.DeepEqual(fixDump, fout); ok == false {
+		t.Fatalf("Outputs are different. EXPECTED '%s' RECEIVED '%s'", spew.Sdump(fout), spew.Sdump(fixDump))
 	}
 }
 
@@ -76,7 +76,7 @@ func TestParadaService_ParadasPorLinea_ReadsFromDump(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	linea, _, fixOut, _, spy := fixtures.TestParadaServiceParadasPorLinea(t)
+	linea, _, fixOut, _, spy, _ := fixtures.TestParadaServiceParadasPorLinea(t)
 
 	// Write dump file
 	err := dump.Write(fixOut, fmt.Sprintf("%s/paradas_linea_%v.json", DumpPath, linea.Codigo))
@@ -102,7 +102,7 @@ func TestParadaService_ParadasPorLinea_ReadsFromDump(t *testing.T) {
 
 	// out valid
 	if ok := reflect.DeepEqual(fixOut, out); ok == false {
-		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+		t.Fatalf("Outputs are different. EXPECTED '%s' RECEIVED '%s'", spew.Sdump(fixOut), spew.Sdump(out))
 	}
 }
 

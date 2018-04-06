@@ -51,7 +51,7 @@ type Linea struct {
 	Codigo        int
 	Descripcion   string
 	CodigoEntidad int
-	Color         color.RGBA
+	Color         color.RGBA     `json:",omitempty"`
 	Empresa       *Empresa       `json:"-"`
 	Paradas       []*ParadaLinea `json:"-"`
 	Recorrido     *Recorrido
