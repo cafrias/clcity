@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>CityBus</name>
+    <description></description>
+    <Folder>
+      <name>Linea A</name>
+      <Placemark>
+        <name>Linea A</name>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>-67.6978612,-53.7828671 -67.7069592,-53.7891804 -67.7098131,-53.7877859 -67.6999211,-53.7809526 -67.6971745,-53.7823473 -67.6976037,-53.7827149</coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Linea B</name>
+      <Placemark>
+        <name>Linea B</name>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>-67.6980329,-53.7829812 -67.7018738,-53.7856435 -67.6988697,-53.7871901 -67.6974535,-53.7879 -67.6950932,-53.7862647 -67.6978183,-53.7849463 -67.6966166,-53.7840588 -67.697947,-53.7832855 -67.6970243,-53.7827783 -67.6975393,-53.7826135 -67.6978612,-53.7828671</coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Paradas</name>
+      <Placemark>
+        <name>RG001</name>
+        <Point>
+          <coordinates>-67.6980329,-53.7829812</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>RG002</name>
+        <Point>
+          <coordinates>-67.7068949,-53.7857196</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>RG003</name>
+        <Point>
+          <coordinates>-67.6970243,-53.7853012</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

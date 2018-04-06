@@ -1,12 +1,56 @@
 package kml_test
 
 import (
+	"bytes"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"testing"
+
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml/fixtures"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
 )
+
+const dumpPath = "testdata/kml"
+
+func setUp() {
+	_ = os.MkdirAll(dumpPath, os.ModePerm)
+}
+
+func tearDown() {
+	os.RemoveAll(dumpPath)
+}
+
+func TestKML_Generate(t *testing.T) {
+	tearDown()
+	setUp()
+
+	kmlPath := filepath.Join(dumpPath, "test.kml")
+
+	fEmp := fixtures.TestKMLGenerate(t)
+
+	err := kml.Generate(fEmp, kmlPath)
+	if err != nil {
+		t.Fatalf("Unexpected error: '%v'\n", err)
+	}
+
+	// Compare output files
+	fixFile, err := ioutil.ReadFile("testdata/fixture.kml")
+	if err != nil {
+		t.Fatalf("Error while reading fixture file: %v\n", err)
+	}
+	outFile, err := ioutil.ReadFile(kmlPath)
+	if err != nil {
+		t.Fatalf("Error while reading output file: %v\n", err)
+	}
+
+	if bytes.Equal(fixFile, outFile) == false {
+		t.Fatal("Files are different!")
+	}
+}
 
 func TestKML_Generate_ErrNoLineas(t *testing.T) {
 	emp := &clcitybusapi.Empresa{

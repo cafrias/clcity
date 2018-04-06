@@ -7,9 +7,15 @@
   revision = "346938d642f2ec3594ed81d874461961cd0faa76"
   version = "v1.1.0"
 
+[[projects]]
+  branch = "master"
+  name = "github.com/twpayne/go-kml"
+  packages = ["."]
+  revision = "a5dbcab47e546e8c4faea2f27f6734719624a933"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c88912ece2329baf1fce83bd71e32fecdd50709b4019da9d9a9a48550ba05306"
+  inputs-digest = "316c7c3650d1034c6f6e781428200b8f8651e8a0cd38c56fd5ee91d1f7220e3a"
   solver-name = "gps-cdcl"
   solver-version = 1

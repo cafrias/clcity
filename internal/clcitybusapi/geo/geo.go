@@ -4,4 +4,5 @@ package geo
 type Point struct {
 	Lat  float64
 	Long float64
+	Alt  int
 }
