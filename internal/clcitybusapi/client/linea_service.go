@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"image/color"
-	"log"
 	"strconv"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
@@ -23,7 +22,7 @@ type LineaService struct {
 	Path string
 }
 
-var colorMap = map[int]color.RGBA{
+var ColorMap = map[int]color.RGBA{
 	1529: color.RGBA{R: 66, G: 134, B: 244, A: 1},
 	1530: color.RGBA{R: 104, G: 244, B: 66, A: 1},
 	1531: color.RGBA{R: 244, G: 66, B: 66, A: 1},
@@ -44,9 +43,48 @@ func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea
 	return &clcitybusapi.Linea{
 		Codigo:        codPar,
 		CodigoEntidad: codEnt,
-		Color:         colorMap[codPar],
+		Color:         ColorMap[codPar],
 		Descripcion:   swl.Descripcion,
 	}, nil
+}
+
+func (s *LineaService) fetchLineasPorEmpresa(CodigoEmpresa int32, ret *[]*clcitybusapi.Linea) error {
+	in := &swparadas.RecuperarLineasPorCodigoEmpresa{
+		Usuario:       Usuario,
+		Clave:         Clave,
+		CodigoEmpresa: CodigoEmpresa,
+		IsSublinea:    false,
+	}
+	res, err := s.scli.RecuperarLineasPorCodigoEmpresa(in)
+	if err != nil {
+		return err
+	}
+
+	result := new(swparadas.RecuperarLineasPorCodigoEmpresaResult)
+	err = json.Unmarshal([]byte(res.RecuperarLineasPorCodigoEmpresaResult), result)
+	if err != nil {
+		return err
+	}
+
+	if result.CodigoEstado != 0 {
+		return errors.New(result.MensajeEstado)
+	}
+
+	// Map result to local struct
+	for _, linea := range result.Lineas {
+		l, err := s.mapLineaFromSW(linea)
+
+		// Fetch Recorrido
+		rec, err := s.cli.RecorridoService().RecorridoDeLinea(l)
+		if err != nil {
+			return err
+		}
+		l.Recorrido = rec
+
+		*ret = append(*ret, l)
+	}
+
+	return nil
 }
 
 // LineasPorEmpresa fetches all 'ParadaLinea' entities associated with a given 'Linea' identified by the code passed as `CodigoLineaParada`.
@@ -54,44 +92,23 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 	outFile := fmt.Sprintf("%s/%s", s.Path, "lineas.json")
 
 	var ret []*clcitybusapi.Linea
-	if ok := dump.Read(&ret, outFile); ok == true {
-		log.Printf("Reading lineas from dump file: `%s`\n", outFile)
-		return ret, nil
-	}
 
-	in := &swparadas.RecuperarLineasPorCodigoEmpresa{
-		Usuario:       Usuario,
-		Clave:         Clave,
-		CodigoEmpresa: int32(empresa.Codigo),
-		IsSublinea:    false,
-	}
-	res, err := s.scli.RecuperarLineasPorCodigoEmpresa(in)
-	if err != nil {
-		return nil, err
-	}
-
-	result := new(swparadas.RecuperarLineasPorCodigoEmpresaResult)
-	err = json.Unmarshal([]byte(res.RecuperarLineasPorCodigoEmpresaResult), result)
-	if err != nil {
-		return nil, err
-	}
-
-	if result.CodigoEstado != 0 {
-		return nil, errors.New(result.MensajeEstado)
-	}
-
-	// Map result to local struct
-	for _, linea := range result.Lineas {
-		l, err := s.mapLineaFromSW(linea)
-		l.Empresa = empresa
-
-		// Fetch Recorrido
-		rec, err := s.cli.RecorridoService().RecorridoDeLinea(l)
+	// If dump not found
+	if ok := dump.Read(&ret, outFile); ok == false {
+		err := s.fetchLineasPorEmpresa(int32(empresa.Codigo), &ret)
 		if err != nil {
 			return nil, err
 		}
-		l.Recorrido = rec
 
+		// Write JSON file
+		err = dump.Write(ret, outFile)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// Map 'Empresa' and 'Paradas'
+	for _, l := range ret {
 		// Fetch Paradas
 		par, err := s.cli.ParadaService().ParadasPorLinea(l)
 		if err != nil {
@@ -99,19 +116,8 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 		}
 		l.Paradas = par
 
-		if err != nil {
-			return nil, err
-		}
-		ret = append(ret, l)
+		l.Empresa = empresa
 	}
-
-	// Write JSON file
-	err = dump.Write(ret, outFile)
-	if err != nil {
-		return nil, err
-	}
-
-	log.Printf("Wrote lineas to dump file: `%s`\n", outFile)
 
 	return ret, nil
 }

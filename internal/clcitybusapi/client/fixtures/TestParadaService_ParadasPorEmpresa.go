@@ -22,7 +22,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	sLin *mock.Spy,
 	// ParadaLineas
 	// fParLin map[string][]*clcitybusapi.ParadaLinea,
-	fParLinSW map[string][]*swparadas.ParadaLinea,
+	fParLinSW map[string]map[string][]*swparadas.ParadaLinea,
 	fParLinReq map[string]*swparadas.RecuperarParadasCompletoPorLinea,
 	fParLinResp map[string]*swparadas.RecuperarParadasCompletoPorLineaResponse,
 	sParLin *mock.Spy,
@@ -64,33 +64,41 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	}
 
 	// ParadaLineas
-	fParLinSW = map[string][]*swparadas.ParadaLinea{
-		l1str: []*swparadas.ParadaLinea{
-			&swparadas.ParadaLinea{
-				Codigo:         "123456",
-				Identificador:  "RG001",
-				LatitudParada:  "20,1",
-				LongitudParada: "20,1",
+	fParLinSW = map[string]map[string][]*swparadas.ParadaLinea{
+		l1str: map[string][]*swparadas.ParadaLinea{
+			"IDA": []*swparadas.ParadaLinea{
+				&swparadas.ParadaLinea{
+					Codigo:         "123456",
+					Identificador:  "RG001",
+					LatitudParada:  "20,1",
+					LongitudParada: "20,1",
+				},
 			},
-			&swparadas.ParadaLinea{
-				Codigo:         "123457",
-				Identificador:  "RG002",
-				LatitudParada:  "21,1",
-				LongitudParada: "21,1",
+			"VTA": []*swparadas.ParadaLinea{
+				&swparadas.ParadaLinea{
+					Codigo:         "123457",
+					Identificador:  "RG002",
+					LatitudParada:  "21,1",
+					LongitudParada: "21,1",
+				},
 			},
 		},
-		l2str: []*swparadas.ParadaLinea{
-			&swparadas.ParadaLinea{
-				Codigo:         "123458",
-				Identificador:  "RG001",
-				LatitudParada:  "20,1",
-				LongitudParada: "20,1",
+		l2str: map[string][]*swparadas.ParadaLinea{
+			"IDA": {
+				&swparadas.ParadaLinea{
+					Codigo:         "123458",
+					Identificador:  "RG001",
+					LatitudParada:  "20,1",
+					LongitudParada: "20,1",
+				},
 			},
-			&swparadas.ParadaLinea{
-				Codigo:         "123412",
-				Identificador:  "RG003",
-				LatitudParada:  "22,1",
-				LongitudParada: "22,1",
+			"VTA": {
+				&swparadas.ParadaLinea{
+					Codigo:         "123412",
+					Identificador:  "RG003",
+					LatitudParada:  "22,1",
+					LongitudParada: "22,1",
+				},
 			},
 		},
 	}

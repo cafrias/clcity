@@ -23,7 +23,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	fEmp, _, sRec, _, sPar, fLin, _, _, _, sLin := fixtures.TestLineaServiceLineasPorEmpresa(t)
+	fEmp, _, sRec, _, sPar, fLin, _, _, _, sLin, fLinDump := fixtures.TestLineaServiceLineasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
 	scli.RecuperarLineasPorCodigoEmpresaSpy = sLin
@@ -84,7 +84,7 @@ func TestLineaService_LineasPorEmpresa(t *testing.T) {
 		t.Fatalf("Unexpected error, %v", err)
 	}
 
-	if ok := reflect.DeepEqual(fLin, fout); ok == false {
+	if ok := reflect.DeepEqual(fLinDump, fout); ok == false {
 		t.Fatalf("Outputs are different. EXPECTED '%s'\nRECEIVED '%s'", spew.Sdump(fLin), spew.Sdump(fout))
 	}
 }
@@ -93,7 +93,7 @@ func TestLineaService_LineasPorEmpresa_ReadsFromDump(t *testing.T) {
 	CreateDump()
 	defer ClearDump()
 
-	fEmp, _, _, _, _, fLin, _, _, _, sLin := fixtures.TestLineaServiceLineasPorEmpresa(t)
+	fEmp, _, _, _, sPar, fLin, _, _, _, sLin, _ := fixtures.TestLineaServiceLineasPorEmpresa(t)
 
 	err := dump.Write(fLin, fmt.Sprintf("%s/lineas.json", DumpPath))
 	if err != nil {
@@ -104,6 +104,11 @@ func TestLineaService_LineasPorEmpresa_ReadsFromDump(t *testing.T) {
 	scli.RecuperarLineasPorCodigoEmpresaSpy = sLin
 
 	cli := client.NewClient(scli, DumpPath)
+
+	// Mock parada service.
+	cli.SetParadaService(&mock.ParadaService{
+		ParadasPorLineaSpy: sPar,
+	})
 
 	out, err := cli.LineaService().LineasPorEmpresa(fEmp)
 	if err != nil {

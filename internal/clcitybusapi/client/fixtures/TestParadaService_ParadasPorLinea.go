@@ -64,26 +64,30 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 	fixResult := swparadas.RecuperarParadasCompletoPorLineaResult{
 		CodigoEstado:  0,
 		MensajeEstado: "ok",
-		Paradas: []*swparadas.ParadaLinea{
-			&swparadas.ParadaLinea{
-				Codigo:                     "57720",
-				Identificador:              "RG001",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803239",
-				LongitudParada:             "-67,661785",
-				AbreviaturaBanderaGIT:      "IDA A",
+		Paradas: map[string][]*swparadas.ParadaLinea{
+			"IDA": {
+				&swparadas.ParadaLinea{
+					Codigo:                     "57720",
+					Identificador:              "RG001",
+					Descripcion:                "HACIA CHACRA 11",
+					AbreviaturaBandera:         "RAMAL A",
+					AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+					LatitudParada:              "-53,803239",
+					LongitudParada:             "-67,661785",
+					AbreviaturaBanderaGIT:      "IDA A",
+				},
 			},
-			&swparadas.ParadaLinea{
-				Codigo:                     "57721",
-				Identificador:              "RG002",
-				Descripcion:                "HACIA CHACRA 11",
-				AbreviaturaBandera:         "RAMAL A",
-				AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-				LatitudParada:              "-53,803109",
-				LongitudParada:             "-67,662526",
-				AbreviaturaBanderaGIT:      "IDA A",
+			"VTA": {
+				&swparadas.ParadaLinea{
+					Codigo:                     "57721",
+					Identificador:              "RG002",
+					Descripcion:                "HACIA CHACRA 11",
+					AbreviaturaBandera:         "RAMAL A",
+					AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+					LatitudParada:              "-53,803109",
+					LongitudParada:             "-67,662526",
+					AbreviaturaBanderaGIT:      "IDA A",
+				},
 			},
 		},
 	}

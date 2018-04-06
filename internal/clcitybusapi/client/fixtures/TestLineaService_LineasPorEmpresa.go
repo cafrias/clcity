@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
@@ -26,6 +27,7 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 	fLinReq *swparadas.RecuperarLineasPorCodigoEmpresa,
 	fLinResp *swparadas.RecuperarLineasPorCodigoEmpresaResponse,
 	sLin *mock.Spy,
+	fLinDump []*clcitybusapi.Linea,
 ) {
 	fEmp = &clcitybusapi.Empresa{
 		Codigo: 355,
@@ -92,6 +94,7 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 			Codigo:        1529,
 			Descripcion:   "RAMAL A",
 			CodigoEntidad: 254,
+			Color:         client.ColorMap[1529],
 			Empresa:       fEmp,
 			Paradas:       fPar,
 			Recorrido:     fRec,
@@ -129,6 +132,16 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 				fLinResp,
 				nil,
 			},
+		},
+	}
+
+	fLinDump = []*clcitybusapi.Linea{
+		&clcitybusapi.Linea{
+			Codigo:        1529,
+			Descripcion:   "RAMAL A",
+			CodigoEntidad: 254,
+			Color:         client.ColorMap[1529],
+			Recorrido:     fRec,
 		},
 	}
 
