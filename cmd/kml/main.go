@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path"
 	"time"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
@@ -51,7 +52,7 @@ func main() {
 	fmt.Println("Fetching paradas ... DONE!")
 
 	fmt.Println("Generating KML file ...")
-	kml.Generate(emp, "city_bus.kml")
+	kml.Generate(emp, path.Join(dumpPath, "city_bus.kml"))
 	if err != nil {
 		panic(err)
 	}
