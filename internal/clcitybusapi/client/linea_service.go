@@ -48,11 +48,11 @@ func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea
 	}, nil
 }
 
-func (s *LineaService) fetchLineasPorEmpresa(CodigoEmpresa int32, ret *[]*clcitybusapi.Linea) error {
+func (s *LineaService) fetchLineasPorEmpresa(empresa *clcitybusapi.Empresa, ret *[]*clcitybusapi.Linea) error {
 	in := &swparadas.RecuperarLineasPorCodigoEmpresa{
 		Usuario:       Usuario,
 		Clave:         Clave,
-		CodigoEmpresa: CodigoEmpresa,
+		CodigoEmpresa: int32(empresa.Codigo),
 		IsSublinea:    false,
 	}
 	res, err := s.scli.RecuperarLineasPorCodigoEmpresa(in)
@@ -81,6 +81,15 @@ func (s *LineaService) fetchLineasPorEmpresa(CodigoEmpresa int32, ret *[]*clcity
 		}
 		l.Recorrido = rec
 
+		// Fetch Paradas
+		par, err := s.cli.ParadaService().ParadasPorLinea(l)
+		if err != nil {
+			return err
+		}
+		l.Paradas = par
+
+		l.Empresa = empresa
+
 		*ret = append(*ret, l)
 	}
 
@@ -93,9 +102,22 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 
 	var ret []*clcitybusapi.Linea
 
-	// If dump not found
-	if ok := dump.Read(&ret, outFile); ok == false {
-		err := s.fetchLineasPorEmpresa(int32(empresa.Codigo), &ret)
+	// If dump found
+	if ok := dump.Read(&ret, outFile); ok == true {
+		// Map 'Empresa' and 'Paradas'
+		for _, l := range ret {
+			// Fetch Paradas
+			par, err := s.cli.ParadaService().ParadasPorLinea(l)
+			if err != nil {
+				return nil, err
+			}
+			l.Paradas = par
+
+			l.Empresa = empresa
+		}
+	} else {
+		// If dump not found
+		err := s.fetchLineasPorEmpresa(empresa, &ret)
 		if err != nil {
 			return nil, err
 		}
@@ -105,18 +127,6 @@ func (s *LineaService) LineasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clcit
 		if err != nil {
 			return nil, err
 		}
-	}
-
-	// Map 'Empresa' and 'Paradas'
-	for _, l := range ret {
-		// Fetch Paradas
-		par, err := s.cli.ParadaService().ParadasPorLinea(l)
-		if err != nil {
-			return nil, err
-		}
-		l.Paradas = par
-
-		l.Empresa = empresa
 	}
 
 	return ret, nil

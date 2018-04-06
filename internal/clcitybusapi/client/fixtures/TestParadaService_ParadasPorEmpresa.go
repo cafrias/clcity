@@ -86,18 +86,18 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		l2str: map[string][]*swparadas.ParadaLinea{
 			"IDA": {
 				&swparadas.ParadaLinea{
-					Codigo:         "123458",
-					Identificador:  "RG001",
-					LatitudParada:  "20,1",
-					LongitudParada: "20,1",
-				},
-			},
-			"VTA": {
-				&swparadas.ParadaLinea{
 					Codigo:         "123412",
 					Identificador:  "RG003",
 					LatitudParada:  "22,1",
 					LongitudParada: "22,1",
+				},
+			},
+			"VTA": {
+				&swparadas.ParadaLinea{
+					Codigo:         "123458",
+					Identificador:  "RG001",
+					LatitudParada:  "20,1",
+					LongitudParada: "20,1",
 				},
 			},
 		},
