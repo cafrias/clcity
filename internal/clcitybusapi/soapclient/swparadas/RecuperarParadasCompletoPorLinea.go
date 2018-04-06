@@ -23,7 +23,7 @@ type RecuperarParadasCompletoPorLineaResponse struct {
 type RecuperarParadasCompletoPorLineaResult struct {
 	CodigoEstado  int
 	MensajeEstado string
-	Paradas       []*ParadaLinea `json:"paradas"`
+	Paradas       map[string][]*ParadaLinea `json:"paradas"`
 }
 
 func (service *SWParadasSoap) RecuperarParadasCompletoPorLinea(request *RecuperarParadasCompletoPorLinea) (*RecuperarParadasCompletoPorLineaResponse, error) {

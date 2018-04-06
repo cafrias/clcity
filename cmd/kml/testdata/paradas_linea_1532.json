@@ -1,0 +1,197 @@
+[
+    {
+        "Codigo": 57996,
+        "Identificador": "RG374",
+        "Descripcion": "RG374",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.767257,
+            "Long": -67.723804,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58007,
+        "Identificador": "RG400",
+        "Descripcion": "HACIA LA MISION",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.765203,
+            "Long": -67.723138,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58008,
+        "Identificador": "RG401",
+        "Descripcion": "HACIA LA MISION",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.762273,
+            "Long": -67.722226,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58009,
+        "Identificador": "RG403",
+        "Descripcion": "HACIA LA MISION",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.760649,
+            "Long": -67.721647,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58010,
+        "Identificador": "RG404",
+        "Descripcion": "HACIA LA MISION",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.750519,
+            "Long": -67.734082,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58011,
+        "Identificador": "RG405",
+        "Descripcion": "HACIA LA MISION",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.747106,
+            "Long": -67.7451,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58012,
+        "Identificador": "RG406",
+        "Descripcion": "HACIA LA MISION",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA MISION SALESIANA",
+        "AbreviaturaBanderaGIT": "IDA D",
+        "Punto": {
+            "Lat": -53.742036,
+            "Long": -67.761548,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58013,
+        "Identificador": "RG408",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.724932,
+            "Long": -67.799195,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58014,
+        "Identificador": "RG409",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.742315,
+            "Long": -67.76092,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58015,
+        "Identificador": "RG410",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.74716,
+            "Long": -67.745202,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58016,
+        "Identificador": "RG411",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.75057,
+            "Long": -67.734237,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58017,
+        "Identificador": "RG412",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.760608,
+            "Long": -67.721905,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58018,
+        "Identificador": "RG413",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.762323,
+            "Long": -67.722446,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57913,
+        "Identificador": "RG242",
+        "Descripcion": "RG242",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.765079,
+            "Long": -67.723514,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 58019,
+        "Identificador": "RG415",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL D",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "VTA D",
+        "Punto": {
+            "Lat": -53.766696,
+            "Long": -67.726384,
+            "Alt": 0
+        }
+    }
+]

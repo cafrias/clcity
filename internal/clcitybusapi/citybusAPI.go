@@ -9,8 +9,8 @@ type Empresa struct {
 	URL     string
 	Lang    string
 	TZ      string
-	Lineas  []*Linea
-	Paradas []*Parada
+	Lineas  []*Linea  `json:"-"`
+	Paradas []*Parada `json:"-"`
 }
 
 // NewEmpresa creates a new 'Empresa' with defaults.
@@ -39,7 +39,7 @@ type ParadaLinea struct {
 	AbreviaturaAmpliadaBandera string
 	AbreviaturaBanderaGIT      string
 	Punto                      geo.Point
-	Linea                      *Linea
+	Linea                      *Linea `json:"-"`
 }
 
 // Linea represents a route for a given 'Empresa'.
@@ -48,7 +48,7 @@ type Linea struct {
 	Descripcion   string
 	CodigoEntidad int
 	Empresa       *Empresa
-	Paradas       []*ParadaLinea
+	Paradas       []*ParadaLinea `json:"-"`
 	Recorrido     *Recorrido
 }
 

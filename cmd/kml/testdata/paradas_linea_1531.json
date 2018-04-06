@@ -1,0 +1,1107 @@
+[
+    {
+        "Codigo": 57882,
+        "Identificador": "RG200",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.804389,
+            "Long": -67.662435,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57883,
+        "Identificador": "RG201",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.804997,
+            "Long": -67.660423,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57884,
+        "Identificador": "RG202",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.805301,
+            "Long": -67.658899,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57885,
+        "Identificador": "RG204",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.803065,
+            "Long": -67.657301,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57886,
+        "Identificador": "RG205",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.801826,
+            "Long": -67.657397,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57887,
+        "Identificador": "RG206",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.801452,
+            "Long": -67.659441,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57888,
+        "Identificador": "RG207",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.801113,
+            "Long": -67.661431,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57889,
+        "Identificador": "RG208",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.800755,
+            "Long": -67.66355,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57890,
+        "Identificador": "RG209",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.802625,
+            "Long": -67.66472,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57891,
+        "Identificador": "RG210",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.803756,
+            "Long": -67.665347,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57892,
+        "Identificador": "RG211",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.804772,
+            "Long": -67.665927,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57893,
+        "Identificador": "RG212",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.804513,
+            "Long": -67.667504,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57894,
+        "Identificador": "RG213",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.805276,
+            "Long": -67.670873,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57895,
+        "Identificador": "RG215",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.80603,
+            "Long": -67.673834,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57896,
+        "Identificador": "RG216",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.805964,
+            "Long": -67.679772,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57897,
+        "Identificador": "RG217",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.808206,
+            "Long": -67.684665,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57898,
+        "Identificador": "RG218",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.798946,
+            "Long": -67.688152,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57899,
+        "Identificador": "RG219",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.797888,
+            "Long": -67.68622,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57900,
+        "Identificador": "RG220",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.796836,
+            "Long": -67.684761,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57901,
+        "Identificador": "RG221",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.795068,
+            "Long": -67.68769,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57902,
+        "Identificador": "RG222",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.794637,
+            "Long": -67.688591,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57903,
+        "Identificador": "RG223",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.791551,
+            "Long": -67.690877,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57747,
+        "Identificador": "RG031",
+        "Descripcion": "RG031",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.791535,
+            "Long": -67.690957,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57748,
+        "Identificador": "RG032",
+        "Descripcion": "RG032",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.789542,
+            "Long": -67.694133,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57749,
+        "Identificador": "RG033",
+        "Descripcion": "RG033",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.787837,
+            "Long": -67.69755,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57750,
+        "Identificador": "RG034",
+        "Descripcion": "RG034",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.786575,
+            "Long": -67.699921,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57751,
+        "Identificador": "RG035",
+        "Descripcion": "RG035",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.785079,
+            "Long": -67.700415,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57752,
+        "Identificador": "RG036",
+        "Descripcion": "RG036",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.782867,
+            "Long": -67.697818,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57753,
+        "Identificador": "RG037",
+        "Descripcion": "RG037",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.785035,
+            "Long": -67.700897,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57754,
+        "Identificador": "RG038",
+        "Descripcion": "RG038",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.784699,
+            "Long": -67.703687,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57755,
+        "Identificador": "RG039",
+        "Descripcion": "RG039",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.782835,
+            "Long": -67.707431,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57904,
+        "Identificador": "RG231",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.781704,
+            "Long": -67.709727,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57905,
+        "Identificador": "RG232",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.780991,
+            "Long": -67.71116,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57906,
+        "Identificador": "RG234",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.774112,
+            "Long": -67.707753,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57907,
+        "Identificador": "RG235",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.772707,
+            "Long": -67.710537,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57908,
+        "Identificador": "RG236",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.770824,
+            "Long": -67.714158,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57909,
+        "Identificador": "RG237",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.76947,
+            "Long": -67.716814,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57910,
+        "Identificador": "RG239",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.769686,
+            "Long": -67.71933,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57911,
+        "Identificador": "RG240",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.768503,
+            "Long": -67.721679,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57912,
+        "Identificador": "RG233",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.766506,
+            "Long": -67.721084,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57913,
+        "Identificador": "RG242",
+        "Descripcion": "RG242",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.765079,
+            "Long": -67.723514,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57914,
+        "Identificador": "RG243",
+        "Descripcion": "RG243",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.764565,
+            "Long": -67.728041,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57915,
+        "Identificador": "RG244",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.763947,
+            "Long": -67.730155,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57916,
+        "Identificador": "RG245",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA CHACRA 2",
+        "AbreviaturaBanderaGIT": "IDA C",
+        "Punto": {
+            "Lat": -53.762279,
+            "Long": -67.727993,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57917,
+        "Identificador": "RG246",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.76115,
+            "Long": -67.726287,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57918,
+        "Identificador": "RG247",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.761968,
+            "Long": -67.72279,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57919,
+        "Identificador": "RG248",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.763116,
+            "Long": -67.720118,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57920,
+        "Identificador": "RG249",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.765361,
+            "Long": -67.7158,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57921,
+        "Identificador": "RG250",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.766737,
+            "Long": -67.716004,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57922,
+        "Identificador": "RG251",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.768424,
+            "Long": -67.716181,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57923,
+        "Identificador": "RG252",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.769867,
+            "Long": -67.713252,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57924,
+        "Identificador": "RG253",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.771097,
+            "Long": -67.710795,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57925,
+        "Identificador": "RG254",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.771734,
+            "Long": -67.70955,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57926,
+        "Identificador": "RG255",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.773246,
+            "Long": -67.709169,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57927,
+        "Identificador": "RG256",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.774083,
+            "Long": -67.710387,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57928,
+        "Identificador": "RG257",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.775557,
+            "Long": -67.710387,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57929,
+        "Identificador": "RG258",
+        "Descripcion": "RG258",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.780766,
+            "Long": -67.71183,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57930,
+        "Identificador": "RG259",
+        "Descripcion": "RG259",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.781672,
+            "Long": -67.710119,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57931,
+        "Identificador": "RG260",
+        "Descripcion": "RG260",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.782867,
+            "Long": -67.707753,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57794,
+        "Identificador": "RG115",
+        "Descripcion": "RG115",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.783495,
+            "Long": -67.70358,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57795,
+        "Identificador": "RG116",
+        "Descripcion": "RG116",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.782189,
+            "Long": -67.700286,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57796,
+        "Identificador": "RG117",
+        "Descripcion": "RG117",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.784255,
+            "Long": -67.702325,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57797,
+        "Identificador": "RG118",
+        "Descripcion": "RG118",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.786829,
+            "Long": -67.700093,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57798,
+        "Identificador": "RG119",
+        "Descripcion": "RG119",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.787992,
+            "Long": -67.697791,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57799,
+        "Identificador": "RG120",
+        "Descripcion": "RG120",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.789462,
+            "Long": -67.694916,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57800,
+        "Identificador": "RG121",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.790961,
+            "Long": -67.69203,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57903,
+        "Identificador": "RG223",
+        "Descripcion": "HACIA CHACRA 2",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.791551,
+            "Long": -67.690877,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57801,
+        "Identificador": "RG122",
+        "Descripcion": "HACIA BARRIOS DE LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.792581,
+            "Long": -67.689402,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57932,
+        "Identificador": "RG270",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.795249,
+            "Long": -67.687706,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57933,
+        "Identificador": "RG271",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.796313,
+            "Long": -67.685523,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57934,
+        "Identificador": "RG272",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.797571,
+            "Long": -67.687143,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57935,
+        "Identificador": "RG273",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.797511,
+            "Long": -67.689037,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57936,
+        "Identificador": "RG274",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.808181,
+            "Long": -67.684407,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57937,
+        "Identificador": "RG275",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.806005,
+            "Long": -67.679713,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57938,
+        "Identificador": "RG276",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.806014,
+            "Long": -67.675213,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57939,
+        "Identificador": "RG277",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.806207,
+            "Long": -67.67134,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57940,
+        "Identificador": "RG278",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.804576,
+            "Long": -67.667563,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57941,
+        "Identificador": "RG279",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.805001,
+            "Long": -67.665482,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57942,
+        "Identificador": "RG280",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.80297,
+            "Long": -67.664199,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57943,
+        "Identificador": "RG281",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.800955,
+            "Long": -67.663105,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57944,
+        "Identificador": "RG282",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.799903,
+            "Long": -67.662038,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57945,
+        "Identificador": "RG283",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.800334,
+            "Long": -67.659661,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57946,
+        "Identificador": "RG284",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.800746,
+            "Long": -67.657242,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57947,
+        "Identificador": "RG285",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.803708,
+            "Long": -67.658647,
+            "Alt": 0
+        }
+    },
+    {
+        "Codigo": 57948,
+        "Identificador": "RG286",
+        "Descripcion": "HACIA BARRIO LA MARGEN SUR",
+        "AbreviaturaBandera": "RAMAL C",
+        "AbreviaturaAmpliadaBandera": "HACIA B. MARGEN SUR",
+        "AbreviaturaBanderaGIT": "VTA C",
+        "Punto": {
+            "Lat": -53.803521,
+            "Long": -67.660096,
+            "Alt": 0
+        }
+    }
+]

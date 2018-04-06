@@ -90,13 +90,15 @@ func (s *ParadaService) ParadasPorLinea(linea *clcitybusapi.Linea) ([]*clcitybus
 
 	// Map to local struct
 	var r []*clcitybusapi.ParadaLinea
-	for _, parada := range result.Paradas {
-		p, err := s.mapParadaLineaFromSW(parada)
-		if err != nil {
-			return nil, err
+	for _, paradas := range result.Paradas {
+		for _, parada := range paradas {
+			p, err := s.mapParadaLineaFromSW(parada)
+			if err != nil {
+				return nil, err
+			}
+			p.Linea = linea
+			r = append(r, p)
 		}
-		p.Linea = linea
-		r = append(r, p)
 	}
 
 	// Write dump file
