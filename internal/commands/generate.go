@@ -1,26 +1,39 @@
-package main
+package commands
 
 import (
 	"fmt"
 	"os"
 	"path"
-	"time"
 
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml"
-
 	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml"
+	"bitbucket.org/friasdesign/pfetcher/pkg/elapsed"
+	"github.com/urfave/cli"
 )
 
-func elapsed(what string) func() {
-	start := time.Now()
-	return func() {
-		fmt.Printf("%s in %v\n", what, time.Since(start))
+const generateUsage = `Outputs data from 'Cuando Llega City Bus' API to given formats:
+	- 'generate kml' -> KML file with all stops and trips drawn.
+	- 'generate gtfs' -> GTFS feed for any trip planner.
+`
+
+func generate() cli.Command {
+	return cli.Command{
+		Name:    "generate",
+		Aliases: []string{"g"},
+		Usage:   generateUsage,
+		Subcommands: []cli.Command{
+			{
+				Name:   "kml",
+				Usage:  "Outputs data from 'Cuando Llega City Bus' API to a KML file containing all stops and trips.",
+				Action: kmlAction,
+			},
+		},
 	}
 }
 
-func main() {
-	defer elapsed("Finished")()
+func kmlAction(c *cli.Context) error {
+	defer elapsed.Elapsed()()
 	dumpPath := "testdata"
 
 	if _, err := os.Stat(dumpPath); os.IsNotExist(err) {
@@ -37,7 +50,7 @@ func main() {
 	fmt.Println("Fetching lineas ...")
 	lin, err := cli.LineaService().LineasPorEmpresa(emp)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	emp.Lineas = lin
 	fmt.Println("Fetching lineas ... DONE!")
@@ -46,7 +59,7 @@ func main() {
 	fmt.Println("Fetching paradas ...")
 	par, err := cli.ParadaService().ParadasPorEmpresa(emp)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	emp.Paradas = par
 	fmt.Println("Fetching paradas ... DONE!")
@@ -54,7 +67,9 @@ func main() {
 	fmt.Println("Generating KML file ...")
 	kml.Generate(emp, path.Join(dumpPath, "city_bus.kml"))
 	if err != nil {
-		panic(err)
+		return err
 	}
 	fmt.Println("Generating KML file ... DONE!")
+
+	return nil
 }
