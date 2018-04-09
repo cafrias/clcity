@@ -25,8 +25,8 @@ type FeedFileEntry interface {
 
 // Parser represents the parser which will read and write GTFS feed files
 type Parser interface {
-	Read(path string) error
-	Write(path string) error
+	// Read(path string) error
+	Write(f *Feed) error
 }
 
 // Timezone represents a timezone string
