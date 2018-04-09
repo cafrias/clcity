@@ -14,7 +14,7 @@ type ErrValidation struct {
 func (e *ErrValidation) Error() string {
 	buf := bytes.NewBufferString(fmt.Sprintf("Validation Error on file '%s': \n", e.File))
 	for key, value := range e.Fields {
-		buf.WriteString(fmt.Sprintf("    - Invalid value '%s' for field '%s'", value, key))
+		buf.WriteString(fmt.Sprintf("    - Invalid value '%s' for field '%s'\n", value, key))
 	}
 	return buf.String()
 }
