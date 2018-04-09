@@ -5,10 +5,10 @@ import (
 	"os"
 	"path"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml"
-	"bitbucket.org/friasdesign/pfetcher/pkg/elapsed"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/kml"
+	"bitbucket.org/friasdesign/clcity/pkg/elapsed"
 	"github.com/urfave/cli"
 )
 

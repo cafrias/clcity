@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"time"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient"
 )
 
 // against "unused imports"

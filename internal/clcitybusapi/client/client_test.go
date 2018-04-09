@@ -3,11 +3,11 @@ package client_test
 import (
 	"os"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
 )
 
 const DumpPath = "testdata/dump"

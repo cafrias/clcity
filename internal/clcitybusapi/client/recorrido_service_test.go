@@ -5,11 +5,11 @@ import (
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 func TestRecorridoService_Recorrido(t *testing.T) {

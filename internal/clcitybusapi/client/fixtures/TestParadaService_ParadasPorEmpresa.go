@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/mock"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 )
 
 // TestParadaServiceParadasPorEmpresa fixture for test `TestParadaService_ParadasPorEmpresa`.

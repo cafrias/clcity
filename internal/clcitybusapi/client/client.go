@@ -1,8 +1,8 @@
 package client
 
 import (
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 var _ clcitybusapi.Client = &Client{}

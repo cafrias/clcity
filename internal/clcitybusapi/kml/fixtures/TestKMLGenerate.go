@@ -3,8 +3,8 @@ package fixtures
 import (
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
 )
 
 // TestKMLGenerate provides fixture data for test `TestKML_Generate`

@@ -7,11 +7,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml/fixtures"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/kml/fixtures"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/kml"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/kml"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 )
 
 const dumpPath = "testdata/kml"

@@ -9,12 +9,12 @@ import (
 	"strings"
 	"sync"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/dump"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/dump"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
 
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/pfetcher/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
+	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 var _ clcitybusapi.ParadaService = &ParadaService{}
