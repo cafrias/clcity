@@ -30,10 +30,9 @@ func (f *Feed) SetFile(a FeedFile) {
 
 // FeedFile represents a file on a GTFS feed.
 type FeedFile interface {
-	// Flatten returns a flattened version of this map ready to be passed to CSV parser.
-	Flatten() [][]string
-	// FileName returns GTFS filename that this interface represents.
 	FileName() string
+	FileHeaders() []string
+	FileEntries() []FeedFileEntry
 }
 
 // FeedFileEntry represents an entry on any GTFS Feed file. It contains required methods for them to implement

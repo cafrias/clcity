@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files/fixtures"
 )
@@ -17,27 +18,37 @@ func TestStops_FileName(t *testing.T) {
 	}
 }
 
-func TestStops_Flatten(t *testing.T) {
-	ag := files.Stops{
-		"001": files.Stop{
-			ID: "001",
-		},
-	}
-	fOut := [][]string{
-		{
-			"stop_id", "stop_code", "stop_name", "stop_desc", "stop_lat", "stop_lon", "zone_id", "stop_url", "location_type", "parent_station", "stop_timezone", "wheelchair_boarding",
-		},
-		{
-			"001", "", "", "", "0", "0", "", "", "0", "", "", "0",
-		},
-	}
-	out := ag.Flatten()
+func TestStops_FileHeaders(t *testing.T) {
+	ag := files.Stops{}
+	out := ag.FileHeaders()
 
-	if reflect.DeepEqual(out, fOut) == false {
-		t.Fatalf("Invalid output. Expected:\n%+v\nReceived:\n%+v\n", fOut, out)
+	if reflect.DeepEqual(out, files.StopsFileHeaders) == false {
+		t.Fatalf("File headers wrong!\nExpected:\n%v\nReceived:\n%v\n", files.StopsFileHeaders, out)
 	}
 }
 
+func TestStops_FileEntries(t *testing.T) {
+	ag := files.Stop{ID: "001"}
+	ags := files.Stops{
+		ag.ID: ag,
+	}
+	fOut := []gtfs.FeedFileEntry{
+		&ag,
+	}
+	out := ags.FileEntries()
+
+	for _, expected := range fOut {
+		var found bool
+		for _, received := range out {
+			if reflect.DeepEqual(expected, received) == true {
+				found = true
+			}
+		}
+		if found == false {
+			t.Fatalf("Expected:\n%v\nto be in:\n%v\n", expected, out)
+		}
+	}
+}
 func TestStop_Flatten(t *testing.T) {
 	fix, _ := fixtures.TestStopFlatten()
 

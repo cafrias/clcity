@@ -18,17 +18,20 @@ func (a Agencies) FileName() string {
 	return AgencyFileName
 }
 
-// Flatten returns the contents of the file to be passed to the CSV parser.
-func (a Agencies) Flatten() [][]string {
-	file := [][]string{
-		[]string{
-			"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email",
-		},
-	}
+// FileHeaders returns the headers for this GTFS file
+func (a Agencies) FileHeaders() []string {
+	return AgencyFileHeaders
+}
+
+// FileEntries return all file entries for this GTFS file
+func (a Agencies) FileEntries() []gtfs.FeedFileEntry {
+	ret := []gtfs.FeedFileEntry{}
+
 	for _, ag := range a {
-		file = append(file, ag.Flatten())
+		ret = append(ret, &ag)
 	}
-	return file
+
+	return ret
 }
 
 // AgencyID represents the ID for an Agency

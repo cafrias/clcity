@@ -67,7 +67,10 @@ func (p *Parser) Write(f *gtfs.Feed) error {
 
 					writer := csv.NewWriter(file)
 
-					writer.WriteAll(res.Flatten())
+					writer.Write(res.FileHeaders())
+					for _, entry := range res.FileEntries() {
+						writer.Write(entry.Flatten())
+					}
 					writer.Flush()
 
 					err = writer.Error()

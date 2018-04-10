@@ -10,25 +10,28 @@ import (
 var _ gtfs.FeedFile = new(Stops)
 var _ gtfs.FeedFileEntry = &Stop{}
 
-// Stops is a map with all Stops represented on 'stops.txt' file of the GTFS feed.
+// Stops is a map with all Stops represented on 'stops.txt' file of the GTFS feed
 type Stops map[StopID]Stop
 
-// FileName returns the GTFS filename.
+// FileName returns the name for this GTFS file
 func (a Stops) FileName() string {
 	return StopsFileName
 }
 
-// Flatten returns the contents of the file to be passed to the CSV parser.
-func (a Stops) Flatten() [][]string {
-	file := [][]string{
-		[]string{
-			"stop_id", "stop_code", "stop_name", "stop_desc", "stop_lat", "stop_lon", "zone_id", "stop_url", "location_type", "parent_station", "stop_timezone", "wheelchair_boarding",
-		},
-	}
+// FileHeaders returns the headers for this GTFS file
+func (a Stops) FileHeaders() []string {
+	return StopsFileHeaders
+}
+
+// FileEntries return all file entries for this GTFS file
+func (a Stops) FileEntries() []gtfs.FeedFileEntry {
+	ret := []gtfs.FeedFileEntry{}
+
 	for _, ag := range a {
-		file = append(file, ag.Flatten())
+		ret = append(ret, &ag)
 	}
-	return file
+
+	return ret
 }
 
 // StopID represents the ID for an Stop
@@ -55,7 +58,7 @@ func (a *Stop) Validate() (bool, *gtfs.ErrValidation) {
 	return false, nil
 }
 
-// Flatten returns the struct flattened for passing it to CSV parser.
+// Flatten returns the struct flattened for passing it to CSV parser
 func (a *Stop) Flatten() []string {
 	var parentID string
 	if a.ParentStation != nil {

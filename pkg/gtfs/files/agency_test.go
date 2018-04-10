@@ -18,26 +18,35 @@ func TestAgencies_FileName(t *testing.T) {
 	}
 }
 
-func TestAgencies_Flatten(t *testing.T) {
-	ag := files.Agencies{
-		"001": files.Agency{
-			ID:    "001",
-			Name:  "city",
-			Phone: "123456",
-		},
-	}
-	fOut := [][]string{
-		{
-			"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email",
-		},
-		{
-			"001", "city", "", "", "", "123456", "", "",
-		},
-	}
-	out := ag.Flatten()
+func TestAgencies_FileHeaders(t *testing.T) {
+	ag := files.Agencies{}
+	out := ag.FileHeaders()
 
-	if reflect.DeepEqual(out, fOut) == false {
-		t.Fatalf("Invalid output. Expected:\n%+v\nReceived:\n%+v\n", fOut, out)
+	if reflect.DeepEqual(out, files.AgencyFileHeaders) == false {
+		t.Fatalf("File headers wrong!\nExpected:\n%v\nReceived:\n%v\n", files.AgencyFileHeaders, out)
+	}
+}
+
+func TestAgencies_FileEntries(t *testing.T) {
+	ag := files.Agency{ID: "001"}
+	ags := files.Agencies{
+		ag.ID: ag,
+	}
+	fOut := []gtfs.FeedFileEntry{
+		&ag,
+	}
+	out := ags.FileEntries()
+
+	for _, expected := range fOut {
+		var found bool
+		for _, received := range out {
+			if reflect.DeepEqual(expected, received) == true {
+				found = true
+			}
+		}
+		if found == false {
+			t.Fatalf("Expected:\n%v\nto be in:\n%v\n", expected, out)
+		}
 	}
 }
 
