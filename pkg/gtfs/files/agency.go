@@ -13,12 +13,12 @@ var _ gtfs.FeedFileEntry = &Agency{}
 // Agencies is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
 type Agencies map[AgencyID]Agency
 
-// FileName returns the GTFS filename 'agency.txt'.
+// FileName returns the GTFS filename.
 func (a Agencies) FileName() string {
-	return "agency.txt"
+	return AgencyFileName
 }
 
-// Flatten returns the contents of the 'agency.txt' file to be passed to the CSV parser.
+// Flatten returns the contents of the file to be passed to the CSV parser.
 func (a Agencies) Flatten() [][]string {
 	file := [][]string{
 		[]string{
@@ -34,7 +34,7 @@ func (a Agencies) Flatten() [][]string {
 // AgencyID represents the ID for an Agency
 type AgencyID string
 
-// Agency represents a single Agency that can be saved on a 'agency.txt' GTFS feed file
+// Agency represents a single Agency that can be saved on the 'agency.txt' GTFS feed file
 type Agency struct {
 	ID       AgencyID
 	Name     string

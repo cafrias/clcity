@@ -9,6 +9,38 @@ import (
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
 )
 
+func TestAgencies_FileName(t *testing.T) {
+	ag := files.Agencies{}
+	out := ag.FileName()
+
+	if out != files.AgencyFileName {
+		t.Fatal("Wrong filename returned.")
+	}
+}
+
+func TestAgencies_Flatten(t *testing.T) {
+	ag := files.Agencies{
+		"001": files.Agency{
+			ID:    "001",
+			Name:  "city",
+			Phone: "123456",
+		},
+	}
+	fOut := [][]string{
+		{
+			"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email",
+		},
+		{
+			"001", "city", "", "", "", "123456", "", "",
+		},
+	}
+	out := ag.Flatten()
+
+	if reflect.DeepEqual(out, fOut) == false {
+		t.Fatalf("Invalid output. Expected:\n%+v\nReceived:\n%+v\n", fOut, out)
+	}
+}
+
 func TestAgency_Validate(t *testing.T) {
 	type testCase struct {
 		input  files.Agency
