@@ -8,13 +8,18 @@ import (
 
 // Feed represents a GTFS feed.
 type Feed struct {
-	Agencies map[AgencyID]Agency
+	Agencies Agencies
 	// Stops    map[StopID]Stop
 	// Routes   map[RouteID]Route
 	// Trips     map[TripID]Trip
 	// StopTimes map[TripID]StopTime
 	// Shapes    map[ShapeID]Shape
 	// FeedInfo  FeedInfo
+}
+
+// FeedFile represents a file on a GTFS feed.
+type FeedFile interface {
+	Headers() []string
 }
 
 // FeedFileEntry represents an entry on any GTFS Feed file. It contains required methods for them to implement

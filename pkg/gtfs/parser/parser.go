@@ -34,7 +34,7 @@ func (p *Parser) Write(f *gtfs.Feed) error {
 	writer := csv.NewWriter(file)
 
 	records := [][]string{
-		{"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email"},
+		f.Agencies.Headers(),
 	}
 
 	for _, agency := range f.Agencies {

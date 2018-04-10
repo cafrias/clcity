@@ -5,7 +5,18 @@ import (
 	"net/url"
 )
 
+var _ FeedFile = new(Agencies)
 var _ FeedFileEntry = &Agency{}
+
+// Agencies is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
+type Agencies map[AgencyID]Agency
+
+// Headers returns the headers of file 'agency.txt'
+func (a *Agencies) Headers() []string {
+	return []string{
+		"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email",
+	}
+}
 
 // AgencyID represents the ID for an Agency
 type AgencyID string
