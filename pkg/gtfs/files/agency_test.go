@@ -1,4 +1,4 @@
-package gtfs_test
+package files_test
 
 import (
 	"net/url"
@@ -6,17 +6,18 @@ import (
 	"testing"
 
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
 )
 
 func TestAgency_Validate(t *testing.T) {
 	type testCase struct {
-		input  gtfs.Agency
+		input  files.Agency
 		output bool
 		err    *gtfs.ErrValidation
 	}
 	fixURL, _ := url.Parse("https://github.com")
 	fix := testCase{
-		input: gtfs.Agency{
+		input: files.Agency{
 			ID:       "ASD356",
 			Name:     "City",
 			URL:      *fixURL,
@@ -38,12 +39,12 @@ func TestAgency_Validate(t *testing.T) {
 
 func TestAgency_Validate_ErrValidation(t *testing.T) {
 	type testCase struct {
-		input  gtfs.Agency
+		input  files.Agency
 		output bool
 		err    *gtfs.ErrValidation
 	}
 	fix := testCase{
-		input: gtfs.Agency{
+		input: files.Agency{
 			ID:       "ASD356",
 			Name:     "",
 			URL:      url.URL{},
@@ -74,11 +75,11 @@ func TestAgency_Validate_ErrValidation(t *testing.T) {
 
 func TestAgency_Flatten(t *testing.T) {
 	type testCase struct {
-		input  gtfs.Agency
+		input  files.Agency
 		output []string
 	}
 	fixURL, _ := url.Parse("https://github.com")
-	agency := gtfs.Agency{
+	agency := files.Agency{
 		ID:       "ASD356",
 		Name:     "City",
 		URL:      *fixURL,

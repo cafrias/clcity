@@ -8,6 +8,7 @@ import (
 	"path"
 	"testing"
 
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs/parser"
 
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
@@ -26,19 +27,20 @@ func TestParser_Write(t *testing.T) {
 	tearDown(fPath)
 	setUp(fPath)
 
-	feed := &gtfs.Feed{
-		Agencies: map[gtfs.AgencyID]gtfs.Agency{
-			"001": gtfs.Agency{
-				ID: "001",
-				Email: mail.Address{
-					Address: "pepe@pepe.com",
-				},
-				Name:     "City Bus",
-				Timezone: "America/Argentina/Ushuaia",
-				Lang:     "es",
+	feed := gtfs.NewFeed()
+
+	agencies := files.Agencies{
+		"001": files.Agency{
+			ID: "001",
+			Email: mail.Address{
+				Address: "pepe@pepe.com",
 			},
+			Name:     "City Bus",
+			Timezone: "America/Argentina/Ushuaia",
+			Lang:     "es",
 		},
 	}
+	feed.SetFile(agencies)
 
 	p := parser.NewParser(fPath)
 

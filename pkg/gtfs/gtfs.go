@@ -8,18 +8,32 @@ import (
 
 // Feed represents a GTFS feed.
 type Feed struct {
-	Agencies Agencies
-	// Stops    map[StopID]Stop
-	// Routes   map[RouteID]Route
-	// Trips     map[TripID]Trip
-	// StopTimes map[TripID]StopTime
-	// Shapes    map[ShapeID]Shape
-	// FeedInfo  FeedInfo
+	files map[string]FeedFile
+}
+
+// NewFeed creates a new feed.
+func NewFeed() *Feed {
+	return &Feed{
+		files: make(map[string]FeedFile),
+	}
+}
+
+// Files returns all files associated with this Feed.
+func (f *Feed) Files() map[string]FeedFile {
+	return f.files
+}
+
+// SetFile set a file for the current feed.
+func (f *Feed) SetFile(a FeedFile) {
+	f.files[a.FileName()] = a
 }
 
 // FeedFile represents a file on a GTFS feed.
 type FeedFile interface {
-	Headers() []string
+	// Flatten returns a flattened version of this map ready to be passed to CSV parser.
+	Flatten() [][]string
+	// FileName returns GTFS filename that this interface represents.
+	FileName() string
 }
 
 // FeedFileEntry represents an entry on any GTFS Feed file. It contains required methods for them to implement

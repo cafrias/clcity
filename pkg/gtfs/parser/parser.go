@@ -24,27 +24,72 @@ type Parser struct {
 
 // Write writes the given feed to csv files
 func (p *Parser) Write(f *gtfs.Feed) error {
+	done := make(chan struct{})
+	defer close(done)
 
-	// Write agency.txt
-	file, err := os.Create(path.Join(p.Path, "agency.txt"))
-	if err != nil {
-		return err
+	// Generator. Iterates over each file on the Feed.
+	gen := func(done <-chan struct{}, feed *gtfs.Feed) <-chan gtfs.FeedFile {
+		outStream := make(chan gtfs.FeedFile)
+
+		go func() {
+			defer close(outStream)
+			for _, file := range feed.Files() {
+				select {
+				case <-done:
+					return
+				case outStream <- file:
+				}
+			}
+		}()
+
+		return outStream
 	}
-	defer file.Close()
-	writer := csv.NewWriter(file)
+	writer := func(done <-chan struct{}, inStream <-chan gtfs.FeedFile) chan error {
+		outStream := make(chan error)
 
-	records := [][]string{
-		f.Agencies.Headers(),
+		go func() {
+			defer close(outStream)
+
+			for {
+				select {
+				case <-done:
+					return
+				case res, ok := <-inStream:
+					// inStream channel got closed.
+					if ok == false {
+						return
+					}
+					file, err := os.Create(path.Join(p.Path, res.FileName()))
+					if err != nil {
+						outStream <- err
+						return
+					}
+
+					writer := csv.NewWriter(file)
+
+					writer.WriteAll(res.Flatten())
+					writer.Flush()
+
+					err = writer.Error()
+					file.Close()
+					if err != nil {
+						outStream <- err
+						return
+					}
+				}
+			}
+		}()
+
+		return outStream
 	}
 
-	for _, agency := range f.Agencies {
-		records = append(records, agency.Flatten())
+	inStream := gen(done, f)
+
+	for err := range writer(done, inStream) {
+		if err != nil {
+			return err
+		}
 	}
 
-	writer.WriteAll(records)
-	writer.Flush()
-
-	err = writer.Error()
-
-	return err
+	return nil
 }

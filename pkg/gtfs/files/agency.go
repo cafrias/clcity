@@ -1,21 +1,34 @@
-package gtfs
+package files
 
 import (
 	"net/mail"
 	"net/url"
+
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
 )
 
-var _ FeedFile = new(Agencies)
-var _ FeedFileEntry = &Agency{}
+var _ gtfs.FeedFile = new(Agencies)
+var _ gtfs.FeedFileEntry = &Agency{}
 
 // Agencies is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
 type Agencies map[AgencyID]Agency
 
-// Headers returns the headers of file 'agency.txt'
-func (a *Agencies) Headers() []string {
-	return []string{
-		"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email",
+// FileName returns the GTFS filename 'agency.txt'.
+func (a Agencies) FileName() string {
+	return "agency.txt"
+}
+
+// Flatten returns the contents of the 'agency.txt' file to be passed to the CSV parser.
+func (a Agencies) Flatten() [][]string {
+	file := [][]string{
+		[]string{
+			"agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url", "agency_email",
+		},
 	}
+	for _, ag := range a {
+		file = append(file, ag.Flatten())
+	}
+	return file
 }
 
 // AgencyID represents the ID for an Agency
@@ -26,17 +39,17 @@ type Agency struct {
 	ID       AgencyID
 	Name     string
 	URL      url.URL
-	Timezone Timezone
-	Lang     LanguageISO6391
+	Timezone gtfs.Timezone
+	Lang     gtfs.LanguageISO6391
 	Phone    string
 	FareURL  url.URL
 	Email    mail.Address
 }
 
 // Validate validates the Agency struct is valid as of GTFS specification
-func (a *Agency) Validate() (bool, *ErrValidation) {
+func (a *Agency) Validate() (bool, *gtfs.ErrValidation) {
 	ok := true
-	err := new(ErrValidation)
+	err := new(gtfs.ErrValidation)
 	err.File = "agency.txt"
 	err.Fields = make(map[string]string)
 
