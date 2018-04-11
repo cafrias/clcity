@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 )
 
 // TestKMLGenerate provides fixture data for test `TestKML_Generate`
@@ -23,28 +23,28 @@ func TestKMLGenerate(t *testing.T) *clcitybusapi.Empresa {
 			Recorrido: &clcitybusapi.Recorrido{
 				Puntos: []geo.Point{
 					geo.Point{
-						Long: -67.6978612,
-						Lat:  -53.7828671,
+						Lon: -67.6978612,
+						Lat: -53.7828671,
 					},
 					geo.Point{
-						Long: -67.7069592,
-						Lat:  -53.7891804,
+						Lon: -67.7069592,
+						Lat: -53.7891804,
 					},
 					geo.Point{
-						Long: -67.7098131,
-						Lat:  -53.7877859,
+						Lon: -67.7098131,
+						Lat: -53.7877859,
 					},
 					geo.Point{
-						Long: -67.6999211,
-						Lat:  -53.7809526,
+						Lon: -67.6999211,
+						Lat: -53.7809526,
 					},
 					geo.Point{
-						Long: -67.6971745,
-						Lat:  -53.7823473,
+						Lon: -67.6971745,
+						Lat: -53.7823473,
 					},
 					geo.Point{
-						Long: -67.6976037,
-						Lat:  -53.7827149,
+						Lon: -67.6976037,
+						Lat: -53.7827149,
 					},
 				},
 			},
@@ -57,48 +57,48 @@ func TestKMLGenerate(t *testing.T) *clcitybusapi.Empresa {
 			Recorrido: &clcitybusapi.Recorrido{
 				Puntos: []geo.Point{
 					geo.Point{
-						Long: -67.6980329,
-						Lat:  -53.7829812,
+						Lon: -67.6980329,
+						Lat: -53.7829812,
 					},
 					geo.Point{
-						Long: -67.7018738,
-						Lat:  -53.7856435,
+						Lon: -67.7018738,
+						Lat: -53.7856435,
 					},
 					geo.Point{
-						Long: -67.6988697,
-						Lat:  -53.7871901,
+						Lon: -67.6988697,
+						Lat: -53.7871901,
 					},
 					geo.Point{
-						Long: -67.6974535,
-						Lat:  -53.7879,
+						Lon: -67.6974535,
+						Lat: -53.7879,
 					},
 					geo.Point{
-						Long: -67.6950932,
-						Lat:  -53.7862647,
+						Lon: -67.6950932,
+						Lat: -53.7862647,
 					},
 					geo.Point{
-						Long: -67.6978183,
-						Lat:  -53.7849463,
+						Lon: -67.6978183,
+						Lat: -53.7849463,
 					},
 					geo.Point{
-						Long: -67.6966166,
-						Lat:  -53.7840588,
+						Lon: -67.6966166,
+						Lat: -53.7840588,
 					},
 					geo.Point{
-						Long: -67.697947,
-						Lat:  -53.7832855,
+						Lon: -67.697947,
+						Lat: -53.7832855,
 					},
 					geo.Point{
-						Long: -67.6970243,
-						Lat:  -53.7827783,
+						Lon: -67.6970243,
+						Lat: -53.7827783,
 					},
 					geo.Point{
-						Long: -67.6975393,
-						Lat:  -53.7826135,
+						Lon: -67.6975393,
+						Lat: -53.7826135,
 					},
 					geo.Point{
-						Long: -67.6978612,
-						Lat:  -53.7828671,
+						Lon: -67.6978612,
+						Lat: -53.7828671,
 					},
 				},
 			},
@@ -108,22 +108,22 @@ func TestKMLGenerate(t *testing.T) *clcitybusapi.Empresa {
 		&clcitybusapi.Parada{
 			Codigo: "RG001",
 			Punto: geo.Point{
-				Long: -67.6980329,
-				Lat:  -53.7829812,
+				Lon: -67.6980329,
+				Lat: -53.7829812,
 			},
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG002",
 			Punto: geo.Point{
-				Long: -67.7068949,
-				Lat:  -53.7857196,
+				Lon: -67.7068949,
+				Lat: -53.7857196,
 			},
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG003",
 			Punto: geo.Point{
-				Long: -67.6970243,
-				Lat:  -53.7853012,
+				Lon: -67.6970243,
+				Lat: -53.7853012,
 			},
 		},
 	}

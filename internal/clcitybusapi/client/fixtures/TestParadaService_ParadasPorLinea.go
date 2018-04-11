@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
@@ -41,8 +41,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 			AbreviaturaBandera:         "RAMAL A",
 			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
 			Punto: geo.Point{
-				Lat:  -53.803239,
-				Long: -67.661785,
+				Lat: -53.803239,
+				Lon: -67.661785,
 			},
 			AbreviaturaBanderaGIT: "IDA A",
 			Linea: linea,
@@ -54,8 +54,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 			AbreviaturaBandera:         "RAMAL A",
 			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
 			Punto: geo.Point{
-				Lat:  -53.803109,
-				Long: -67.662526,
+				Lat: -53.803109,
+				Lon: -67.662526,
 			},
 			AbreviaturaBanderaGIT: "IDA A",
 			Linea: linea,
@@ -119,8 +119,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 			AbreviaturaBandera:         "RAMAL A",
 			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
 			Punto: geo.Point{
-				Lat:  -53.803239,
-				Long: -67.661785,
+				Lat: -53.803239,
+				Lon: -67.661785,
 			},
 			AbreviaturaBanderaGIT: "IDA A",
 		},
@@ -131,8 +131,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 			AbreviaturaBandera:         "RAMAL A",
 			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
 			Punto: geo.Point{
-				Lat:  -53.803109,
-				Long: -67.662526,
+				Lat: -53.803109,
+				Lon: -67.662526,
 			},
 			AbreviaturaBanderaGIT: "IDA A",
 		},

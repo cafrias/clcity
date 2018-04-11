@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
@@ -40,12 +40,12 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 	fRec = &clcitybusapi.Recorrido{
 		Puntos: []geo.Point{
 			geo.Point{
-				Lat:  -20,
-				Long: 20,
+				Lat: -20,
+				Lon: 20,
 			},
 			geo.Point{
-				Lat:  -21,
-				Long: 21,
+				Lat: -21,
+				Lon: 21,
 			},
 		},
 	}
@@ -65,8 +65,8 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 			Descripcion:   "Alguna",
 			Identificador: "RG001",
 			Punto: geo.Point{
-				Lat:  20,
-				Long: 20,
+				Lat: 20,
+				Lon: 20,
 			},
 		},
 		&clcitybusapi.ParadaLinea{
@@ -74,8 +74,8 @@ func TestLineaServiceLineasPorEmpresa(t *testing.T) (
 			Descripcion:   "Alguna",
 			Identificador: "RG002",
 			Punto: geo.Point{
-				Lat:  21,
-				Long: 21,
+				Lat: 21,
+				Lon: 21,
 			},
 		},
 	}

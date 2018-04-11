@@ -3,7 +3,7 @@ package client
 import (
 	"encoding/json"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
@@ -40,8 +40,8 @@ func (s *RecorridoService) RecorridoDeLinea(l *clcitybusapi.Linea) (*clcitybusap
 	var points []geo.Point
 	for _, punto := range result.Puntos {
 		point := geo.Point{
-			Lat:  punto.Latitud,
-			Long: punto.Longitud,
+			Lat: punto.Latitud,
+			Lon: punto.Longitud,
 		}
 		points = append(points, point)
 	}

@@ -11,7 +11,7 @@ import (
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/dump"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
@@ -39,7 +39,7 @@ func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcit
 	}
 
 	longStr := strings.Replace(swp.LongitudParada, ",", ".", -1)
-	long, err := strconv.ParseFloat(longStr, 64)
+	Lon, err := strconv.ParseFloat(longStr, 64)
 	if err != nil {
 		return nil, err
 	}
@@ -52,8 +52,8 @@ func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcit
 		AbreviaturaBandera:         swp.AbreviaturaBandera,
 		AbreviaturaAmpliadaBandera: swp.AbreviaturaAmpliadaBandera,
 		Punto: geo.Point{
-			Lat:  lat,
-			Long: long,
+			Lat: lat,
+			Lon: Lon,
 		},
 	}, nil
 }

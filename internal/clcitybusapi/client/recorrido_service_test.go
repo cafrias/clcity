@@ -7,9 +7,9 @@ import (
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 )
 
 func TestRecorridoService_Recorrido(t *testing.T) {
@@ -34,12 +34,12 @@ func TestRecorridoService_Recorrido(t *testing.T) {
 	fixOut := &clcitybusapi.Recorrido{
 		Puntos: []geo.Point{
 			geo.Point{
-				Lat:  -53,
-				Long: -67,
+				Lat: -53,
+				Lon: -67,
 			},
 			geo.Point{
-				Lat:  -54,
-				Long: -68,
+				Lat: -54,
+				Lon: -68,
 			},
 		},
 	}

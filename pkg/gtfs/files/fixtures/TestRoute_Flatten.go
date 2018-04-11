@@ -21,7 +21,7 @@ func TestRouteFlatten() (
 		ID:        "001",
 		Agency:    &files.Agency{ID: "AG001"},
 		ShortName: "Short",
-		LongName:  "Long",
+		LongName:  "Lon",
 		Desc:      "desc",
 		Type:      2,
 		URL:       *fixURL,

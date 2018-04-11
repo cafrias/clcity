@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/geo"
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"bitbucket.org/friasdesign/clcity/pkg/geo"
 
 	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/mock"
 
@@ -163,22 +163,22 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		&clcitybusapi.Parada{
 			Codigo: "RG001",
 			Punto: geo.Point{
-				Lat:  20.1,
-				Long: 20.1,
+				Lat: 20.1,
+				Lon: 20.1,
 			},
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG002",
 			Punto: geo.Point{
-				Lat:  21.1,
-				Long: 21.1,
+				Lat: 21.1,
+				Lon: 21.1,
 			},
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG003",
 			Punto: geo.Point{
-				Lat:  22.1,
-				Long: 22.1,
+				Lat: 22.1,
+				Lon: 22.1,
 			},
 		},
 	}

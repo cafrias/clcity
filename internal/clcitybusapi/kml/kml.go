@@ -23,7 +23,7 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 		for _, point := range lin.Recorrido.Puntos {
 			c := kml.Coordinate{
 				Lat: point.Lat,
-				Lon: point.Long,
+				Lon: point.Lon,
 			}
 			coord = append(coord, c)
 		}
@@ -56,7 +56,7 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 			kml.Point(
 				kml.Coordinates(
 					kml.Coordinate{
-						Lon: par.Punto.Long,
+						Lon: par.Punto.Lon,
 						Lat: par.Punto.Lat,
 					},
 				),
