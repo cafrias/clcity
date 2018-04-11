@@ -23,8 +23,8 @@ func (f *Feed) Files() map[string]FeedFile {
 	return f.files
 }
 
-// SetFile set a file for the current feed.
-func (f *Feed) SetFile(a FeedFile) {
+// AddFile set a file for the current feed.
+func (f *Feed) AddFile(a FeedFile) {
 	f.files[a.FileName()] = a
 }
 

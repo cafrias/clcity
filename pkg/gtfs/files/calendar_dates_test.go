@@ -67,7 +67,7 @@ func TestCalendarDate_Flatten(t *testing.T) {
 	}
 }
 
-func TestRoute_Flatten_Without(t *testing.T) {
+func TestCalendarDate_Flatten_Without(t *testing.T) {
 	_, fix := fixtures.TestCalendarDateFlatten()
 
 	out := fix.Input.Flatten()

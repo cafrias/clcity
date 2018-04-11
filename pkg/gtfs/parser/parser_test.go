@@ -40,7 +40,7 @@ func TestParser_Write(t *testing.T) {
 			Lang:     "es",
 		},
 	}
-	feed.SetFile(agencies)
+	feed.AddFile(agencies)
 
 	p := parser.NewParser(fPath)
 

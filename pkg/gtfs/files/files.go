@@ -2,14 +2,15 @@ package files
 
 // GTFS files names
 const (
-	AgencyFileName        = "agency.txt"
-	StopsFileName         = "stops.txt"
-	RoutesFileName        = "routes.txt"
-	TripsFileName         = "trips.txt"
-	StopTimesFileName     = "stop_times.txt"
-	CalendarFileName      = "calendar.txt"
-	CalendarDatesFileName = "calendar_dates.txt"
-	ShapesFileName        = "shapes.txt"
+	AgencyFileName         = "agency.txt"
+	StopsFileName          = "stops.txt"
+	RoutesFileName         = "routes.txt"
+	TripsFileName          = "trips.txt"
+	StopTimesFileName      = "stop_times.txt"
+	CalendarFileName       = "calendar.txt"
+	CalendarDatesFileName  = "calendar_dates.txt"
+	FareAttributesFileName = "fare_attributes.txt"
+	ShapesFileName         = "shapes.txt"
 )
 
 // AgencyFileHeaders contains all headers used by 'agency.txt'
@@ -45,6 +46,11 @@ var CalendarFileHeaders = []string{
 // CalendarDatesFileHeaders contains all headers used by 'calendar_dates.txt'
 var CalendarDatesFileHeaders = []string{
 	"service_id", "date", "exception_type",
+}
+
+// FareAttributesFileHeaders contains all headers used by 'fare_attributes.txt'
+var FareAttributesFileHeaders = []string{
+	"fare_id", "price", "currency_type", "payment_method", "transfers", "agency_id", "transfer_duration",
 }
 
 // ShapesFileHeaders contains all headers used by 'shapes.txt'
