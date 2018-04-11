@@ -1,8 +1,8 @@
 package files
 
 import (
-	"net/mail"
-	"net/url"
+	"fmt"
+	"time"
 
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
 )
@@ -37,60 +37,59 @@ func (a Calendar) FileEntries() []gtfs.FeedFileEntry {
 // ServiceID represents the ID for an Service
 type ServiceID string
 
-// Service represents a single Service that can be saved on the 'agency.txt' GTFS feed file
+// Service represents a single Service that can be saved on the 'calendar.txt' GTFS feed file
 type Service struct {
-	ID       ServiceID
-	Name     string
-	URL      url.URL
-	Timezone gtfs.Timezone
-	Lang     gtfs.LanguageISO6391
-	Phone    string
-	FareURL  url.URL
-	Email    mail.Address
+	ID        ServiceID
+	Mon       bool
+	Tue       bool
+	Wed       bool
+	Thu       bool
+	Fri       bool
+	Sat       bool
+	Sun       bool
+	StartDate time.Time
+	EndDate   time.Time
 }
 
 // Validate validates the Service struct is valid as of GTFS specification
 func (a *Service) Validate() (bool, *gtfs.ErrValidation) {
-	ok := true
-	err := new(gtfs.ErrValidation)
-	err.File = "agency.txt"
-	err.Fields = make(map[string]string)
-
-	// TODO: refactor to more reusable code
-	if a.Name == "" {
-		ok = false
-		err.Fields["agency_name"] = ""
-	}
-	if a.URL.String() == "" {
-		ok = false
-		err.Fields["agency_url"] = ""
-	}
-	if a.Timezone.Validate() == false {
-		ok = false
-		err.Fields["agency_timezone"] = string(a.Timezone)
-	}
-	if string(a.Lang) != "" && a.Lang.Validate() == false {
-		ok = false
-		err.Fields["agency_lang"] = string(a.Lang)
-	}
-
-	if ok == true {
-		return ok, nil
-	}
-
-	return ok, err
+	return false, nil
 }
 
 // Flatten returns the struct flattened for passing it to CSV parser.
 func (a *Service) Flatten() []string {
 	return []string{
+		// service_id
 		string(a.ID),
-		a.Name,
-		a.URL.String(),
-		string(a.Timezone),
-		string(a.Lang),
-		a.Phone,
-		a.FareURL.String(),
-		a.Email.Address,
+		// monday
+		parseBool(a.Mon),
+		// tuesday
+		parseBool(a.Tue),
+		// wednesday
+		parseBool(a.Wed),
+		// thursday
+		parseBool(a.Thu),
+		// friday
+		parseBool(a.Fri),
+		// saturday
+		parseBool(a.Sat),
+		// sunday
+		parseBool(a.Sun),
+		// start_date
+		parseDate(a.StartDate),
+		// end_date
+		parseDate(a.EndDate),
 	}
+}
+
+func parseBool(x bool) string {
+	if x {
+		return "1"
+	}
+
+	return "0"
+}
+
+func parseDate(d time.Time) string {
+	return fmt.Sprintf("%04d%02d%02d", d.Year(), d.Month(), d.Day())
 }
