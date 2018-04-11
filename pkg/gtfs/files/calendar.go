@@ -1,10 +1,10 @@
 package files
 
 import (
-	"fmt"
 	"time"
 
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs/date"
 )
 
 var _ gtfs.FeedFile = new(Calendar)
@@ -76,9 +76,9 @@ func (a *Service) Flatten() []string {
 		// sunday
 		parseBool(a.Sun),
 		// start_date
-		parseDate(a.StartDate),
+		string(date.FormatDate(a.StartDate)),
 		// end_date
-		parseDate(a.EndDate),
+		string(date.FormatDate(a.EndDate)),
 	}
 }
 
@@ -88,8 +88,4 @@ func parseBool(x bool) string {
 	}
 
 	return "0"
-}
-
-func parseDate(d time.Time) string {
-	return fmt.Sprintf("%04d%02d%02d", d.Year(), d.Month(), d.Day())
 }
