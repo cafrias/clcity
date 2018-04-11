@@ -37,6 +37,9 @@ func (a Stops) FileEntries() []gtfs.FeedFileEntry {
 // StopID represents the ID for an Stop
 type StopID string
 
+// ZoneID defines a fare zone for a Stop
+type ZoneID string
+
 // Stop represents a single Stop that can be saved on the 'stops.txt' GTFS feed file
 type Stop struct {
 	ID            StopID
@@ -45,7 +48,7 @@ type Stop struct {
 	Desc          string
 	Lat           float64
 	Lon           float64
-	ZoneID        string
+	ZoneID        ZoneID
 	URL           url.URL
 	LocationType  int8
 	ParentStation *Stop
@@ -79,7 +82,7 @@ func (a *Stop) Flatten() []string {
 		// stop_lon
 		strconv.FormatFloat(a.Lon, 'f', -1, 64),
 		// zone_id
-		a.ZoneID,
+		string(a.ZoneID),
 		// stop_url
 		a.URL.String(),
 		// location_type

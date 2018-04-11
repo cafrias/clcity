@@ -10,6 +10,7 @@ const (
 	CalendarFileName       = "calendar.txt"
 	CalendarDatesFileName  = "calendar_dates.txt"
 	FareAttributesFileName = "fare_attributes.txt"
+	FareRulesFileName      = "fare_rules.txt"
 	ShapesFileName         = "shapes.txt"
 )
 
@@ -51,6 +52,11 @@ var CalendarDatesFileHeaders = []string{
 // FareAttributesFileHeaders contains all headers used by 'fare_attributes.txt'
 var FareAttributesFileHeaders = []string{
 	"fare_id", "price", "currency_type", "payment_method", "transfers", "agency_id", "transfer_duration",
+}
+
+// FareRulesFileHeaders contains all headers used by 'fare_attributes.txt'
+var FareRulesFileHeaders = []string{
+	"fare_id", "route_id", "origin_id", "destination_id", "contains_id",
 }
 
 // ShapesFileHeaders contains all headers used by 'shapes.txt'
