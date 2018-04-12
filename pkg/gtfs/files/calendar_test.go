@@ -28,12 +28,12 @@ func TestCalendar_FileHeaders(t *testing.T) {
 }
 
 func TestCalendar_FileEntries(t *testing.T) {
-	ag := files.Service{ID: "001"}
+	ag := &files.Service{ID: "001"}
 	ags := files.Calendar{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

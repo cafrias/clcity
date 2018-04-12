@@ -8,7 +8,7 @@ var _ gtfs.FeedFile = new(FareRules)
 var _ gtfs.FeedFileEntry = &FareRule{}
 
 // FareRules is a map with all FareRules represented on 'fare_rules.txt' file of the GTFS feed.
-type FareRules map[FareID][]FareRule
+type FareRules map[FareID][]*FareRule
 
 // I used a slice above because I didn't find a way to uniquely identify a single rule, without having to use all fields, and in any case, it's simply pointless.
 
@@ -28,7 +28,7 @@ func (a FareRules) FileEntries() []gtfs.FeedFileEntry {
 
 	for _, ag := range a {
 		for _, y := range ag {
-			ret = append(ret, &y)
+			ret = append(ret, y)
 		}
 	}
 

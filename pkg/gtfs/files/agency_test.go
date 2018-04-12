@@ -28,12 +28,12 @@ func TestAgencies_FileHeaders(t *testing.T) {
 }
 
 func TestAgencies_FileEntries(t *testing.T) {
-	ag := files.Agency{ID: "001"}
+	ag := &files.Agency{ID: "001"}
 	ags := files.Agencies{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

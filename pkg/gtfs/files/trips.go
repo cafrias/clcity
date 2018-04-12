@@ -10,7 +10,7 @@ var _ gtfs.FeedFile = new(Trips)
 var _ gtfs.FeedFileEntry = &Trip{}
 
 // Trips is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
-type Trips map[TripID]Trip
+type Trips map[TripID]*Trip
 
 // FileName returns the GTFS filename.
 func (a Trips) FileName() string {
@@ -27,7 +27,7 @@ func (a Trips) FileEntries() []gtfs.FeedFileEntry {
 	ret := []gtfs.FeedFileEntry{}
 
 	for _, ag := range a {
-		ret = append(ret, &ag)
+		ret = append(ret, ag)
 	}
 
 	return ret
@@ -49,6 +49,27 @@ type Trip struct {
 	Wheelchair   int8
 	BikesAllowed int8
 }
+
+// Trip travel direction, can be outbound or inbound
+const (
+	TripTravelDirectionNone = -1
+	TripTravelDirectionOut  = 0
+	TripTravelDirectionIn   = 1
+)
+
+// Wheelchair information for a Trip
+const (
+	TripWheelchairNoInfo = iota
+	TripWheelchairAllowed
+	TripWheelchairNotAllowed
+)
+
+// Bike information for a Trip
+const (
+	TripBikesNoInfo = iota
+	TripBikesAllowed
+	TripBikesNotAllowed
+)
 
 // Validate validates the Trip struct is valid as of GTFS specification
 func (a *Trip) Validate() (bool, *gtfs.ErrValidation) {

@@ -12,8 +12,8 @@ import (
 var _ gtfs.FeedFile = new(CalendarDates)
 var _ gtfs.FeedFileEntry = &CalendarDate{}
 
-// CalendarDates is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
-type CalendarDates map[ServiceID]map[date.Date]CalendarDate
+// CalendarDates represents the 'calendar_dates.txt' GTFS file
+type CalendarDates map[ServiceID]map[date.Date]*CalendarDate
 
 // FileName returns the GTFS filename.
 func (a CalendarDates) FileName() string {
@@ -31,7 +31,7 @@ func (a CalendarDates) FileEntries() []gtfs.FeedFileEntry {
 
 	for _, ag := range a {
 		for _, y := range ag {
-			ret = append(ret, &y)
+			ret = append(ret, y)
 		}
 	}
 
@@ -44,6 +44,12 @@ type CalendarDate struct {
 	Date          time.Time
 	ExceptionType int8
 }
+
+// Types of exceptions used in ExceptionType as defined by GTFS spec
+const (
+	CalendarDateExceptionTypeAdded   = 1
+	CalendarDateExceptionTypeRemoved = 2
+)
 
 // Validate validates the CalendarDate struct is valid as of GTFS specification
 func (a *CalendarDate) Validate() (bool, *gtfs.ErrValidation) {

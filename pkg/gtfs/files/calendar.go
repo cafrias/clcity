@@ -11,7 +11,7 @@ var _ gtfs.FeedFile = new(Calendar)
 var _ gtfs.FeedFileEntry = &Service{}
 
 // Calendar is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
-type Calendar map[ServiceID]Service
+type Calendar map[ServiceID]*Service
 
 // FileName returns the GTFS filename.
 func (a Calendar) FileName() string {
@@ -28,7 +28,7 @@ func (a Calendar) FileEntries() []gtfs.FeedFileEntry {
 	ret := []gtfs.FeedFileEntry{}
 
 	for _, ag := range a {
-		ret = append(ret, &ag)
+		ret = append(ret, ag)
 	}
 
 	return ret

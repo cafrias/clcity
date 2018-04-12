@@ -4,23 +4,23 @@ import (
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
 )
 
-type ShapeFlattenTestCase struct {
-	Input  files.Shape
+type ShapePointFlattenTestCase struct {
+	Input  files.ShapePoint
 	Output []string
 }
 
-func TestShapeFlatten() (
-	fix ShapeFlattenTestCase,
-	fixWithout ShapeFlattenTestCase,
+func TestShapePointFlatten() (
+	fix ShapePointFlattenTestCase,
+	fixWithout ShapePointFlattenTestCase,
 ) {
-	x := files.Shape{
-		ID:           "001",
+	x := files.ShapePoint{
+		Shape:        &files.Shape{ID: "001"},
 		Lat:          20.21,
 		Lon:          21.22,
 		PtSequence:   0,
 		DistTraveled: 500,
 	}
-	fix = ShapeFlattenTestCase{
+	fix = ShapePointFlattenTestCase{
 		Input: x,
 		Output: []string{
 			// shape_id
@@ -37,7 +37,7 @@ func TestShapeFlatten() (
 	}
 	xWithout := x
 	xWithout.DistTraveled = -1
-	fixWithout = ShapeFlattenTestCase{
+	fixWithout = ShapePointFlattenTestCase{
 		Input: xWithout,
 		Output: []string{
 			// shape_id

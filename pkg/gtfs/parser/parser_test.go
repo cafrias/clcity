@@ -3,15 +3,13 @@ package parser_test
 import (
 	"bytes"
 	"io/ioutil"
-	"net/mail"
 	"os"
 	"path"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/parser"
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs/parser/fixtures"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
+	"bitbucket.org/friasdesign/clcity/pkg/gtfs/parser"
 )
 
 func setUp(p string) {
@@ -27,20 +25,7 @@ func TestParser_Write(t *testing.T) {
 	tearDown(fPath)
 	setUp(fPath)
 
-	feed := gtfs.NewFeed()
-
-	agencies := files.Agencies{
-		"001": files.Agency{
-			ID: "001",
-			Email: mail.Address{
-				Address: "pepe@pepe.com",
-			},
-			Name:     "City Bus",
-			Timezone: "America/Argentina/Ushuaia",
-			Lang:     "es",
-		},
-	}
-	feed.AddFile(agencies)
+	feed := fixtures.Feed()
 
 	p := parser.NewParser(fPath)
 

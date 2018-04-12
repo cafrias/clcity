@@ -10,8 +10,8 @@ import (
 var _ gtfs.FeedFile = new(Frequencies)
 var _ gtfs.FeedFileEntry = &Frequency{}
 
-// Frequencies is a map with all agencies represented on 'shapes.txt' file of the GTFS feed.
-type Frequencies map[TripID][]Frequency
+// Frequencies represents 'frequencies.txt' GTFS file
+type Frequencies map[TripID][]*Frequency
 
 // FileName returns the GTFS filename.
 func (a Frequencies) FileName() string {
@@ -29,7 +29,7 @@ func (a Frequencies) FileEntries() []gtfs.FeedFileEntry {
 
 	for _, ag := range a {
 		for _, y := range ag {
-			ret = append(ret, &y)
+			ret = append(ret, y)
 		}
 	}
 

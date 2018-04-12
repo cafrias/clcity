@@ -11,7 +11,7 @@ var _ gtfs.FeedFile = new(FareAttributes)
 var _ gtfs.FeedFileEntry = &Fare{}
 
 // FareAttributes is a map with all FareAttributes represented on 'FareAttributes.txt' file of the GTFS feed
-type FareAttributes map[FareID]Fare
+type FareAttributes map[FareID]*Fare
 
 // FileName returns the name for this GTFS file
 func (a FareAttributes) FileName() string {
@@ -28,7 +28,7 @@ func (a FareAttributes) FileEntries() []gtfs.FeedFileEntry {
 	ret := []gtfs.FeedFileEntry{}
 
 	for _, ag := range a {
-		ret = append(ret, &ag)
+		ret = append(ret, ag)
 	}
 
 	return ret
@@ -50,16 +50,16 @@ type Fare struct {
 
 // Payment methods
 const (
-	PayOnBoard = 0
-	PayBefore  = 1
+	FarePaymentMethodOnBoard = iota
+	FarePaymentMethodBefore
 )
 
 // Transfers
 const (
-	TransferNotPermitted = 0
-	TransferOnce         = 1
-	TransferTwice        = 2
-	TransferUnlimited    = -1 // Maps to empty string on GTFS file
+	FareTransfersNotPermitted = 0
+	FareTransfersOnce         = 1
+	FareTransfersTwice        = 2
+	FareTransfersUnlimited    = -1 // Maps to empty string on GTFS file
 )
 
 func formatTransfers(t int8) string {

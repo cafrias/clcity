@@ -31,17 +31,17 @@ func TestCalendarDates_FileHeaders(t *testing.T) {
 }
 
 func TestCalendarDates_FileEntries(t *testing.T) {
-	ag := files.CalendarDate{
+	ag := &files.CalendarDate{
 		Service: &files.Service{ID: "SE001"},
 		Date:    time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC),
 	}
 	ags := files.CalendarDates{
-		ag.Service.ID: map[date.Date]files.CalendarDate{
+		ag.Service.ID: map[date.Date]*files.CalendarDate{
 			date.FormatDate(ag.Date): ag,
 		},
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

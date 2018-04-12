@@ -28,14 +28,14 @@ func TestFareRules_FileHeaders(t *testing.T) {
 }
 
 func TestFareRules_FileEntries(t *testing.T) {
-	ag := files.FareRule{Fare: &files.Fare{ID: "FA001"}}
+	ag := &files.FareRule{Fare: &files.Fare{ID: "FA001"}}
 	ags := files.FareRules{
-		ag.Fare.ID: []files.FareRule{
+		ag.Fare.ID: []*files.FareRule{
 			ag,
 		},
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

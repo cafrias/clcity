@@ -11,7 +11,7 @@ var _ gtfs.FeedFile = new(Agencies)
 var _ gtfs.FeedFileEntry = &Agency{}
 
 // Agencies is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
-type Agencies map[AgencyID]Agency
+type Agencies map[AgencyID]*Agency
 
 // FileName returns the GTFS filename.
 func (a Agencies) FileName() string {
@@ -28,7 +28,7 @@ func (a Agencies) FileEntries() []gtfs.FeedFileEntry {
 	ret := []gtfs.FeedFileEntry{}
 
 	for _, ag := range a {
-		ret = append(ret, &ag)
+		ret = append(ret, ag)
 	}
 
 	return ret

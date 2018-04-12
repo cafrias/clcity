@@ -28,14 +28,14 @@ func TestFrequencies_FileHeaders(t *testing.T) {
 }
 
 func TestFrequencies_FileEntries(t *testing.T) {
-	ag := files.Frequency{Trip: &files.Trip{ID: "001"}}
+	ag := &files.Frequency{Trip: &files.Trip{ID: "001"}}
 	ags := files.Frequencies{
-		ag.Trip.ID: []files.Frequency{
+		ag.Trip.ID: []*files.Frequency{
 			ag,
 		},
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

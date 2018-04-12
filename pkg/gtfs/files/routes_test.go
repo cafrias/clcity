@@ -28,12 +28,12 @@ func TestRoutes_FileHeaders(t *testing.T) {
 }
 
 func TestRoutes_FileEntries(t *testing.T) {
-	ag := files.Route{ID: "001"}
+	ag := &files.Route{ID: "001"}
 	ags := files.Routes{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

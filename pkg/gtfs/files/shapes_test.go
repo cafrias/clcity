@@ -9,7 +9,7 @@ import (
 	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files/fixtures"
 )
 
-func TestShapes_FileName(t *testing.T) {
+func TestShapePoints_FileName(t *testing.T) {
 	ag := files.Shapes{}
 	out := ag.FileName()
 
@@ -18,7 +18,7 @@ func TestShapes_FileName(t *testing.T) {
 	}
 }
 
-func TestShapes_FileHeaders(t *testing.T) {
+func TestShapePoints_FileHeaders(t *testing.T) {
 	ag := files.Shapes{}
 	out := ag.FileHeaders()
 
@@ -27,15 +27,14 @@ func TestShapes_FileHeaders(t *testing.T) {
 	}
 }
 
-func TestShapes_FileEntries(t *testing.T) {
-	ag := files.Shape{ID: "001"}
+func TestShapePoints_FileEntries(t *testing.T) {
+	p := files.ShapePoint{}
+	ag := &files.Shape{ID: "001", Points: []files.ShapePoint{p}}
 	ags := files.Shapes{
-		ag.ID: []files.Shape{
-			ag,
-		},
+		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		&p,
 	}
 	out := ags.FileEntries()
 
@@ -52,8 +51,8 @@ func TestShapes_FileEntries(t *testing.T) {
 	}
 }
 
-func TestShape_Flatten(t *testing.T) {
-	fix, _ := fixtures.TestShapeFlatten()
+func TestShapePoint_Flatten(t *testing.T) {
+	fix, _ := fixtures.TestShapePointFlatten()
 
 	out := fix.Input.Flatten()
 	if ok := reflect.DeepEqual(out, fix.Output); ok == false {
@@ -61,8 +60,8 @@ func TestShape_Flatten(t *testing.T) {
 	}
 }
 
-func TestShape_Flatten_Without(t *testing.T) {
-	_, fix := fixtures.TestShapeFlatten()
+func TestShapePoint_Flatten_Without(t *testing.T) {
+	_, fix := fixtures.TestShapePointFlatten()
 
 	out := fix.Input.Flatten()
 	if ok := reflect.DeepEqual(out, fix.Output); ok == false {

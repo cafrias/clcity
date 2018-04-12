@@ -28,12 +28,12 @@ func TestFares_FileHeaders(t *testing.T) {
 }
 
 func TestFares_FileEntries(t *testing.T) {
-	ag := files.Fare{ID: "001"}
+	ag := &files.Fare{ID: "001"}
 	ags := files.FareAttributes{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

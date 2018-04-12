@@ -9,8 +9,8 @@ import (
 var _ gtfs.FeedFile = new(Transfers)
 var _ gtfs.FeedFileEntry = &Transfer{}
 
-// Transfers is a map with all agencies represented on 'shapes.txt' file of the GTFS feed.
-type Transfers map[StopID]map[StopID]Transfer
+// Transfers represents 'transfers.txt' GTFS file
+type Transfers map[StopID]map[StopID]*Transfer
 
 // FileName returns the GTFS filename.
 func (a Transfers) FileName() string {
@@ -28,7 +28,7 @@ func (a Transfers) FileEntries() []gtfs.FeedFileEntry {
 
 	for _, ag := range a {
 		for _, y := range ag {
-			ret = append(ret, &y)
+			ret = append(ret, y)
 		}
 	}
 

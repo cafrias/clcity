@@ -11,7 +11,7 @@ var _ gtfs.FeedFile = new(Stops)
 var _ gtfs.FeedFileEntry = &Stop{}
 
 // Stops is a map with all Stops represented on 'stops.txt' file of the GTFS feed
-type Stops map[StopID]Stop
+type Stops map[StopID]*Stop
 
 // FileName returns the name for this GTFS file
 func (a Stops) FileName() string {
@@ -28,7 +28,7 @@ func (a Stops) FileEntries() []gtfs.FeedFileEntry {
 	ret := []gtfs.FeedFileEntry{}
 
 	for _, ag := range a {
-		ret = append(ret, &ag)
+		ret = append(ret, ag)
 	}
 
 	return ret
@@ -55,6 +55,13 @@ type Stop struct {
 	Timezone      gtfs.Timezone
 	Wheelchair    int8
 }
+
+// LocationTypes for Stop
+const (
+	StopLocationTypeStop            = 0
+	StopLocationTypeStation         = 1
+	StopLocationtypeStationEntrance = 2
+)
 
 // Validate validates the Stop struct is valid as of GTFS specification
 func (a *Stop) Validate() (bool, *gtfs.ErrValidation) {

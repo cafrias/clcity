@@ -30,17 +30,17 @@ func TestTransfers_FileHeaders(t *testing.T) {
 func TestTransfers_FileEntries(t *testing.T) {
 	sf := files.Stop{ID: "ST001"}
 	st := files.Stop{ID: "ST002"}
-	ag := files.Transfer{
+	ag := &files.Transfer{
 		From: &sf,
 		To:   &st,
 	}
 	ags := files.Transfers{
-		sf.ID: map[files.StopID]files.Transfer{
+		sf.ID: map[files.StopID]*files.Transfer{
 			st.ID: ag,
 		},
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

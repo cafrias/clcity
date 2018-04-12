@@ -28,12 +28,12 @@ func TestStops_FileHeaders(t *testing.T) {
 }
 
 func TestStops_FileEntries(t *testing.T) {
-	ag := files.Stop{ID: "001"}
+	ag := &files.Stop{ID: "001"}
 	ags := files.Stops{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

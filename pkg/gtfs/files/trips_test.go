@@ -29,12 +29,12 @@ func TestTrips_FileHeaders(t *testing.T) {
 }
 
 func TestTrips_FileEntries(t *testing.T) {
-	ag := files.Trip{ID: "001"}
+	ag := &files.Trip{ID: "001"}
 	ags := files.Trips{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

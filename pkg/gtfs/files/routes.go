@@ -13,7 +13,7 @@ var _ gtfs.FeedFile = new(Routes)
 var _ gtfs.FeedFileEntry = &Route{}
 
 // Routes is a map with all Routes represented on 'Routes.txt' file of the GTFS feed
-type Routes map[RouteID]Route
+type Routes map[RouteID]*Route
 
 // FileName returns the name for this GTFS file
 func (a Routes) FileName() string {
@@ -30,7 +30,7 @@ func (a Routes) FileEntries() []gtfs.FeedFileEntry {
 	ret := []gtfs.FeedFileEntry{}
 
 	for _, ag := range a {
-		ret = append(ret, &ag)
+		ret = append(ret, ag)
 	}
 
 	return ret
@@ -52,6 +52,18 @@ type Route struct {
 	TextColor color.RGBA
 	SortOrder int
 }
+
+// Route types
+const (
+	RouteTypeTram = iota
+	RouteTypeSubway
+	RouteTypeRail
+	RouteTypeBus
+	RouteTypeFerry
+	RouteTypeCable
+	RouteTypeGondola
+	RouteTypeFunicular
+)
 
 // Validate validates the Route struct is valid as of GTFS specification
 func (a *Route) Validate() (bool, *gtfs.ErrValidation) {

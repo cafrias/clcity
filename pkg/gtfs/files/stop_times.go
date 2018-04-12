@@ -11,7 +11,7 @@ import (
 var _ gtfs.FeedFile = new(StopTimes)
 var _ gtfs.FeedFileEntry = &StopTime{}
 
-// StopTimes is a map with all agencies represented on 'agency.txt' file of the GTFS feed.
+// StopTimes represents the 'stop_times.txt' GTFS file
 type StopTimes map[TripID]map[StopSequence]StopTime
 
 // FileName returns the GTFS filename.
@@ -53,6 +53,20 @@ type StopTime struct {
 	ShapeDistTravaled float64
 	Timepoint         int8
 }
+
+// Pickup and Dropoff types for StopTime as defined in GTFS spec
+const (
+	StopTimePickTypeRegular = iota
+	StopTimePickTypeNo
+	StopTimePickTypePhone
+	StopTimePickTypeDriver
+)
+
+// Timepoint types for StopTime as defined in GTFS spec
+const (
+	StopTimeTimepointApprox = iota
+	StopTimeTimepointExact
+)
 
 // Validate validates the StopTime struct is valid as of GTFS specification
 func (a *StopTime) Validate() (bool, *gtfs.ErrValidation) {
