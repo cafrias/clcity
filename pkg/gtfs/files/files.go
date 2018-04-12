@@ -13,6 +13,7 @@ const (
 	FareRulesFileName      = "fare_rules.txt"
 	ShapesFileName         = "shapes.txt"
 	FrequenciesFileName    = "frequencies.txt"
+	TransfersFileName      = "transfers.txt"
 )
 
 // AgencyFileHeaders contains all headers used by 'agency.txt'
@@ -55,7 +56,7 @@ var FareAttributesFileHeaders = []string{
 	"fare_id", "price", "currency_type", "payment_method", "transfers", "agency_id", "transfer_duration",
 }
 
-// FareRulesFileHeaders contains all headers used by 'fare_attributes.txt'
+// FareRulesFileHeaders contains all headers used by 'fare_rules.txt'
 var FareRulesFileHeaders = []string{
 	"fare_id", "route_id", "origin_id", "destination_id", "contains_id",
 }
@@ -65,7 +66,12 @@ var ShapesFileHeaders = []string{
 	"shape_id", "shape_pt_lat", "shape_pt_lon", "shape_pt_sequence", "shape_dist_traveled",
 }
 
-// FrequenciesFileHeaders contains all headers used by 'shapes.txt'
+// FrequenciesFileHeaders contains all headers used by 'frequencies.txt'
 var FrequenciesFileHeaders = []string{
 	"trip_id", "start_time", "end_time", "headway_secs", "exact_times",
+}
+
+// TransfersFileHeaders contains all headers used by 'transfers.txt'
+var TransfersFileHeaders = []string{
+	"from_stop_id", "to_stop_id", "transfer_type", "min_transfer_time",
 }
