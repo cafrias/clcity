@@ -12,7 +12,7 @@ var _ gtfs.FeedFile = new(StopTimes)
 var _ gtfs.FeedFileEntry = &StopTime{}
 
 // StopTimes represents the 'stop_times.txt' GTFS file
-type StopTimes map[TripID]map[StopSequence]StopTime
+type StopTimes map[TripID]map[StopSequence]*StopTime
 
 // FileName returns the GTFS filename.
 func (a StopTimes) FileName() string {
@@ -30,7 +30,7 @@ func (a StopTimes) FileEntries() []gtfs.FeedFileEntry {
 
 	for _, ag := range a {
 		for _, y := range ag {
-			ret = append(ret, &y)
+			ret = append(ret, y)
 		}
 	}
 

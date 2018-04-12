@@ -29,14 +29,14 @@ func TestStopTimes_FileHeaders(t *testing.T) {
 
 func TestStopTimes_FileEntries(t *testing.T) {
 	tr := files.Trip{ID: "TR001"}
-	ag := files.StopTime{Trip: &tr, StopSequence: 1}
+	ag := &files.StopTime{Trip: &tr, StopSequence: 1}
 	ags := files.StopTimes{
-		tr.ID: map[files.StopSequence]files.StopTime{
+		tr.ID: map[files.StopSequence]*files.StopTime{
 			ag.StopSequence: ag,
 		},
 	}
 	fOut := []gtfs.FeedFileEntry{
-		&ag,
+		ag,
 	}
 	out := ags.FileEntries()
 

@@ -2,6 +2,7 @@ package files
 
 import (
 	"bytes"
+	"fmt"
 	"image/color"
 	"net/url"
 	"strconv"
@@ -92,28 +93,28 @@ func (a *Route) Flatten() []string {
 		// route_url
 		a.URL.String(),
 		// route_color
-		rgbaToHex(a.Color),
+		formatColor(a.Color),
 		// route_text_color
-		rgbaToHex(a.TextColor),
+		formatColor(a.TextColor),
 		// route_sort_order
 		strconv.FormatInt(int64(a.SortOrder), 10),
 	}
 }
 
-func rgbaToHex(c color.RGBA) string {
-	buf := bytes.NewBufferString("#")
+func formatColor(c color.RGBA) string {
+	buf := bytes.NewBufferString("")
 
 	// Write red
 	rHex := strconv.FormatInt(int64(c.R), 16)
-	buf.WriteString(rHex)
+	buf.WriteString(fmt.Sprintf("%02s", rHex))
 
 	// Write green
 	gHex := strconv.FormatInt(int64(c.G), 16)
-	buf.WriteString(gHex)
+	buf.WriteString(fmt.Sprintf("%02s", gHex))
 
 	// Write blue
 	bHex := strconv.FormatInt(int64(c.B), 16)
-	buf.WriteString(bHex)
+	buf.WriteString(fmt.Sprintf("%02s", bHex))
 
 	return buf.String()
 }

@@ -1,0 +1,3 @@
+shape_id,shape_pt_lat,shape_pt_lon,shape_pt_sequence,shape_dist_traveled
+SH001,-53.78263,-67.69747,0,0
+SH001,-53.78357,-67.70607,1,800

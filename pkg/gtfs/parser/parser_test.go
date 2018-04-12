@@ -21,28 +21,37 @@ func tearDown(p string) {
 }
 
 func TestParser_Write(t *testing.T) {
-	fPath := path.Join("testdata", "write")
-	tearDown(fPath)
-	setUp(fPath)
+	fixPath := path.Join("testdata", "fixture")
+	outPath := path.Join("testdata", "write")
+	tearDown(outPath)
+	setUp(outPath)
 
 	feed := fixtures.Feed()
 
-	p := parser.NewParser(fPath)
+	p := parser.NewParser(outPath)
 
 	err := p.Write(feed)
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}
 
-	res, err := ioutil.ReadFile(path.Join(fPath, "agency.txt"))
+	outFiles, err := ioutil.ReadDir(outPath)
 	if err != nil {
-		t.Fatalf("Unexpected error while reading output file: %v \n", err)
+		t.Fatalf("Error while reading write directory:\n%v\n", err)
 	}
-	fix, err := ioutil.ReadFile(path.Join("testdata", "fixture", "agency.txt"))
-	if err != nil {
-		t.Fatalf("Unexpected error while reading fixture file: %v\n", err)
-	}
-	if bytes.Equal(res, fix) == false {
-		t.Fatalf("Output file is different from expected fixture file.")
+
+	for _, outF := range outFiles {
+		outCon, err := ioutil.ReadFile(path.Join(outPath, outF.Name()))
+		if err != nil {
+			t.Fatalf("Error while reading '%s' file from '%s' folder:\n%v\n", outF.Name(), outPath, err)
+		}
+		fixCon, err := ioutil.ReadFile(path.Join(fixPath, outF.Name()))
+		if err != nil {
+			t.Fatalf("Error while reading '%s' file from '%s' folder:\n%v\n", outF.Name(), outPath, err)
+		}
+
+		if bytes.Equal(outCon, fixCon) == false {
+			t.Fatalf("Output file is different from expected fixture file for file '%s'.\n", outF.Name())
+		}
 	}
 }

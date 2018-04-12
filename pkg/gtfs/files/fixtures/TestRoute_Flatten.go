@@ -31,12 +31,7 @@ func TestRouteFlatten() (
 			B: 244,
 			A: 1,
 		},
-		TextColor: color.RGBA{ // #2fa020
-			R: 47,
-			G: 160,
-			B: 32,
-			A: 1,
-		},
+		TextColor: color.RGBA{},
 		SortOrder: 0,
 	}
 	rw := r
@@ -59,9 +54,9 @@ func TestRouteFlatten() (
 			// route_url
 			"https://github.com",
 			// route_color
-			"#4286f4",
+			"4286f4",
 			// route_text_color
-			"#2fa020",
+			"000000",
 			// route_sort_order
 			"0",
 		},
@@ -84,9 +79,9 @@ func TestRouteFlatten() (
 			// route_url
 			"https://github.com",
 			// route_color
-			"#4286f4",
+			"4286f4",
 			// route_text_color
-			"#2fa020",
+			"000000",
 			// route_sort_order
 			"0",
 		},

@@ -28,7 +28,9 @@ func (a Shapes) FileEntries() []gtfs.FeedFileEntry {
 
 	for _, ag := range a {
 		for _, y := range ag.Points {
-			ret = append(ret, &y)
+			// If I pass pointer to 'y' directly it's gonna change the value each iteration
+			cl := y
+			ret = append(ret, &cl)
 		}
 	}
 

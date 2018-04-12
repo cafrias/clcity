@@ -28,13 +28,19 @@ func TestShapePoints_FileHeaders(t *testing.T) {
 }
 
 func TestShapePoints_FileEntries(t *testing.T) {
-	p := files.ShapePoint{}
-	ag := &files.Shape{ID: "001", Points: []files.ShapePoint{p}}
+	p := files.ShapePoint{
+		Lat: 21,
+	}
+	p2 := files.ShapePoint{
+		Lat: 22,
+	}
+	ag := &files.Shape{ID: "001", Points: []files.ShapePoint{p, p2}}
 	ags := files.Shapes{
 		ag.ID: ag,
 	}
 	fOut := []gtfs.FeedFileEntry{
 		&p,
+		&p2,
 	}
 	out := ags.FileEntries()
 
@@ -46,7 +52,7 @@ func TestShapePoints_FileEntries(t *testing.T) {
 			}
 		}
 		if found == false {
-			t.Fatalf("Expected:\n%v\nto be in:\n%v\n", expected, out)
+			t.Fatalf("Expected:\n%+v\nto be in:\n%+v\n", expected, out)
 		}
 	}
 }

@@ -28,6 +28,7 @@ func Feed() *gtfs.Feed {
 			Email: mail.Address{
 				Address: "pepe@pepe.com",
 			},
+			URL:      *fURL,
 			Name:     "City Bus",
 			Timezone: "America/Argentina/Ushuaia",
 			Lang:     "es",
@@ -42,8 +43,8 @@ func Feed() *gtfs.Feed {
 			Code:         "ST001",
 			Name:         "stop 1",
 			Desc:         "between st 1 and st 2",
-			Lat:          -25.22,
-			Lon:          -25.20,
+			Lat:          -53.78286,
+			Lon:          -67.69781,
 			ZoneID:       "ZO001",
 			URL:          *fURL,
 			LocationType: files.StopLocationTypeStop,
@@ -53,8 +54,8 @@ func Feed() *gtfs.Feed {
 			Code:         "ST002",
 			Name:         "stop 2",
 			Desc:         "between st 1 and st 2",
-			Lat:          -25.26,
-			Lon:          -25.28,
+			Lat:          -53.78307,
+			Lon:          -67.70773,
 			ZoneID:       "ZO002",
 			LocationType: files.StopLocationTypeStop,
 		},
@@ -88,6 +89,11 @@ func Feed() *gtfs.Feed {
 			ShortName: "B",
 			LongName:  "Linea B",
 			Type:      files.RouteTypeBus,
+			TextColor: color.RGBA{
+				R: 255,
+				G: 255,
+				B: 255,
+			},
 		},
 	}
 	feed.AddFile(routes)
@@ -102,8 +108,8 @@ func Feed() *gtfs.Feed {
 		Fri:       true,
 		Sat:       true,
 		Sun:       false,
-		StartDate: time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC),
-		EndDate:   time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC),
+		StartDate: time.Date(2018, 1, 1, 0, 0, 0, 0, time.UTC),
+		EndDate:   time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC),
 	}
 	sh := &files.Shape{
 		ID: "SH001",
@@ -111,17 +117,17 @@ func Feed() *gtfs.Feed {
 	sh.Points = []files.ShapePoint{
 		files.ShapePoint{
 			Shape:        sh,
-			Lat:          -20.20,
-			Lon:          -20.21,
+			Lat:          -53.78263,
+			Lon:          -67.69747,
 			PtSequence:   0,
-			DistTraveled: 225.50,
+			DistTraveled: 0,
 		},
 		files.ShapePoint{
 			Shape:        sh,
-			Lat:          -20.22,
-			Lon:          -20.23,
+			Lat:          -53.78357,
+			Lon:          -67.70607,
 			PtSequence:   1,
-			DistTraveled: 228.50,
+			DistTraveled: 800,
 		},
 	}
 	trips := files.Trips{
@@ -142,20 +148,20 @@ func Feed() *gtfs.Feed {
 	// "stop_times.txt"
 	stopTimes := files.StopTimes{
 		"TR001": {
-			0: files.StopTime{
+			0: &files.StopTime{
 				Trip:              trips["TR001"],
-				ArrivalTime:       time.Date(2000, 1, 1, 20, 0, 0, 0, time.UTC),
-				DepartureTime:     time.Date(2000, 1, 1, 20, 5, 0, 0, time.UTC),
+				ArrivalTime:       time.Date(2000, 1, 1, 20, 5, 0, 0, time.UTC),
+				DepartureTime:     time.Date(2000, 1, 1, 20, 10, 0, 0, time.UTC),
 				Stop:              stops["ST001"],
 				StopSequence:      0,
 				DropOffType:       files.StopTimePickTypeDriver,
 				ShapeDistTravaled: 150,
 				Timepoint:         files.StopTimeTimepointApprox,
 			},
-			1: files.StopTime{
+			1: &files.StopTime{
 				Trip:              trips["TR001"],
-				ArrivalTime:       time.Date(2000, 1, 1, 20, 0, 0, 0, time.UTC),
-				DepartureTime:     time.Date(2000, 1, 1, 20, 5, 0, 0, time.UTC),
+				ArrivalTime:       time.Date(2000, 1, 1, 20, 15, 0, 0, time.UTC),
+				DepartureTime:     time.Date(2000, 1, 1, 20, 20, 0, 0, time.UTC),
 				Stop:              stops["ST002"],
 				StopSequence:      1,
 				DropOffType:       files.StopTimePickTypeRegular,
