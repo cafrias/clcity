@@ -14,6 +14,7 @@ const (
 	ShapesFileName         = "shapes.txt"
 	FrequenciesFileName    = "frequencies.txt"
 	TransfersFileName      = "transfers.txt"
+	FeedInfoFileName       = "feed_info.txt"
 )
 
 // AgencyFileHeaders contains all headers used by 'agency.txt'
@@ -74,4 +75,9 @@ var FrequenciesFileHeaders = []string{
 // TransfersFileHeaders contains all headers used by 'transfers.txt'
 var TransfersFileHeaders = []string{
 	"from_stop_id", "to_stop_id", "transfer_type", "min_transfer_time",
+}
+
+// FeedInfoFileHeaders contains all headers used by 'transfers.txt'
+var FeedInfoFileHeaders = []string{
+	"feed_publisher_name", "feed_publisher_url", "feed_lang", "feed_start_date", "feed_end_date", "feed_version",
 }
