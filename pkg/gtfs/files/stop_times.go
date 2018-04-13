@@ -107,5 +107,9 @@ func (a *StopTime) Flatten() []string {
 }
 
 func formatTime(t time.Time) string {
+	if t.IsZero() {
+		return ""
+	}
+
 	return fmt.Sprintf("%02d:%02d:%02d", t.Hour(), t.Minute(), t.Second())
 }

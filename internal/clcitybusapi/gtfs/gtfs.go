@@ -62,10 +62,11 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 	calendar[service.ID] = service
 	feed.AddFile(calendar)
 
-	// routes.txt, trips.txt, shapes.txt
+	// routes.txt, trips.txt, shapes.txt, stop_times.txt
 	routes := make(files.Routes)
 	trips := make(files.Trips)
 	shapes := make(files.Shapes)
+	stopTimes := make(files.StopTimes)
 	for idx, rt := range e.Lineas {
 		rtID := files.RouteID(strconv.Itoa(rt.Codigo))
 		route := &files.Route{
@@ -100,6 +101,33 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 			Route:   route,
 		}
 
+		for idx, par := range rt.Paradas {
+			seq := files.StopSequence(idx)
+			var arrTime, depTime time.Time
+			var tpoint int8
+			if idx == 0 {
+				// If first
+				arrTime = time.Date(2000, 1, 1, 5, 30, 0, 0, time.UTC)
+				depTime = arrTime
+				tpoint = files.StopTimeTimepointExact
+			}
+
+			if stopTimes[trID] == nil {
+				stopTimes[trID] = make(map[files.StopSequence]*files.StopTime)
+			}
+
+			stopTimes[trID][seq] = &files.StopTime{
+				Trip:          trip,
+				ArrivalTime:   arrTime,
+				DepartureTime: depTime,
+				Stop:          stops[files.StopID(par.Identificador)],
+				StopSequence:  seq,
+				PickupType:    files.StopTimePickTypeDriver,
+				DropOffType:   files.StopTimePickTypeDriver,
+				Timepoint:     tpoint,
+			}
+		}
+
 		routes[rtID] = route
 		trips[trID] = trip
 		shapes[shID] = shape
@@ -107,6 +135,7 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 	feed.AddFile(routes)
 	feed.AddFile(trips)
 	feed.AddFile(shapes)
+	feed.AddFile(stopTimes)
 
 	err := parser.NewParser(path).Write(feed)
 

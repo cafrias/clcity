@@ -30,6 +30,8 @@ func TestStopTimeFlatten() (
 		Timepoint:         0,
 	}
 	stopWithout := stop
+	stopWithout.ArrivalTime = time.Time{}
+	stopWithout.DepartureTime = time.Time{}
 	stopWithout.Trip = nil
 	stopWithout.Stop = nil
 	fix = StopTimeFlattenTestCase{
@@ -63,9 +65,9 @@ func TestStopTimeFlatten() (
 			// trip_id
 			"",
 			// arrival_time
-			"22:00:00",
+			"",
 			// departure_time
-			"22:10:00",
+			"",
 			// stop_id
 			"",
 			// stop_sequence

@@ -16,6 +16,7 @@ func TestRouteFlatten() (
 	fix RouteFlattenTestCase,
 	fixWag RouteFlattenTestCase,
 ) {
+
 	fixURL, _ := url.Parse("https://github.com")
 	r := files.Route{
 		ID:        "001",
