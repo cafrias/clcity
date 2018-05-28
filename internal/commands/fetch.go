@@ -8,7 +8,7 @@ import (
 	"github.com/friasdesign/clcity/internal/clcitybusapi/client"
 )
 
-func fetch(dumpPath string) (*clcitybusapi.Empresa, error) {
+func fetch(nEmp int, dumpPath string) (*clcitybusapi.Empresa, error) {
 	if _, err := os.Stat(dumpPath); os.IsNotExist(err) {
 		return nil, errDumpDirDoesntExist
 	}
@@ -16,7 +16,7 @@ func fetch(dumpPath string) (*clcitybusapi.Empresa, error) {
 
 	// Create empresa
 	fmt.Println("Creating empresa ...")
-	emp := clcitybusapi.NewEmpresa(355)
+	emp := clcitybusapi.NewEmpresa(nEmp)
 	fmt.Println("Creating empresa ... DONE!")
 
 	// Fetch lineas

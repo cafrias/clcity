@@ -22,11 +22,19 @@ type LineaService struct {
 	Path string
 }
 
+// ColorMap maps LineaIDs to colors.
 var ColorMap = map[int]color.RGBA{
 	1529: color.RGBA{R: 66, G: 134, B: 244, A: 1},
 	1530: color.RGBA{R: 104, G: 244, B: 66, A: 1},
 	1531: color.RGBA{R: 244, G: 66, B: 66, A: 1},
 	1532: color.RGBA{R: 244, G: 244, B: 66, A: 1},
+	1592: color.RGBA{R: 66, G: 134, B: 244, A: 1},
+	1593: color.RGBA{R: 104, G: 244, B: 66, A: 1},
+	1594: color.RGBA{R: 244, G: 66, B: 66, A: 1},
+	1595: color.RGBA{R: 85, G: 139, B: 47, A: 1},
+	1596: color.RGBA{R: 165, G: 39, B: 20, A: 1},
+	1597: color.RGBA{R: 156, G: 39, B: 176, A: 1},
+	1598: color.RGBA{R: 244, G: 244, B: 66, A: 1},
 }
 
 func (s *LineaService) mapLineaFromSW(swl *swparadas.Linea) (*clcitybusapi.Linea, error) {

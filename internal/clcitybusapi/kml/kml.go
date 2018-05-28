@@ -1,6 +1,7 @@
 package kml
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/friasdesign/clcity/internal/clcitybusapi"
@@ -11,7 +12,7 @@ import (
 func Generate(e *clcitybusapi.Empresa, path string) error {
 	// Check Empresa meets requirements
 	if len(e.Paradas) == 0 {
-		return ErrNoParadas
+		fmt.Printf("WARNING: Empresa id '%v', doesn't have any Parada.\n", e.Codigo)
 	}
 	if len(e.Lineas) == 0 {
 		return ErrNoLineas

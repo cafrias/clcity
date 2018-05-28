@@ -2,7 +2,6 @@ package client
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"sort"
 	"strconv"
@@ -78,7 +77,7 @@ func (s *ParadaService) fetchParadasPorLinea(linea *clcitybusapi.Linea, ret *[]*
 	}
 
 	if result.CodigoEstado != 0 {
-		return errors.New(result.MensajeEstado)
+		fmt.Printf("No stops found for line id '%v', skipping ...\n", linea.Codigo)
 	}
 
 	for _, paradas := range result.Paradas {
