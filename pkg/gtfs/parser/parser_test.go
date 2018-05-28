@@ -7,9 +7,9 @@ import (
 	"path"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/parser/fixtures"
+	"github.com/friasdesign/clcity/pkg/gtfs/parser/fixtures"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/parser"
+	"github.com/friasdesign/clcity/pkg/gtfs/parser"
 )
 
 func setUp(p string) {

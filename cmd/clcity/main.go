@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"bitbucket.org/friasdesign/clcity/internal/commands"
+	"github.com/friasdesign/clcity/internal/commands"
 	"github.com/urfave/cli"
 )
 

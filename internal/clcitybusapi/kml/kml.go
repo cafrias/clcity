@@ -3,7 +3,7 @@ package kml
 import (
 	"os"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/friasdesign/clcity/internal/clcitybusapi"
 	"github.com/twpayne/go-kml"
 )
 

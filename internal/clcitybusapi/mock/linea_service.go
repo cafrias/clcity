@@ -1,8 +1,8 @@
 package mock
 
 import (
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
+	"github.com/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/client"
 )
 
 var _ clcitybusapi.LineaService = &LineaService{}

@@ -1,7 +1,7 @@
 package fixtures
 
 import (
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 )
 
 type ShapePointFlattenTestCase struct {

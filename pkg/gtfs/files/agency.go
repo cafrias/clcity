@@ -4,7 +4,7 @@ import (
 	"net/mail"
 	"net/url"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs"
 )
 
 var _ gtfs.FeedFile = new(Agencies)

@@ -3,7 +3,7 @@ package fixtures
 import (
 	"golang.org/x/text/currency"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 )
 
 type FareFlattenTestCase struct {

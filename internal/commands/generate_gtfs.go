@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"path"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/gtfs"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/gtfs"
 
-	"bitbucket.org/friasdesign/clcity/pkg/elapsed"
+	"github.com/friasdesign/clcity/pkg/elapsed"
 	"github.com/urfave/cli"
 )
 

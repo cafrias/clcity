@@ -1,8 +1,8 @@
 package mock
 
 import (
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/client"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/client"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 var _ client.SOAPClient = &SOAPClient{}

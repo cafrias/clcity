@@ -3,7 +3,7 @@ package fixtures
 import (
 	"time"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 )
 
 type ServiceFlattenTestCase struct {

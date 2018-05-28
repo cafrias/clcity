@@ -3,7 +3,7 @@ package files
 import (
 	"strconv"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs"
 	"golang.org/x/text/currency"
 )
 

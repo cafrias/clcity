@@ -4,9 +4,9 @@ import (
 	"strconv"
 	"time"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/date"
+	"github.com/friasdesign/clcity/pkg/gtfs/date"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs"
 )
 
 var _ gtfs.FeedFile = new(CalendarDates)

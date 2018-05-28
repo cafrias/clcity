@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files/fixtures"
+	"github.com/friasdesign/clcity/pkg/gtfs/files/fixtures"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 )
 
 func TestTrips_FileName(t *testing.T) {

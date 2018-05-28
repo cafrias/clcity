@@ -4,9 +4,9 @@ import (
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files/fixtures"
+	"github.com/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs/files/fixtures"
 )
 
 func TestStops_FileName(t *testing.T) {

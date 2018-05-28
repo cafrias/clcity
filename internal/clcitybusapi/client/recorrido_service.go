@@ -3,10 +3,10 @@ package client
 import (
 	"encoding/json"
 
-	"bitbucket.org/friasdesign/clcity/pkg/geo"
+	"github.com/friasdesign/clcity/pkg/geo"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"github.com/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 var _ clcitybusapi.RecorridoService = &RecorridoService{}

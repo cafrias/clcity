@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 )
 
 func TestAgencies_FileName(t *testing.T) {

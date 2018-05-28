@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"time"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 	"golang.org/x/text/language"
 )
 

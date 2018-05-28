@@ -7,10 +7,10 @@ import (
 	"image/color"
 	"strconv"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/dump"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/dump"
 
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi"
-	"bitbucket.org/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"github.com/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 var _ clcitybusapi.LineaService = &LineaService{}

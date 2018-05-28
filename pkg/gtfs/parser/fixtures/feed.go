@@ -10,10 +10,10 @@ import (
 
 	"golang.org/x/text/currency"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/date"
+	"github.com/friasdesign/clcity/pkg/gtfs/date"
 
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs"
-	"bitbucket.org/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/friasdesign/clcity/pkg/gtfs"
+	"github.com/friasdesign/clcity/pkg/gtfs/files"
 )
 
 func Feed() *gtfs.Feed {
