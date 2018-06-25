@@ -3,8 +3,8 @@ package fixtures
 import (
 	"testing"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
-	"github.com/friasdesign/clcity/pkg/geo"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/pkg/geo"
 )
 
 // TestKMLGenerate provides fixture data for test `TestKML_Generate`

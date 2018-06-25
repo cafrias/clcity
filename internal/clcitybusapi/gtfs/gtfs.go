@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/friasdesign/clcity/pkg/gtfs/parser"
+	"github.com/cafrias/clcity/pkg/gtfs/parser"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
-	"github.com/friasdesign/clcity/pkg/gtfs"
-	"github.com/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/pkg/gtfs"
+	"github.com/cafrias/clcity/pkg/gtfs/files"
 )
 
 // Generate generates GTFS feed from data provided by 'Cuando Llega City Bus' API

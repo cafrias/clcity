@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/client"
-	"github.com/friasdesign/clcity/pkg/geo"
+	"github.com/cafrias/clcity/internal/clcitybusapi/client"
+	"github.com/cafrias/clcity/pkg/geo"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
-	"github.com/friasdesign/clcity/internal/clcitybusapi/mock"
-	"github.com/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/internal/clcitybusapi/mock"
+	"github.com/cafrias/clcity/internal/clcitybusapi/soapclient/swparadas"
 )
 
 // TestLineaServiceLineasPorEmpresa fixture for test `TestLineaService_LineasPorEmpresa`.

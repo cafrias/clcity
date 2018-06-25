@@ -4,7 +4,7 @@ import (
 	"image/color"
 	"net/url"
 
-	"github.com/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/cafrias/clcity/pkg/gtfs/files"
 )
 
 type RouteFlattenTestCase struct {

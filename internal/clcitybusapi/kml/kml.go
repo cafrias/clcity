@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
 	"github.com/twpayne/go-kml"
 )
 

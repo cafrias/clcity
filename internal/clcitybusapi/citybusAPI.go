@@ -3,7 +3,7 @@ package clcitybusapi
 import (
 	"image/color"
 
-	"github.com/friasdesign/clcity/pkg/geo"
+	"github.com/cafrias/clcity/pkg/geo"
 )
 
 // Empresa represents a transport agency.

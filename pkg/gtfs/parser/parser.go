@@ -5,7 +5,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/friasdesign/clcity/pkg/gtfs"
+	"github.com/cafrias/clcity/pkg/gtfs"
 )
 
 var _ gtfs.Parser = &Parser{}

@@ -1,7 +1,7 @@
 package files
 
 import (
-	"github.com/friasdesign/clcity/pkg/gtfs"
+	"github.com/cafrias/clcity/pkg/gtfs"
 )
 
 var _ gtfs.FeedFile = new(FareRules)

@@ -7,11 +7,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/kml/fixtures"
+	"github.com/cafrias/clcity/internal/clcitybusapi/kml/fixtures"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/kml"
+	"github.com/cafrias/clcity/internal/clcitybusapi/kml"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
 )
 
 const dumpPath = "testdata/kml"

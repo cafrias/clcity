@@ -10,13 +10,13 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
-	"github.com/friasdesign/clcity/internal/clcitybusapi/dump"
-	"github.com/friasdesign/clcity/internal/clcitybusapi/mock"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/internal/clcitybusapi/dump"
+	"github.com/cafrias/clcity/internal/clcitybusapi/mock"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/client/fixtures"
+	"github.com/cafrias/clcity/internal/clcitybusapi/client/fixtures"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/client"
+	"github.com/cafrias/clcity/internal/clcitybusapi/client"
 )
 
 func TestLineaService_LineasPorEmpresa(t *testing.T) {

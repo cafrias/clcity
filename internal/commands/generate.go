@@ -5,9 +5,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/gtfs"
-	"github.com/friasdesign/clcity/internal/clcitybusapi/kml"
-	"github.com/friasdesign/clcity/pkg/elapsed"
+	"github.com/cafrias/clcity/internal/clcitybusapi/gtfs"
+	"github.com/cafrias/clcity/internal/clcitybusapi/kml"
+	"github.com/cafrias/clcity/pkg/elapsed"
 	"github.com/urfave/cli"
 )
 

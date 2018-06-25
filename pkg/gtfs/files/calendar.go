@@ -3,8 +3,8 @@ package files
 import (
 	"time"
 
-	"github.com/friasdesign/clcity/pkg/gtfs"
-	"github.com/friasdesign/clcity/pkg/gtfs/date"
+	"github.com/cafrias/clcity/pkg/gtfs"
+	"github.com/cafrias/clcity/pkg/gtfs/date"
 )
 
 var _ gtfs.FeedFile = new(Calendar)

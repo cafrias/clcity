@@ -3,7 +3,7 @@ package fixtures
 import (
 	"net/url"
 
-	"github.com/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/cafrias/clcity/pkg/gtfs/files"
 )
 
 type StopFlattenTestCase struct {

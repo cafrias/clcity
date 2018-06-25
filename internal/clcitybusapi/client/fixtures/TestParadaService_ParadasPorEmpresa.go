@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/soapclient/swparadas"
-	"github.com/friasdesign/clcity/pkg/geo"
+	"github.com/cafrias/clcity/internal/clcitybusapi/soapclient/swparadas"
+	"github.com/cafrias/clcity/pkg/geo"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi/mock"
+	"github.com/cafrias/clcity/internal/clcitybusapi/mock"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
 )
 
 // TestParadaServiceParadasPorEmpresa fixture for test `TestParadaService_ParadasPorEmpresa`.

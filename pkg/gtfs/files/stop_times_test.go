@@ -4,9 +4,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/friasdesign/clcity/pkg/gtfs"
-	"github.com/friasdesign/clcity/pkg/gtfs/files"
-	"github.com/friasdesign/clcity/pkg/gtfs/files/fixtures"
+	"github.com/cafrias/clcity/pkg/gtfs"
+	"github.com/cafrias/clcity/pkg/gtfs/files"
+	"github.com/cafrias/clcity/pkg/gtfs/files/fixtures"
 )
 
 func TestStopTimes_FileName(t *testing.T) {

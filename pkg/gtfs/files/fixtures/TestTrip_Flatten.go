@@ -1,7 +1,7 @@
 package fixtures
 
 import (
-	"github.com/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/cafrias/clcity/pkg/gtfs/files"
 )
 
 type TripFlattenTestCase struct {

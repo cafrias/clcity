@@ -5,11 +5,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/friasdesign/clcity/pkg/gtfs/date"
-	"github.com/friasdesign/clcity/pkg/gtfs/files/fixtures"
+	"github.com/cafrias/clcity/pkg/gtfs/date"
+	"github.com/cafrias/clcity/pkg/gtfs/files/fixtures"
 
-	"github.com/friasdesign/clcity/pkg/gtfs"
-	"github.com/friasdesign/clcity/pkg/gtfs/files"
+	"github.com/cafrias/clcity/pkg/gtfs"
+	"github.com/cafrias/clcity/pkg/gtfs/files"
 )
 
 func TestCalendarDates_FileName(t *testing.T) {

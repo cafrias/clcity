@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/friasdesign/clcity/internal/clcitybusapi"
-	"github.com/friasdesign/clcity/internal/clcitybusapi/client"
+	"github.com/cafrias/clcity/internal/clcitybusapi"
+	"github.com/cafrias/clcity/internal/clcitybusapi/client"
 )
 
 func fetch(nEmp int, dumpPath string) (*clcitybusapi.Empresa, error) {
