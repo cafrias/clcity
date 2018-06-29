@@ -23,7 +23,7 @@ func NewEmpresa(cod int) *Empresa {
 		Codigo: cod,
 		Nombre: "City Bus",
 		URL:    "https://riogrande.gob.ar/",
-		Lang:   "SPA",
+		Lang:   "ES",
 		TZ:     "America/Argentina/Ushuaia",
 	}
 }
@@ -32,12 +32,14 @@ func NewEmpresa(cod int) *Empresa {
 type Parada struct {
 	Codigo string
 	Punto  geo.Point
+	Nombre string
 }
 
 // ParadaLinea represents a stop for a 'Linea'.
 type ParadaLinea struct {
 	Codigo                     int
 	Identificador              string
+	Nombre                     string
 	Descripcion                string
 	AbreviaturaBandera         string
 	AbreviaturaAmpliadaBandera string

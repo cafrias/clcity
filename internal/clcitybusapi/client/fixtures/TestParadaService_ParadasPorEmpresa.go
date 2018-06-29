@@ -22,9 +22,9 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	sLin *mock.Spy,
 	// ParadaLineas
 	// fParLin map[string][]*clcitybusapi.ParadaLinea,
-	fParLinSW map[string]map[string][]*swparadas.ParadaLinea,
-	fParLinReq map[string]*swparadas.RecuperarParadasCompletoPorLinea,
-	fParLinResp map[string]*swparadas.RecuperarParadasCompletoPorLineaResponse,
+	fParLinSW map[string][]*swparadas.ParadaLinea,
+	fParLinReq map[string]*swparadas.RecuperarParadasPorLineaParaCuandoLlega,
+	fParLinResp map[string]*swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse,
 	sParLin *mock.Spy,
 	// Paradas
 	fPar []*clcitybusapi.Parada,
@@ -64,69 +64,69 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	}
 
 	// ParadaLineas
-	fParLinSW = map[string]map[string][]*swparadas.ParadaLinea{
-		l1str: map[string][]*swparadas.ParadaLinea{
-			"IDA": []*swparadas.ParadaLinea{
-				&swparadas.ParadaLinea{
-					Codigo:         "123456",
-					Identificador:  "RG001",
-					LatitudParada:  "20,1",
-					LongitudParada: "20,1",
-				},
+	fParLinSW = map[string][]*swparadas.ParadaLinea{
+		l1str: []*swparadas.ParadaLinea{
+			&swparadas.ParadaLinea{
+				Codigo:            "123456",
+				Identificador:     "RG001",
+				CallePrincipal:    "Uno",
+				CalleInterseccion: "Dos",
+				Latitud:           "20,1",
+				Longitud:          "20,1",
 			},
-			"VTA": []*swparadas.ParadaLinea{
-				&swparadas.ParadaLinea{
-					Codigo:         "123457",
-					Identificador:  "RG002",
-					LatitudParada:  "21,1",
-					LongitudParada: "21,1",
-				},
+			&swparadas.ParadaLinea{
+				Codigo:            "123457",
+				Identificador:     "RG002",
+				CallePrincipal:    "Tres",
+				CalleInterseccion: "Cuatro",
+				Latitud:           "21,1",
+				Longitud:          "21,1",
 			},
 		},
-		l2str: map[string][]*swparadas.ParadaLinea{
-			"IDA": {
-				&swparadas.ParadaLinea{
-					Codigo:         "123412",
-					Identificador:  "RG003",
-					LatitudParada:  "22,1",
-					LongitudParada: "22,1",
-				},
+		l2str: []*swparadas.ParadaLinea{
+			&swparadas.ParadaLinea{
+				Codigo:            "123412",
+				Identificador:     "RG003",
+				CallePrincipal:    "Cinco",
+				CalleInterseccion: "Seis",
+				Latitud:           "22,1",
+				Longitud:          "22,1",
 			},
-			"VTA": {
-				&swparadas.ParadaLinea{
-					Codigo:         "123458",
-					Identificador:  "RG001",
-					LatitudParada:  "20,1",
-					LongitudParada: "20,1",
-				},
+			&swparadas.ParadaLinea{
+				Codigo:            "123458",
+				Identificador:     "RG001",
+				CallePrincipal:    "Uno",
+				CalleInterseccion: "Dos",
+				Latitud:           "20,1",
+				Longitud:          "20,1",
 			},
 		},
 	}
 	user := "WEB.SUR"
 	pass := "PAR.SW.SUR"
-	fParLinReq = map[string]*swparadas.RecuperarParadasCompletoPorLinea{
-		l1str: &swparadas.RecuperarParadasCompletoPorLinea{
+	fParLinReq = map[string]*swparadas.RecuperarParadasPorLineaParaCuandoLlega{
+		l1str: &swparadas.RecuperarParadasPorLineaParaCuandoLlega{
 			Usuario:           user,
 			Clave:             pass,
 			CodigoLineaParada: int32(fLin[l1str].Codigo),
-			IsSublinea:        false,
+			IsSubLinea:        false,
 			IsInteligente:     false,
 		},
-		l2str: &swparadas.RecuperarParadasCompletoPorLinea{
+		l2str: &swparadas.RecuperarParadasPorLineaParaCuandoLlega{
 			Usuario:           user,
 			Clave:             pass,
 			CodigoLineaParada: int32(fLin[l2str].Codigo),
-			IsSublinea:        false,
+			IsSubLinea:        false,
 			IsInteligente:     false,
 		},
 	}
-	fParLinRes := map[string]*swparadas.RecuperarParadasCompletoPorLineaResult{
-		l1str: &swparadas.RecuperarParadasCompletoPorLineaResult{
+	fParLinRes := map[string]*swparadas.RecuperarParadasPorLineaParaCuandoLlegaResult{
+		l1str: &swparadas.RecuperarParadasPorLineaParaCuandoLlegaResult{
 			CodigoEstado:  0,
 			MensajeEstado: "ok",
 			Paradas:       fParLinSW[l1str],
 		},
-		l2str: &swparadas.RecuperarParadasCompletoPorLineaResult{
+		l2str: &swparadas.RecuperarParadasPorLineaParaCuandoLlegaResult{
 			CodigoEstado:  0,
 			MensajeEstado: "ok",
 			Paradas:       fParLinSW[l2str],
@@ -137,12 +137,12 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		by, _ := json.Marshal(res)
 		fParLinResStr[lin] = string(by)
 	}
-	fParLinResp = map[string]*swparadas.RecuperarParadasCompletoPorLineaResponse{
-		l1str: &swparadas.RecuperarParadasCompletoPorLineaResponse{
-			RecuperarParadasCompletoPorLineaResult: fParLinResStr[l1str],
+	fParLinResp = map[string]*swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse{
+		l1str: &swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse{
+			RecuperarParadasPorLineaParaCuandoLlegaResult: fParLinResStr[l1str],
 		},
-		l2str: &swparadas.RecuperarParadasCompletoPorLineaResponse{
-			RecuperarParadasCompletoPorLineaResult: fParLinResStr[l2str],
+		l2str: &swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse{
+			RecuperarParadasPorLineaParaCuandoLlegaResult: fParLinResStr[l2str],
 		},
 	}
 	sParLin = &mock.Spy{
@@ -162,6 +162,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 	fPar = []*clcitybusapi.Parada{
 		&clcitybusapi.Parada{
 			Codigo: "RG001",
+			Nombre: "Uno y Dos",
 			Punto: geo.Point{
 				Lat: 20.1,
 				Lon: 20.1,
@@ -169,6 +170,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG002",
+			Nombre: "Tres y Cuatro",
 			Punto: geo.Point{
 				Lat: 21.1,
 				Lon: 21.1,
@@ -176,6 +178,7 @@ func TestParadaServiceParadasPorEmpresa(t *testing.T) (
 		},
 		&clcitybusapi.Parada{
 			Codigo: "RG003",
+			Nombre: "Cinco y Seis",
 			Punto: geo.Point{
 				Lat: 22.1,
 				Lon: 22.1,

@@ -24,7 +24,7 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	linea, fixReq, fixOut, _, spy, fixDump := fixtures.TestParadaServiceParadasPorLinea(t)
 
 	scli := NewSOAPClient("", false, nil)
-	scli.RecuperarParadasCompletoPorLineaSpy = spy
+	scli.RecuperarParadasPorLineaParaCuandoLlegaSpy = spy
 
 	cli := client.NewClient(scli, DumpPath)
 
@@ -34,20 +34,20 @@ func TestParadaService_ParadasPorLinea(t *testing.T) {
 	}
 
 	// Called call
-	spy = scli.RecuperarParadasCompletoPorLineaSpy
+	spy = scli.RecuperarParadasPorLineaParaCuandoLlegaSpy
 	if spy.Invoked == false {
 		t.Fatal("Didn't invoke Call")
 	}
 
 	// Called with correct input
-	arg, _ := spy.Args[0][0].(*swparadas.RecuperarParadasCompletoPorLinea)
+	arg, _ := spy.Args[0][0].(*swparadas.RecuperarParadasPorLineaParaCuandoLlega)
 	if ok := reflect.DeepEqual(arg, fixReq); ok == false {
 		t.Fatalf("Didn't call with right request. Expected '%+v', got '%+v'.\n", fixReq, arg)
 	}
 
 	// out valid
 	if ok := reflect.DeepEqual(fixOut, out); ok == false {
-		t.Fatalf("Didn't receive right output. Expected '%#v', got '%#v'\n", fixOut, out)
+		t.Fatalf("Outputs are different. EXPECTED '%s' RECEIVED '%s'", spew.Sdump(fixOut), spew.Sdump(out))
 	}
 
 	// Check dump file
@@ -85,7 +85,7 @@ func TestParadaService_ParadasPorLinea_ReadsFromDump(t *testing.T) {
 	}
 
 	scli := NewSOAPClient("", false, nil)
-	scli.RecuperarParadasCompletoPorLineaSpy = spy
+	scli.RecuperarParadasPorLineaParaCuandoLlegaSpy = spy
 
 	cli := client.NewClient(scli, DumpPath)
 
@@ -95,7 +95,7 @@ func TestParadaService_ParadasPorLinea_ReadsFromDump(t *testing.T) {
 	}
 
 	// Called call
-	spy = scli.RecuperarParadasCompletoPorLineaSpy
+	spy = scli.RecuperarParadasPorLineaParaCuandoLlegaSpy
 	if spy.Invoked == true {
 		t.Fatal("Invoked Call")
 	}
@@ -113,7 +113,7 @@ func TestParadaService_ParadasPorEmpresa(t *testing.T) {
 	fEmp, _, _, _, sLin, _, _, _, sParLin, fPar := fixtures.TestParadaServiceParadasPorEmpresa(t)
 
 	scli := NewSOAPClient("", false, nil)
-	scli.RecuperarParadasCompletoPorLineaSpy = sParLin
+	scli.RecuperarParadasPorLineaParaCuandoLlegaSpy = sParLin
 
 	cli := client.NewClient(scli, DumpPath)
 
@@ -177,7 +177,7 @@ func TestParadaService_ParadasPorEmpresa_ReadFromDump(t *testing.T) {
 	}
 
 	scli := NewSOAPClient("", false, nil)
-	scli.RecuperarParadasCompletoPorLineaSpy = sParLin
+	scli.RecuperarParadasPorLineaParaCuandoLlegaSpy = sParLin
 
 	cli := client.NewClient(scli, DumpPath)
 

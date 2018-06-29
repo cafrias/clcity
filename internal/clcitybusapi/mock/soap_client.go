@@ -11,7 +11,7 @@ var _ client.SOAPClient = &SOAPClient{}
 type SOAPClient struct {
 	*swparadas.SWParadasSoap
 	RecuperarLineasPorCodigoEmpresaSpy            *Spy
-	RecuperarParadasCompletoPorLineaSpy           *Spy
+	RecuperarParadasPorLineaParaCuandoLlegaSpy    *Spy
 	RecuperarRecorridoParaMapaPorEntidadYLineaSpy *Spy
 }
 
@@ -31,18 +31,18 @@ func (s *SOAPClient) RecuperarLineasPorCodigoEmpresa(request *swparadas.Recupera
 	return ret1, ret2
 }
 
-// RecuperarParadasCompletoPorLinea mock implementation of RecuperarParadasCompletoPorLinea for SOAPClient interface.
-func (s *SOAPClient) RecuperarParadasCompletoPorLinea(request *swparadas.RecuperarParadasCompletoPorLinea) (*swparadas.RecuperarParadasCompletoPorLineaResponse, error) {
-	s.RecuperarParadasCompletoPorLineaSpy.Invoked = true
-	call := s.RecuperarParadasCompletoPorLineaSpy.Calls
-	s.RecuperarParadasCompletoPorLineaSpy.Args = append(s.RecuperarParadasCompletoPorLineaSpy.Args, []interface{}{
+// RecuperarParadasPorLineaParaCuandoLlega mock implementation of RecuperarParadasPorLineaParaCuandoLlega for SOAPClient interface.
+func (s *SOAPClient) RecuperarParadasPorLineaParaCuandoLlega(request *swparadas.RecuperarParadasPorLineaParaCuandoLlega) (*swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse, error) {
+	s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Invoked = true
+	call := s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Calls
+	s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Args = append(s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Args, []interface{}{
 		request,
 	})
 
-	ret1, _ := s.RecuperarParadasCompletoPorLineaSpy.Ret[call][0].(*swparadas.RecuperarParadasCompletoPorLineaResponse)
-	ret2, _ := s.RecuperarParadasCompletoPorLineaSpy.Ret[call][1].(error)
+	ret1, _ := s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Ret[call][0].(*swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse)
+	ret2, _ := s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Ret[call][1].(error)
 
-	s.RecuperarParadasCompletoPorLineaSpy.Calls++
+	s.RecuperarParadasPorLineaParaCuandoLlegaSpy.Calls++
 	return ret1, ret2
 }
 

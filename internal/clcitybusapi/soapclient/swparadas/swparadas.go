@@ -110,22 +110,6 @@ type RecuperarParadasConBanderaPorLineaCalleEInterseccionResponse struct {
 	RecuperarParadasConBanderaPorLineaCalleEInterseccionResult string `xml:"RecuperarParadasConBanderaPorLineaCalleEInterseccionResult,omitempty"`
 }
 
-type RecuperarParadasPorLineaParaCuandoLlega struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarParadasPorLineaParaCuandoLlega"`
-
-	Usuario           string `xml:"usuario,omitempty"`
-	Clave             string `xml:"clave,omitempty"`
-	CodigoLineaParada int32  `xml:"codigoLineaParada,omitempty"`
-	IsSubLinea        bool   `xml:"isSubLinea,omitempty"`
-	IsInteligente     bool   `xml:"isInteligente,omitempty"`
-}
-
-type RecuperarParadasPorLineaParaCuandoLlegaResponse struct {
-	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarParadasPorLineaParaCuandoLlegaResponse"`
-
-	RecuperarParadasPorLineaParaCuandoLlegaResult string `xml:"RecuperarParadasPorLineaParaCuandoLlegaResult,omitempty"`
-}
-
 type RecuperarParadasMasCercanasPorLocalidadProvinciaPais struct {
 	XMLName xml.Name `xml:"http://clsw.smartmovepro.net/ RecuperarParadasMasCercanasPorLocalidadProvinciaPais"`
 
@@ -372,16 +356,6 @@ func (service *SWParadasSoap) RecuperarParadasPorLineaCalleEInterseccion(request
 func (service *SWParadasSoap) RecuperarParadasConBanderaPorLineaCalleEInterseccion(request *RecuperarParadasConBanderaPorLineaCalleEInterseccion) (*RecuperarParadasConBanderaPorLineaCalleEInterseccionResponse, error) {
 	response := new(RecuperarParadasConBanderaPorLineaCalleEInterseccionResponse)
 	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarParadasConBanderaPorLineaCalleEInterseccion", request, response)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
-}
-
-func (service *SWParadasSoap) RecuperarParadasPorLineaParaCuandoLlega(request *RecuperarParadasPorLineaParaCuandoLlega) (*RecuperarParadasPorLineaParaCuandoLlegaResponse, error) {
-	response := new(RecuperarParadasPorLineaParaCuandoLlegaResponse)
-	err := service.client.Call("http://clsw.smartmovepro.net/RecuperarParadasPorLineaParaCuandoLlega", request, response)
 	if err != nil {
 		return nil, err
 	}

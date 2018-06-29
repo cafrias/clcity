@@ -14,9 +14,9 @@ import (
 // TestParadaServiceParadasPorLinea fixture for test `TestParadaService_ParadasPorLinea`.
 func TestParadaServiceParadasPorLinea(t *testing.T) (
 	linea *clcitybusapi.Linea,
-	fixReq *swparadas.RecuperarParadasCompletoPorLinea,
+	fixReq *swparadas.RecuperarParadasPorLineaParaCuandoLlega,
 	fixOut []*clcitybusapi.ParadaLinea,
-	fixRes *swparadas.RecuperarParadasCompletoPorLineaResponse,
+	fixRes *swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse,
 	spy *mock.Spy,
 	fixDump []*clcitybusapi.ParadaLinea,
 ) {
@@ -25,70 +25,56 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 		Empresa:       &clcitybusapi.Empresa{Codigo: 355},
 		CodigoEntidad: 1234,
 	}
-	fixReq = &swparadas.RecuperarParadasCompletoPorLinea{
+	fixReq = &swparadas.RecuperarParadasPorLineaParaCuandoLlega{
 		Usuario:           "WEB.SUR",
 		Clave:             "PAR.SW.SUR",
 		CodigoLineaParada: int32(linea.Codigo),
-		IsSublinea:        false,
+		IsSubLinea:        false,
 		IsInteligente:     false,
 	}
 
 	fixOut = []*clcitybusapi.ParadaLinea{
 		&clcitybusapi.ParadaLinea{
-			Codigo:                     57720,
-			Identificador:              "RG001",
-			Descripcion:                "HACIA CHACRA 11",
-			AbreviaturaBandera:         "RAMAL A",
-			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+			Codigo:        57720,
+			Identificador: "RG001",
+			Nombre:        "Uno y Dos",
 			Punto: geo.Point{
 				Lat: -53.803239,
 				Lon: -67.661785,
 			},
-			AbreviaturaBanderaGIT: "IDA A",
 			Linea: linea,
 		},
 		&clcitybusapi.ParadaLinea{
-			Codigo:                     57721,
-			Identificador:              "RG002",
-			Descripcion:                "HACIA CHACRA 11",
-			AbreviaturaBandera:         "RAMAL A",
-			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+			Codigo:        57721,
+			Identificador: "RG002",
+			Nombre:        "Tres y Cuatro",
 			Punto: geo.Point{
 				Lat: -53.803109,
 				Lon: -67.662526,
 			},
-			AbreviaturaBanderaGIT: "IDA A",
 			Linea: linea,
 		},
 	}
 
-	fixResult := swparadas.RecuperarParadasCompletoPorLineaResult{
+	fixResult := swparadas.RecuperarParadasPorLineaParaCuandoLlegaResult{
 		CodigoEstado:  0,
 		MensajeEstado: "ok",
-		Paradas: map[string][]*swparadas.ParadaLinea{
-			"IDA": {
-				&swparadas.ParadaLinea{
-					Codigo:                     "57720",
-					Identificador:              "RG001",
-					Descripcion:                "HACIA CHACRA 11",
-					AbreviaturaBandera:         "RAMAL A",
-					AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-					LatitudParada:              "-53,803239",
-					LongitudParada:             "-67,661785",
-					AbreviaturaBanderaGIT:      "IDA A",
-				},
+		Paradas: []*swparadas.ParadaLinea{
+			&swparadas.ParadaLinea{
+				Codigo:            "57720",
+				Identificador:     "RG001",
+				CallePrincipal:    "UNO",
+				CalleInterseccion: "DOS",
+				Latitud:           "-53,803239",
+				Longitud:          "-67,661785",
 			},
-			"VTA": {
-				&swparadas.ParadaLinea{
-					Codigo:                     "57721",
-					Identificador:              "RG002",
-					Descripcion:                "HACIA CHACRA 11",
-					AbreviaturaBandera:         "RAMAL A",
-					AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
-					LatitudParada:              "-53,803109",
-					LongitudParada:             "-67,662526",
-					AbreviaturaBanderaGIT:      "IDA A",
-				},
+			&swparadas.ParadaLinea{
+				Codigo:            "57721",
+				Identificador:     "RG002",
+				CallePrincipal:    "TRES",
+				CalleInterseccion: "CUATRO",
+				Latitud:           "-53,803109",
+				Longitud:          "-67,662526",
 			},
 		},
 	}
@@ -98,8 +84,8 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 		t.Fatal("Failed while parsing fixture to JSON.")
 	}
 
-	fixRes = &swparadas.RecuperarParadasCompletoPorLineaResponse{
-		RecuperarParadasCompletoPorLineaResult: string(resultJSON),
+	fixRes = &swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse{
+		RecuperarParadasPorLineaParaCuandoLlegaResult: string(resultJSON),
 	}
 
 	spy = &mock.Spy{
@@ -113,28 +99,22 @@ func TestParadaServiceParadasPorLinea(t *testing.T) (
 
 	fixDump = []*clcitybusapi.ParadaLinea{
 		&clcitybusapi.ParadaLinea{
-			Codigo:                     57720,
-			Identificador:              "RG001",
-			Descripcion:                "HACIA CHACRA 11",
-			AbreviaturaBandera:         "RAMAL A",
-			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+			Codigo:        57720,
+			Nombre:        "Uno y Dos",
+			Identificador: "RG001",
 			Punto: geo.Point{
 				Lat: -53.803239,
 				Lon: -67.661785,
 			},
-			AbreviaturaBanderaGIT: "IDA A",
 		},
 		&clcitybusapi.ParadaLinea{
-			Codigo:                     57721,
-			Identificador:              "RG002",
-			Descripcion:                "HACIA CHACRA 11",
-			AbreviaturaBandera:         "RAMAL A",
-			AbreviaturaAmpliadaBandera: "HACIA CHACRA 11",
+			Codigo:        57721,
+			Nombre:        "Tres y Cuatro",
+			Identificador: "RG002",
 			Punto: geo.Point{
 				Lat: -53.803109,
 				Lon: -67.662526,
 			},
-			AbreviaturaBanderaGIT: "IDA A",
 		},
 	}
 

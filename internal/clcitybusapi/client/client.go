@@ -33,7 +33,7 @@ func (c *Client) RecorridoService() clcitybusapi.RecorridoService { return c.rec
 // SOAPClient represents the `cuando llega City Bus` API endpoint.
 type SOAPClient interface {
 	RecuperarLineasPorCodigoEmpresa(request *swparadas.RecuperarLineasPorCodigoEmpresa) (*swparadas.RecuperarLineasPorCodigoEmpresaResponse, error)
-	RecuperarParadasCompletoPorLinea(request *swparadas.RecuperarParadasCompletoPorLinea) (*swparadas.RecuperarParadasCompletoPorLineaResponse, error)
+	RecuperarParadasPorLineaParaCuandoLlega(request *swparadas.RecuperarParadasPorLineaParaCuandoLlega) (*swparadas.RecuperarParadasPorLineaParaCuandoLlegaResponse, error)
 	RecuperarRecorridoParaMapaPorEntidadYLinea(request *swparadas.RecuperarRecorridoParaMapaPorEntidadYLinea) (*swparadas.RecuperarRecorridoParaMapaPorEntidadYLineaResponse, error)
 }
 

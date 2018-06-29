@@ -31,25 +31,26 @@ func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcit
 		return nil, err
 	}
 
-	latStr := strings.Replace(swp.LatitudParada, ",", ".", -1)
+	latStr := strings.Replace(swp.Latitud, ",", ".", -1)
 	lat, err := strconv.ParseFloat(latStr, 64)
 	if err != nil {
 		return nil, err
 	}
 
-	longStr := strings.Replace(swp.LongitudParada, ",", ".", -1)
+	longStr := strings.Replace(swp.Longitud, ",", ".", -1)
 	Lon, err := strconv.ParseFloat(longStr, 64)
 	if err != nil {
 		return nil, err
 	}
 
+	callePrincipal := strings.Title(strings.ToLower(swp.CallePrincipal))
+	calleInterseccion := strings.Title(strings.ToLower(swp.CalleInterseccion))
+
 	return &clcitybusapi.ParadaLinea{
-		Codigo:                     cod,
-		Identificador:              swp.Identificador,
-		Descripcion:                swp.Descripcion,
-		AbreviaturaBanderaGIT:      swp.AbreviaturaBanderaGIT,
-		AbreviaturaBandera:         swp.AbreviaturaBandera,
-		AbreviaturaAmpliadaBandera: swp.AbreviaturaAmpliadaBandera,
+		Codigo:        cod,
+		Nombre:        fmt.Sprintf("%s y %s", callePrincipal, calleInterseccion),
+		Identificador: swp.Identificador,
+		Descripcion:   swp.Descripcion,
 		Punto: geo.Point{
 			Lat: lat,
 			Lon: Lon,
@@ -58,20 +59,20 @@ func (s *ParadaService) mapParadaLineaFromSW(swp *swparadas.ParadaLinea) (*clcit
 }
 
 func (s *ParadaService) fetchParadasPorLinea(linea *clcitybusapi.Linea, ret *[]*clcitybusapi.ParadaLinea) error {
-	in := &swparadas.RecuperarParadasCompletoPorLinea{
+	in := &swparadas.RecuperarParadasPorLineaParaCuandoLlega{
 		Usuario:           Usuario,
 		Clave:             Clave,
 		CodigoLineaParada: int32(linea.Codigo),
-		IsSublinea:        false,
+		IsSubLinea:        false,
 		IsInteligente:     false,
 	}
-	res, err := s.scli.RecuperarParadasCompletoPorLinea(in)
+	res, err := s.scli.RecuperarParadasPorLineaParaCuandoLlega(in)
 	if err != nil {
 		return err
 	}
 
-	result := new(swparadas.RecuperarParadasCompletoPorLineaResult)
-	err = json.Unmarshal([]byte(res.RecuperarParadasCompletoPorLineaResult), result)
+	result := new(swparadas.RecuperarParadasPorLineaParaCuandoLlegaResult)
+	err = json.Unmarshal([]byte(res.RecuperarParadasPorLineaParaCuandoLlegaResult), result)
 	if err != nil {
 		return err
 	}
@@ -80,15 +81,13 @@ func (s *ParadaService) fetchParadasPorLinea(linea *clcitybusapi.Linea, ret *[]*
 		fmt.Printf("No stops found for line id '%v', skipping ...\n", linea.Codigo)
 	}
 
-	for _, paradas := range result.Paradas {
-		for _, parada := range paradas {
-			p, err := s.mapParadaLineaFromSW(parada)
-			if err != nil {
-				return err
-			}
-			p.Linea = linea
-			*ret = append(*ret, p)
+	for _, parada := range result.Paradas {
+		p, err := s.mapParadaLineaFromSW(parada)
+		if err != nil {
+			return err
 		}
+		p.Linea = linea
+		*ret = append(*ret, p)
 	}
 
 	return nil
@@ -183,6 +182,7 @@ func (s *ParadaService) ParadasPorEmpresa(empresa *clcitybusapi.Empresa) ([]*clc
 		retLin := &clcitybusapi.Parada{
 			Codigo: linea.Identificador,
 			Punto:  linea.Punto,
+			Nombre: linea.Nombre,
 		}
 		ret = append(ret, retLin)
 	}

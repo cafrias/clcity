@@ -37,6 +37,7 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 		stops[stID] = &files.Stop{
 			ID:           stID,
 			Code:         st.Codigo,
+			Name:         st.Nombre,
 			Lat:          st.Punto.Lat,
 			Lon:          st.Punto.Lon,
 			LocationType: files.StopLocationTypeStop,
@@ -72,7 +73,7 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 		route := &files.Route{
 			ID:        rtID,
 			Agency:    agencies[cityID],
-			ShortName: rt.Descripcion,
+			ShortName: string(rt.Descripcion[len(rt.Descripcion)-1:]),
 			LongName:  rt.Descripcion,
 			Type:      files.RouteTypeBus,
 			Color:     rt.Color,
@@ -99,6 +100,7 @@ func Generate(e *clcitybusapi.Empresa, path string) error {
 			ID:      trID,
 			Service: service,
 			Route:   route,
+			Shape:   shape,
 		}
 
 		for idx, par := range rt.Paradas {
